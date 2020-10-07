@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:paddingBottom="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/titleTV"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:minWidth="100dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/din_next_bold"
+            android:text="@string/select_delivery_time_from_the_branch"
+            android:textColor="@color/textColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+        <TextView
+            android:id="@+id/hourTV"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:minWidth="100dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="15:30"
+            android:textSize="30dp"
+            android:paddingBottom="5dp"
+            android:background="@color/background_light_dark"
+            android:fontFamily="@font/din_next_bold"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/textColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+
+        <TextView
+            android:id="@+id/minutesHintTv"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="@font/din_next_bold"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/select_minutes"
+            android:textColor="@color/textColor3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/hoursHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/hourTV" />
+
+        <TextView
+            android:id="@+id/hoursHintTv"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="@font/din_next_bold"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/select_minutes"
+            android:textColor="@color/textColor3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/minutesHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/hourTV" />
+
+        <Spinner
+            android:id="@+id/commentET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/minutes"
+            android:fontFamily="@font/din_next_bold"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/minutesHintTv"
+            app:layout_constraintStart_toStartOf="@+id/minutesHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/minutesHintTv" />
+
+        <Spinner
+            android:id="@+id/hoursSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/minutes"
+            android:fontFamily="@font/din_next_bold"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/hoursHintTv"
+            app:layout_constraintStart_toStartOf="@+id/hoursHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/hoursHintTv" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/addEvaluteBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/add_comment"
+            android:textColor="@android:color/white"
+            style="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@+id/commentET"
+            android:background="@drawable/login_button_shape"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

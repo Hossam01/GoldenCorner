@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:layoutDirection="locale"
+    android:textDirection="locale"
+    android:fillViewport="true"
+    tools:context=".ui.main.orederView.OrderViewFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/productDetailsSliderRV"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:orientation="horizontal"
+                 app:spanCount="1"
+                 tools:listitem="@layout/item_product_details"
+                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                 app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
+                 />-->
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/productDetailsSliderRV"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorMarginBottom="20dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="@color/colorAccent"
+                app:sliderIndicatorUnselectedColor="@color/whiteColor"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
+
+            <ImageView
+                android:id="@+id/favoritesIV"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/background"
+                android:padding="10dp"
+                android:src="@drawable/ic_fav_red_62"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/shareIV"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/background"
+                android:padding="10dp"
+                android:src="@drawable/ic_share_62"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favoritesIV" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="?attr/actionBarSize"
+                app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV"
+                >
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="20dp"
+                        android:layoutDirection="inherit"
+                        android:textDirection="inherit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/productPriceTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/text_view_white_bg"
+                                android:fontFamily="@font/din_next_regular"
+                                android:gravity="center"
+                                android:minWidth="100dp"
+                                android:hint="30.00 SR"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <ImageView
+                                android:id="@+id/minusBtn"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/login_button_shape4"
+                                android:paddingHorizontal="10dp"
+                                app:srcCompat="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/productItemsCountTV"
+                                style="@style/TextAppearance.AppCompat.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginHorizontal="5dp"
+                                android:background="@drawable/text_view_white_bg"
+                                android:fontFamily="@font/din_next_regular"
+                                android:gravity="center"
+                                android:minWidth="80dp"
+                                android:hint="1"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <ImageView
+                                android:id="@+id/pluseBtn"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/login_button_shape4"
+                                app:srcCompat="@drawable/ic_add_24" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/productNameTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:padding="2dp"
+                                android:text="Mandy"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <TextView
+                                android:id="@+id/productRateTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_weight="1"
+                                android:drawableEnd="@drawable/ic_star_yellow"
+                                android:drawablePadding="10dp"
+                                android:fontFamily="@font/din_next_bold"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="3"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <TextView
+                                android:id="@+id/productDescriptionTV"
+                                style="@style/TextAppearance.AppCompat.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/din_next_regular"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text=" 2 checken - salad-mo7alel"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productNameTV" />
+
+
+                            <TextView
+                                android:id="@+id/productCaloriesTV"
+                                style="@style/TextAppearance.AppCompat.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/din_next_regular"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/calories"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productDescriptionTV" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/productMealsTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:text="@string/select_meal"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <View
+                                android:id="@+id/viewLine"
+                                android:layout_width="40dp"
+                                android:layout_height="3dp"
+                                android:background="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productMealsTV" />
+
+                            <ImageView
+                                android:id="@+id/productExpandMealBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:rotation="180"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/productDetailsMailsRV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@+id/viewLine"
+                                tools:listitem="@layout/item_product_details_select_meals" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/productAdditionsTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:text="@string/extras"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <View
+                                android:id="@+id/viewLine2"
+                                android:layout_width="40dp"
+                                android:layout_height="3dp"
+                                android:background="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productAdditionsTV" />
+
+                            <ImageView
+                                android:id="@+id/productExpandMealAdditionsBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:rotation="180"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/productDetailsAdditionsRV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@+id/viewLine2"
+                                tools:listitem="@layout/item_product_details_extintions_meals" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/productCommentsTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:text="@string/comments"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <View
+                                android:id="@+id/viewLine3"
+                                android:layout_width="40dp"
+                                android:layout_height="3dp"
+                                android:background="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productCommentsTV" />
+
+                            <TextView
+                                android:id="@+id/productHintTV"
+                                style="@style/TextAppearance.AppCompat.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_regular"
+                                android:text="@string/our_valued_customers_rate_our_meals"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/viewLine3" />
+
+                            <ImageView
+                                android:id="@+id/productExpandMealCommentsBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:rotation="180"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/productDetailsCommentsRV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productHintTV"
+                                tools:listitem="@layout/item_product_details_comments" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+                        <Button
+                            android:id="@+id/addEvaluteBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableEnd="@drawable/ic_next_arrow"
+                            android:gravity="start|center"
+                            android:paddingHorizontal="15dp"
+                            android:text="@string/you_can_add_you_evaluation"
+                            android:textAllCaps="false" />
+
+
+                        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                            android:id="@+id/addToCartBtn"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="20dp"
+                            android:background="@drawable/login_button_shape"
+                            android:gravity="center"
+                            android:text="@string/add_to_cart"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

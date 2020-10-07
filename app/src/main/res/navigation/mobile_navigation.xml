@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.golden.goldencorner.ui.main.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_sub_categories"
+        android:name="com.golden.goldencorner.ui.main.categories.SubCategoriesFragment"
+        android:label="@string/menu_sub_categories"
+        tools:layout="@layout/fragment_sub_categories"/>
+
+    <fragment
+        android:id="@+id/nav_about_app"
+        android:name="com.golden.goldencorner.ui.main.aboutApp.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/nav_language_setting"
+        android:name="com.golden.goldencorner.ui.languageSetting.LanguageSettingFragment"
+        android:label="@string/language_settings"
+        tools:layout="@layout/language_setting_fragment" />
+    <fragment
+        android:id="@+id/nav_add_address"
+        android:name="com.golden.goldencorner.ui.main.addresses.AddAddressFragment"
+        android:label="@string/add_address"
+        tools:layout="@layout/add_address_fragment" />
+    <fragment
+        android:id="@+id/nav_addresses"
+        android:name="com.golden.goldencorner.ui.main.addresses.UserAddressFragment"
+        android:label="@string/my_addresses"
+        tools:layout="@layout/fragment_user_address" />
+    <fragment
+        android:id="@+id/nav_edit_addresses"
+        android:name="com.golden.goldencorner.ui.main.addresses.EditAddressFragment"
+        android:label="@string/edit_address"
+        tools:layout="@layout/fragment_edit_address" />
+    <fragment
+        android:id="@+id/nav_cards"
+        android:name="com.golden.goldencorner.ui.main.creditCards.CardsFragment"
+        android:label="@string/credit_cards"
+        tools:layout="@layout/fragment_cards" />
+    <fragment
+        android:id="@+id/nav_add_card"
+        android:name="com.golden.goldencorner.ui.main.creditCards.AddCardFragment"
+        android:label="@string/add_credit_card"
+        tools:layout="@layout/add_card_fragment" />
+    <dialog
+        android:id="@+id/nav_map_fragment"
+        android:name="com.golden.goldencorner.ui.main.addresses.MapFragment"
+        android:label=""
+        tools:layout="@layout/fragment_edit_address" />
+    <dialog
+        android:id="@+id/nav_order_evaluate"
+        android:name="com.golden.goldencorner.ui.main.orderEvaluate.OrderEvaluationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_edit_address" />
+    <dialog
+        android:id="@+id/nav_driver_info"
+        android:name="com.golden.goldencorner.ui.main.driverInfo.DriverInfoFragment"
+        android:label=""
+        tools:layout="@layout/fragment_edit_address" />
+    <fragment
+        android:id="@+id/nav_order_view"
+        android:name="com.golden.goldencorner.ui.main.orederView.OrderViewFragment"
+        android:label=""
+        tools:layout="@layout/order_view_fragment" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.golden.goldencorner.ui.main.favorites.FavoritesFragment"
+        android:label="@string/Favorites"
+        tools:layout="@layout/favorites_fragment" />
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.golden.goldencorner.ui.main.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.golden.goldencorner.ui.main.cart.CartFragment"
+        android:label="@string/cart"
+        tools:layout="@layout/cart_fragment" />
+
+    <fragment
+        android:id="@+id/nav_contact_us"
+        android:name="com.golden.goldencorner.ui.main.contactUs.ContactUsFragment"
+        android:label="@string/contact_us"
+        tools:layout="@layout/contact_us_fragment" />
+
+    <fragment
+        android:id="@+id/nav_latest_products"
+        android:name="com.golden.goldencorner.ui.main.latestProducts.LastProductsFragment"
+        android:label="@string/latest_products"
+        tools:layout="@layout/last_products_fragment" />
+
+    <fragment
+        android:id="@+id/nav_most_requested"
+        android:name="com.golden.goldencorner.ui.main.mostRequested.MustRequestedFragment"
+        android:label="@string/Most_requested"
+        tools:layout="@layout/most_requested_fragment" />
+
+    <fragment
+        android:id="@+id/nav_my_orders"
+        android:name="com.golden.goldencorner.ui.main.userOrders.UserOrdersFragment"
+        android:label="@string/menu_my_orders"
+        tools:layout="@layout/my_orders_fragment" />
+
+    <fragment
+        android:id="@+id/nav_offers"
+        android:name="com.golden.goldencorner.ui.main.offers.OffersFragment"
+        android:label="@string/offers"
+        tools:layout="@layout/offers_fragment" />
+
+    <fragment
+        android:id="@+id/nav_product_manager"
+        android:name="com.golden.goldencorner.ui.main.offers.ProductsFragment"
+        android:label="@string/offers"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.golden.goldencorner.ui.main.profile.ProfileFragment"
+        android:label="@string/my_account"
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_nav_account_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_editMobileFragment"
+            app:destination="@id/editMobileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_terms_and_conditions"
+        android:name="com.golden.goldencorner.ui.main.termsAndCondition.TermsAndConditionFragment"
+        android:label="@string/terms_and_conditions"
+        tools:layout="@layout/terms_and_condition_fragment" />
+
+    <fragment
+        android:id="@+id/nav_branches"
+        android:name="com.golden.goldencorner.ui.main.branches.BranchesFragment"
+        android:label="@string/branches"
+        tools:layout="@layout/branches_fragment" />
+
+    <activity
+        android:id="@+id/nav_signup"
+        android:name="com.golden.goldencorner.ui.signup.SignUpActivity"
+        android:label="@string/signup"
+        tools:layout="@layout/activity_signup"/>
+    <activity
+        android:id="@+id/nav_signin"
+        android:name="com.golden.goldencorner.ui.login.LogInActivity"
+        android:label="@string/login"
+        tools:layout="@layout/activity_login"/>
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="com.golden.goldencorner.ui.main.profile.EditPasswordFragment"
+        android:label="fragment_edit_password"
+        tools:layout="@layout/fragment_edit_password" />
+    <fragment
+        android:id="@+id/editMobileFragment"
+        android:name="com.golden.goldencorner.ui.main.profile.EditMobileFragment"
+        android:label="fragment_edit_mobile"
+        tools:layout="@layout/fragment_edit_mobile" />
+</navigation>

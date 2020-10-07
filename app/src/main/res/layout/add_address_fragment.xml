@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="@dimen/activity_horizontal_margin"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/addAddressesTitleTV"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/din_next_bold"
+                android:text="Add Address"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                app:layout_constraintStart_toStartOf="@+id/addAddressesTitleTV"
+                app:layout_constraintTop_toBottomOf="@+id/addAddressesTitleTV"
+                android:background="@color/colorPrimaryDark"/>
+
+
+            <TextView
+                android:id="@+id/addressNameTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/address_name"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+            <EditText
+                android:id="@+id/addressNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="@string/address_name"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressNameTv" />
+
+
+            <TextView
+                android:id="@+id/cityTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/city"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressNameET" />
+
+            <Spinner
+                android:id="@+id/citySpinnerET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                android:inputType="text"
+                android:background="@drawable/spinner_bg"
+                android:popupBackground="@color/whiteColor"
+                android:layout_marginTop="10dp"
+                android:hint="@string/city"
+                android:popupElevation="3dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cityTv" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_expand_arrow"
+                app:layout_constraintEnd_toEndOf="@+id/citySpinnerET"
+                app:layout_constraintTop_toTopOf="@+id/citySpinnerET"
+                app:layout_constraintBottom_toBottomOf="@+id/citySpinnerET"
+                />
+            <TextView
+                android:id="@+id/neighborhoodTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/neighborhood"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/citySpinnerET" />
+
+
+            <EditText
+                android:id="@+id/neighborhoodET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/neighborhood"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighborhoodTv" />
+
+
+            <TextView
+                android:id="@+id/locationHintTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/select_location"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighborhoodET" />
+
+            <TextView
+                android:id="@+id/locationTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationHintTv" />
+
+            <ImageButton
+                android:id="@+id/navLocationBtn"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="45dp"
+                android:background="@drawable/location_bg"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/ic_location_arrow"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/locationTV"
+                app:layout_constraintTop_toTopOf="@+id/locationTV" />
+
+            <TextView
+                android:id="@+id/selectLocationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/select_your_location"
+                android:textColor="@color/textColor"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/locationHintTv" />
+
+
+            <TextView
+                android:id="@+id/addressTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="@string/address"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationTV" />
+
+            <EditText
+                android:id="@+id/addressET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="80dp"
+                android:background="@drawable/edit_text_white_bg"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="start|top"
+                android:hint="@string/address"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressTv" />
+
+
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/addEvaluteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="20dp"
+                android:gravity="center"
+                android:text="@string/add_address"
+                android:textColor="@android:color/white"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressET"
+                android:background="@drawable/login_button_shape"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

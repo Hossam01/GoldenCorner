@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/splash_bg"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".ui.splash.SplashActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-50dp"
+        android:paddingHorizontal="90dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/splash_title" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width ="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:paddingHorizontal="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/golden_corner_logo" />
+
+    <com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar
+        android:id="@+id/mDilatingDotsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:color="@color/colorAccent"
+        android:radius="5dp"
+        app:dd_numDots="3"
+        app:dd_scaleMultiplier="1.5"
+        app:dd_animationDuration="500"
+        app:dd_horizontalSpacing="4dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        />
+
+<!--    android:background="@drawable/dots_progress_bar_bg"-->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please, Wait for App to load !!"
+        android:textColor="@color/whiteColor"
+        style="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

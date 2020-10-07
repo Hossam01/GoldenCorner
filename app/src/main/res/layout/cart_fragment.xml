@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.cart.CartFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardEmptyView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/deliveryIV"
+            android:layout_width ="300dp"
+            android:layout_height="300dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_delivery"
+            android:layout_marginBottom="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/cardEmptyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:fontFamily="@font/din_next_bold"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/shopping_card_is_empty"
+            android:textColor="@color/textColor3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deliveryIV" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/addYourOrderBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="90dp"
+            android:gravity="center"
+            android:text="@string/add_your_order"
+            android:textColor="@android:color/white"
+            style="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@+id/cardEmptyTV"
+            android:background="@drawable/login_button_shape"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/cardView"
+        android:fillViewport="true"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRV"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                tools:listitem="@layout/item_card_product"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
+                />
+
+            <TextView
+                android:id="@+id/addCodeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textStyle="bold"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:fontFamily="@font/din_next_bold"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/select_meal"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productsRV" />
+
+            <View
+                android:id="@+id/addCodeLine"
+                android:layout_width="45dp"
+                android:layout_height="3dp"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addCodeTV"
+                android:background="@color/colorPrimaryDark"/>
+            <TextView
+                android:id="@+id/discountCodeHintTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/you_can_add_discount_code"
+                android:layout_weight="1"
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addCodeLine" />
+
+            <TextView
+                android:id="@+id/discountCodeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/add_code"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="@+id/discountCodeHintTV"
+                app:layout_constraintStart_toEndOf="@+id/discountCodeHintTV"
+                app:layout_constraintTop_toTopOf="@+id/discountCodeHintTV" />
+
+            <View
+                android:id="@+id/discountCodeLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/gray"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toBottomOf="@+id/discountCodeTV"/>
+
+            <TextView
+                android:id="@+id/orderNoteTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/order_note"
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/discountCodeLine" />
+
+            <View
+                android:id="@+id/orderNoteRedLine"
+                android:layout_width="45dp"
+                android:layout_height="3dp"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderNoteTV"
+                android:background="@color/colorPrimaryDark"/>
+
+            <EditText
+                android:id="@+id/orderNoteET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:minHeight="90dp"
+                android:inputType="text"
+                android:gravity="start"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/address_note"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderNoteRedLine" />
+
+            <View
+                android:id="@+id/orderNoteLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/gray"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toBottomOf="@+id/orderNoteET"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/summaryLi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderNoteLine"
+                >
+
+                <TextView
+                    android:id="@+id/summaryTitleTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:text="@string/order_summary"
+                    android:textColor="@color/textColor3"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/summaryRedLine"
+                    android:layout_width="45dp"
+                    android:layout_height="3dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/summaryTitleTV"
+                    android:background="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:id="@+id/PaymentSummaryOrderTotalTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/order_total"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/summaryRedLine" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryOrderTotalPriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="30.00 SR"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/text_view_white_bg"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryOrderTotalTV"
+                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryOrderTotalTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryOrderTaxTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/tax"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryOrderTotalTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryOrderTaxPriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="30.00 SR"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/text_view_white_bg"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryOrderTaxTV"
+                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryOrderTaxTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryDiscountCodeTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/discount_code"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryOrderTaxTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryDiscountCodePriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="30.00 SR"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/text_view_white_bg"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryDiscountCodeTV"
+                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryDiscountCodeTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryDiscountCodeNumberTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="lksdk5s55sdJJJs"
+                    android:textColor="@color/gray2"
+                    android:paddingBottom="10dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryDiscountCodeTV" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryTotalTV"
+                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryTotalTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryTotalTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/total"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryDiscountCodeNumberTV" />
+
+                <TextView
+                    android:id="@+id/PaymentSummaryTotalPriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="30.00 SR"
+                    android:textColor="@color/textColor"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryTotalTV"
+                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryTotalTV" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/proceedPurchaseBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="20dp"
+                android:gravity="center"
+                android:text="@string/proceed_to_purchase"
+                android:textColor="@android:color/white"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/summaryLi"
+                android:background="@drawable/login_button_shape"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

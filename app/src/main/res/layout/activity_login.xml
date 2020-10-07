@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LogInActivity"
+    android:layout_marginBottom="-15dp"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ImageView
+        android:id="@+id/login_activity_close_icn"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="16dp"
+        android:padding="5dp"
+        android:layout_marginVertical="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+
+    <TextView
+        android:id="@+id/login_activity_login_txt"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/title_activity_login"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginVertical="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/whiteColor"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_activity_login_txt">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/loginLogoIV"
+                    android:layout_width ="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/golden_corner_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/login_activity_phone_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/edit_text_shape"
+                    android:orientation="horizontal"
+                    android:paddingStart="22dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="22dp"
+                    android:paddingBottom="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/login_activity_password_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_activity_phone_txt">
+
+                    <!-- <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:layout_marginEnd="16dp"
+                         app:srcCompat="@drawable/userlogin"
+                         tools:layout_editor_absoluteX="274dp"
+                         tools:layout_editor_absoluteY="344dp" />-->
+
+                    <EditText
+                        android:id="@+id/usernameET"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/phone_number"
+                        android:textColor="@android:color/black"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/login_activity_password_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/edit_text_shape"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="22dp"
+                    android:paddingEnd="22dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_activity_password_txt">
+
+                    <EditText
+                        android:id="@+id/passwordET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:textColor="@android:color/black"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/saveBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="58dp"
+                    android:background="@drawable/login_button_shape"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/login"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/registerBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_activity_password_layout" />
+
+                <TextView
+                    android:id="@+id/login_activity_phone_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/phone_number"
+                    android:fontFamily="@font/din_next_bold"
+                    android:textColor="@color/textColor3"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintBottom_toTopOf="@+id/login_activity_phone_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/loginLogoIV"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/login_activity_password_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/password"
+                    android:textColor="@color/textColor3"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toTopOf="@+id/login_activity_password_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_activity_phone_layout" />
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/forgetPasswordBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="@string/forgot_password"
+                    android:background="@color/transparent"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:enabled="true"
+                    android:minWidth="180dp"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/colorPrimaryDark"
+                    app:spinning_bar_width="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_activity_password_layout" />
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/registerBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_account_signup"
+                    android:textColor="@color/whiteColor"
+                    android:background="@drawable/login_button_shape2"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+                    android:enabled="true"
+                    android:minWidth="180dp"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/colorPrimaryDark"
+                    app:spinning_bar_width="4dp"
+                    />
+
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/accountActivateBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/account_activation"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:layout_marginHorizontal="16dp"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:background="@drawable/edit_text_shape"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/registerBtn"
+                    android:layout_centerHorizontal="true"
+                    android:enabled="true"
+                    android:minWidth="180dp"
+                    android:padding="10dp"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/colorPrimaryDark"
+                    app:spinning_bar_padding="10dp"
+                    app:spinning_bar_width="4dp"/>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <include layout="@layout/coordinator_layout"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

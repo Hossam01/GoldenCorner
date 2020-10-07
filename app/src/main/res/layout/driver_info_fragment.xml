@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/driverCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/whiteColor"
+        app:cardCornerRadius="10dp"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/closeIV"
+                android:layout_width ="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_close"
+                android:background="@drawable/rounded_red_bg"
+                android:padding="7dp"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <ImageView
+                android:id="@+id/deliveryIV"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_delivery"
+                android:scaleType="fitCenter"
+                android:padding="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/deliveryDriverTV"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/din_next_bold"
+                android:text="@string/delivery_driver"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryIV" />
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                app:layout_constraintStart_toStartOf="@+id/deliveryDriverTV"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryDriverTV"
+                android:background="@color/colorPrimaryDark"/>
+
+            <ImageView
+                android:id="@+id/driverIV"
+                android:layout_width ="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_driver_62"
+                android:scaleType="fitCenter"
+                android:padding="7dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLine"
+                />
+
+
+            <TextView
+                android:id="@+id/driverNameTv"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_regular"
+                android:gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:text="اسم السائق"
+                android:textColor="@color/textColor3"
+                app:layout_constraintBottom_toBottomOf="@+id/driverIV"
+                app:layout_constraintStart_toEndOf="@+id/driverIV"
+                app:layout_constraintTop_toTopOf="@+id/driverIV" />
+
+
+            <ImageView
+                android:id="@+id/numberIV"
+                android:layout_width ="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_telephone_62"
+                android:scaleType="fitCenter"
+                android:padding="7dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/driverIV"
+                />
+
+
+            <TextView
+                android:id="@+id/numberTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:fontFamily="@font/din_next_regular"
+                android:gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:text="05246468799"
+                android:textColor="@color/textColor3"
+
+                app:layout_constraintBottom_toBottomOf="@+id/numberIV"
+                app:layout_constraintStart_toEndOf="@+id/numberIV"
+                app:layout_constraintTop_toTopOf="@+id/numberIV" />
+
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/callDriverBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="40dp"
+                android:gravity="center"
+                android:text="@string/call_driver"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@+id/numberTv"
+                android:background="@drawable/login_button_shape"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!--<androidx.cardview.widget.CardView
+        android:layout_width ="40dp"
+        android:layout_height="40dp"
+        android:background="@color/transparent"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="500dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/driverCV"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <ImageView
+            android:id="@+id/closeIV"
+            android:layout_width ="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_close"
+            android:background="@drawable/rounded_red_bg"
+            android:padding="7dp"
+            />
+    </androidx.cardview.widget.CardView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

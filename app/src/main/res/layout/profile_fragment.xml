@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.golden.goldencorner.ui.main.profile.ProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/nameTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/first_name"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/firstNameET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+
+            <TextView
+                android:id="@+id/lastNameTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:text="@string/last_name"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameET" />
+
+            <EditText
+                android:id="@+id/lastNameET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameTv" />
+
+            <TextView
+                android:id="@+id/emailTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:text="@string/email"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameET" />
+
+            <EditText
+                android:id="@+id/emailET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTv" />
+
+            <TextView
+                android:id="@+id/passwordTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:text="@string/password"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailET" />
+
+            <TextView
+                android:id="@+id/passwordET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toStartOf="@+id/editPasswordBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTv" />
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/editPasswordBtn"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/login_button_shape"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/edit"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/passwordET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/passwordET"
+                app:layout_constraintTop_toTopOf="@+id/passwordET" />
+
+            <TextView
+                android:id="@+id/mobileNumberProfileET"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:text="@string/mobile_number"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordET" />
+
+            <TextView
+                android:id="@+id/mobileNumberET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/mobile_number"
+                android:inputType="phone"
+                android:padding="12dp"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toStartOf="@+id/editMobileNumberBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mobileNumberProfileET" />
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/editMobileNumberBtn"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/login_button_shape"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/edit"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/mobileNumberET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mobileNumberET"
+                app:layout_constraintTop_toTopOf="@+id/mobileNumberET" />
+
+            <TextView
+                android:id="@+id/myPointsTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:text="@string/my_points"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mobileNumberET" />
+
+            <EditText
+                android:id="@+id/myPointsET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_white_bg"
+                android:ems="10"
+                android:hint="@string/my_points"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myPointsTv" />
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/saveBtn"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="?attr/actionBarSize"
+                android:background="@drawable/login_button_shape"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="@string/save_data"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myPointsET" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/comCV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        app:cardBackgroundColor="@color/lightGray"
+        app:cardCornerRadius="10dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/commentCV"
+                android:layout_width ="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:cardBackgroundColor="@color/gray"
+                app:cardCornerRadius="5dp"
+                >
+                <ImageView
+                    android:id="@+id/commentIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/menuico_person_62"
+                    android:scaleType="centerCrop"
+                    android:padding="10dp"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/commentNameTV"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:paddingHorizontal="5dp"
+                android:text="Khaled Ahmed"
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/commentCV"
+                app:layout_constraintStart_toEndOf="@+id/commentCV"
+                app:layout_constraintTop_toTopOf="@+id/commentCV" />
+
+            <TextView
+                android:id="@+id/commentDateTV"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:text="1/9/2020"
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/commentNameTV"
+                app:layout_constraintStart_toEndOf="@+id/commentNameTV"
+                app:layout_constraintTop_toTopOf="@+id/commentNameTV" />
+
+            <RatingBar
+                android:id="@+id/commentRateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:rating="0"
+                android:numStars="5"
+                android:stepSize="1"
+                android:isIndicator="true"
+                android:layout_marginEnd="15dp"
+                android:progressTint="@color/yellowColor"
+                style="?android:attr/ratingBarStyleSmall"
+                app:layout_constraintBottom_toBottomOf="@+id/commentNameTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/commentNameTV" />
+
+
+
+            <TextView
+                android:id="@+id/commentBodyTV"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textDirection="locale"
+                android:fontFamily="@font/din_next_regular"
+                android:gravity="center|start"
+                android:text="Jun 10, 2020 - Radio buttons are normally used together in a RadioGroup . When several radio buttons live inside a radio group, checking one radio button ..."
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentCV" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

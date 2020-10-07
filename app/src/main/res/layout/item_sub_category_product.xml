@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="15dp"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/productIV"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:minHeight="150dp"
+                android:src="@drawable/catogri1"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/nameTV"
+                android:fontFamily="@font/din_next_bold"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Meet"
+                android:textColor="@color/textColor3"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+            <TextView
+                android:id="@+id/caloriesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:fontFamily="@font/din_next_regular"
+                android:text="@string/calories"
+                android:textColor="@color/textColor3"
+                android:layout_marginStart="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+
+            <TextView
+                android:id="@+id/priceTV"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/din_next_regular"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="30 SR"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/addToCartIV"
+                app:layout_constraintTop_toTopOf="@+id/addToCartIV"
+                app:layout_constraintBottom_toBottomOf="@+id/addToCartIV"
+                />
+            <TextView
+                android:id="@+id/priceDiscountTV"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/din_next_regular"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="30 SR"
+                android:textColor="@color/textColor3"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/priceTV"
+                app:layout_constraintTop_toTopOf="@+id/priceTV"
+                app:layout_constraintBottom_toBottomOf="@+id/priceTV"
+                />
+
+            <ImageView
+                android:id="@+id/addToCartIV"
+                android:layout_width ="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_red_bg"
+                android:src="@drawable/ic_add_card_62"
+                android:scaleType="centerCrop"
+                android:padding="11dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginVertical="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productIV"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

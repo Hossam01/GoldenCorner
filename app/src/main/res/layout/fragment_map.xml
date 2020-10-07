@@ -1,0 +1,142 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparentLight"
+    android:layoutDirection="locale"
+    android:textDirection="locale"
+    tools:context=".ui.main.branches.BranchesFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/whiteColor"
+        app:cardCornerRadius="10dp"
+        android:layout_marginVertical="30dp"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="10dp">
+
+            <LinearLayout
+                android:id="@+id/mapTopLi"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="15dp"
+                android:background="@color/whiteColor"
+                map:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/titleTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_the_location_on_the_map"
+                    android:textColor="@color/textColor3"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/din_next_bold"
+                    style="@style/TextAppearance.AppCompat.Title"/>
+
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@color/colorPrimaryDark"
+                    />
+
+
+
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                map:layout_constraintTop_toBottomOf="@+id/mapTopLi"
+                map:layout_constraintBottom_toTopOf="@+id/mapBottomLi"
+                android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+            <LinearLayout
+                android:id="@+id/mapBottomLi"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="12dp"
+                android:background="@color/whiteColor"
+                map:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/mapLocationTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:gravity="start|center"
+                    android:text="25 Fisal St. Giza, Cairo"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/ic_location_black_21"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/textColor3" />
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/confirmLocationBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/login_button_shape"
+                    android:gravity="center"
+                    android:text="@string/confirm_address"
+                    android:layout_weight="2"
+                    map:spinning_bar_padding="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:fontFamily="@font/din_next_regular"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/white" />
+
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width ="40dp"
+        android:layout_height="40dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="500dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_red_bg"
+        >
+        <ImageView
+            android:id="@+id/closeIV"
+            android:layout_width ="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_close"
+            android:background="@drawable/rounded_red_bg"
+            android:padding="7dp"
+            />
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

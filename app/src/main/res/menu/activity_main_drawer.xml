@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group
+        android:id="@+id/group0"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_signup_drawer"
+            android:icon="@drawable/menu_signup_62"
+            android:title="@string/signup" />
+    </group>
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_home_drawer"
+            android:icon="@drawable/ic_main_62"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_account_drawer"
+            android:icon="@drawable/menu_login_62"
+            android:title="@string/my_account" />
+    </group>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_branches"
+            android:icon="@drawable/menu_branches_62"
+            android:title="@string/branches" />
+    </group>
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_latest_products_drawer"
+            android:icon="@drawable/latest_products_62"
+            android:title="@string/latest_products" />
+    </group>
+    <group  android:id="@+id/group4"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_offers_drawer"
+            android:icon="@drawable/menu_offers_62"
+            android:title="@string/offers" />
+        <item
+            android:id="@+id/nav_most_requested_drawer"
+            android:icon="@drawable/menu_most_requested_62"
+            android:title="@string/Most_requested" />
+    </group>
+    <group  android:id="@+id/group5"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_favorites_drawer"
+            android:icon="@drawable/menu_favorites_62"
+            android:title="@string/favorites" />
+        <item
+            android:id="@+id/nav_addresses_drawer"
+            android:icon="@drawable/menu_addresses_62"
+            android:title="@string/addresses" />
+
+        <item
+            android:id="@+id/nav_my_orders_drawer"
+            android:icon="@drawable/menu_my_orders_62"
+            android:title="@string/menu_my_orders" />
+    </group>
+
+    <group
+        android:id="@+id/group6"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_language_setting_drawer"
+            android:icon="@drawable/menu_language_settings_62"
+            android:title="@string/language_settings" />
+    </group >
+    <group
+        android:id="@+id/group7"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_about_app_drawer"
+            android:icon="@drawable/menu_about_app_62"
+            android:title="@string/about_app" />
+        <item
+            android:id="@+id/nav_share_app_drawer"
+            android:icon="@drawable/menu_share_app_62"
+            android:title="@string/share_app" />
+    </group>
+    <group
+        android:id="@+id/group8"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/menu_contact_us_62"
+            android:title="@string/contact_us" />
+<!--        <item-->
+<!--            android:id="@+id/nav_terms_and_conditions"-->
+<!--            android:icon="@drawable/menu_about_app_62"-->
+<!--            android:title="@string/terms_and_conditions" />-->
+        <item
+            android:id="@+id/nav_logout_drawer"
+            android:icon="@drawable/menu_logout_62"
+            android:title="@string/logout" />
+    </group>
+</menu>

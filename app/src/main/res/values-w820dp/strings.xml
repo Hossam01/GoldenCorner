@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="successful_message">Data updated successfully!</string>
+    <string name="old_phone_number">رقم الجوال القديم</string>
+    <string name="new_phone_number">رقم الجوال الجديد</string>
+</resources>

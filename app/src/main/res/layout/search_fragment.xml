@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.search.SearchFragment">
+
+    <SearchView
+        android:id="@+id/searchViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:editTextColor="@color/colorText"
+        android:iconifiedByDefault="false"
+        android:imeOptions="actionSearch"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
+        app:editTextColor="@color/colorText"
+        app:iconTint="@color/colorText"
+        android:hint="Search"
+        android:queryHint="Search"
+        app:queryHint="Search"
+        android:queryBackground="@color/transparent"
+        app:tabBackground="@color/colorAccent"
+        app:iconifiedByDefault="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productsRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_products"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewId"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

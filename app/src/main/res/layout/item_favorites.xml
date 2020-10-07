@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="15dp"
+    android:paddingTop="15dp"
+    >
+
+    <ImageView
+        android:id="@+id/productIV"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/catogri1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/discountTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/din_next_regular"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="10dp"
+        android:paddingBottom="3dp"
+        android:text="Discounted"
+        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:textSize="9dp"
+        android:background="@drawable/login_button_shape"
+        app:layout_constraintStart_toStartOf="@+id/productIV"
+        app:layout_constraintTop_toTopOf="@+id/productIV" />
+
+    <TextView
+        android:id="@+id/nameTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/din_next_bold"
+        android:paddingVertical="2dp"
+        android:paddingHorizontal="5dp"
+        android:text="Meet"
+        android:textColor="@color/textColor3"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/deleteTV"
+        app:layout_constraintStart_toEndOf="@+id/productIV"
+        app:layout_constraintTop_toTopOf="@+id/productIV" />
+
+    <TextView
+        android:id="@+id/descriptionTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/din_next_regular"
+        android:paddingBottom="10dp"
+        android:text="Product Offers element \nProduct Offers element "
+        android:textColor="@color/textColor3"
+        app:layout_constraintEnd_toStartOf="@+id/deleteTV"
+        app:layout_constraintStart_toEndOf="@+id/productIV"
+        app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+
+    <TextView
+        android:id="@+id/deleteTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:fontFamily="@font/din_next_regular"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/stroke_bg_red3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/addToCartIV"
+        android:layout_width ="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_red_bg"
+        android:padding="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_card_62"
+        app:layout_constraintBottom_toTopOf="@+id/viewLineBottom"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/priceFavTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/din_next_regular"
+        android:paddingBottom="10dp"
+        android:text="30.00 SR"
+        android:textColor="@color/textColor3"
+        app:layout_constraintStart_toEndOf="@+id/productIV"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTV"/>
+
+    <View
+        android:id="@+id/viewLineBottom"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/productIV"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

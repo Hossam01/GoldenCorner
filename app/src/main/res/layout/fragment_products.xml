@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textDirection="locale"
+    android:layoutDirection="locale"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.golden.goldencorner.ui.main.offers.OffersFragment">
+
+
+    <!--<com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary" />-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabBackground="@color/transparent"
+        app:tabTextColor="@color/textColor3"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabPadding="5dp"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/OffersTabItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="100dp"
+            android:visibility="visible"
+            android:text="@string/offers"
+            android:labelFor="@string/offers"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/lastTabItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="100dp"
+            android:visibility="visible"
+            android:text="@string/latest_products"
+            android:labelFor="@string/latest_products"
+            android:background="@color/transparent"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/mustTabItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="100dp"
+            android:visibility="visible"
+            android:text="@string/Most_requested"
+            android:labelFor="@string/Most_requested"
+            android:background="@color/transparent"
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

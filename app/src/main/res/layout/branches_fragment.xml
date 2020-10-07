@@ -1,0 +1,83 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.main.branches.BranchesFragment">
+
+    <LinearLayout
+        android:id="@+id/topLi"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/background"
+        android:paddingHorizontal="9dp"
+        android:paddingVertical="12dp"
+        map:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/branchTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_button_shape2"
+            android:gravity="center"
+            android:text="@string/continue_str"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="7dp"
+            android:fontFamily="@font/din_next_regular"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/continueBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_button_shape"
+            android:gravity="center"
+            android:text="@string/continue_str"
+            android:layout_weight="2"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/din_next_regular"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/topLi"
+        >
+
+        <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/branchesRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/langLiftBtn"
+            app:layout_constraintBottom_toTopOf="@+id/skipLiftBtn"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_branches"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

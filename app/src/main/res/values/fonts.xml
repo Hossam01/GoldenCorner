@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="din_next_bold" translatable="false">din_next_bold</string>
+    <string name="din_next_light" translatable="false">din_next_light</string>
+    <string name="din_next_medium" translatable="false">din_next_medium</string>
+    <string name="din_next_regular" translatable="false">din_next_regular</string>
+</resources>

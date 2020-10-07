@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/productIV"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/catogri1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/productNameTV"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/din_next_bold"
+        android:minWidth="100dp"
+        android:padding="2dp"
+        android:text="Mandy Checken"
+        android:textColor="@color/textColor3"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/productIV"
+        app:layout_constraintTop_toTopOf="@+id/productIV" />
+
+    <TextView
+        android:id="@+id/deleteBtn"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_bg_red3"
+        android:fontFamily="@font/din_next_regular"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:paddingBottom="4dp"
+        android:text="@string/delete"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/productIV"
+        app:layout_constraintStart_toEndOf="@+id/productIV">
+
+        <ImageView
+            android:id="@+id/minusBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/login_button_shape4"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+            app:srcCompat="@drawable/ic_minus" />
+
+        <TextView
+            android:id="@+id/productItemsCountTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/text_view_white_bg"
+            android:fontFamily="@font/din_next_regular"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:text="1"
+            android:textColor="@color/textColor3"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+        <ImageView
+            android:id="@+id/addBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/login_button_shape4"
+            android:padding="7dp"
+            app:srcCompat="@drawable/ic_add_24" />
+
+        <TextView
+            android:id="@+id/productPriceTV"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/text_view_white_bg"
+            android:fontFamily="@font/din_next_regular"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:padding="2dp"
+            android:text="30.00 SR"
+            android:textColor="@color/textColor3"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/totalPriceHintTV"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@color/gray"
+        android:fontFamily="@font/din_next_regular"
+        android:gravity="center"
+        android:minWidth="100dp"
+        android:padding="2dp"
+        android:text="@string/total"
+        android:textColor="@color/textColor3"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/totalPriceTV"
+        app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+    <TextView
+        android:id="@+id/totalPriceTV"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@color/gray"
+        android:fontFamily="@font/din_next_regular"
+        android:gravity="center|end"
+        android:paddingEnd="50dp"
+        android:minWidth="100dp"
+        android:padding="2dp"
+        android:text="30.00 SR"
+        android:textColor="@color/textColor3"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/totalPriceHintTV"
+        app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/totalPriceTV"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
