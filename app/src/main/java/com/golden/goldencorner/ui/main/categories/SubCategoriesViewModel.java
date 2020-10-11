@@ -73,10 +73,33 @@ public class SubCategoriesViewModel extends ViewModel {
         RetrofitProvider.getClient().getProductsBySubCategories(category_id, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( subCategoryResponse-> {
+                .subscribe( subCategoryResponse -> {
                     productMetaLiveData.setValue(subCategoryResponse.getData().get(0).getMeta());
                     ArrayList<Product> items = subCategoryResponse.getData().get(0).getItems();
                     productsBySubCategoryIdLiveData.setValue(Resource.success(items));
+                }, throwable -> {
+                    productsBySubCategoryIdLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.d("Products",throwable.getMessage());
+                });
+    }
+
+    ArrayList<Product> items2;
+    @SuppressLint("CheckResult")
+    public void invokeProductsBySubCategoryIdApifilter(long category_id, int page, int name) {
+        productsBySubCategoryIdLiveData.setValue(Resource.loading());
+        RetrofitProvider.getClient().getProductsBySubCategories(category_id, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( subCategoryResponse -> {
+                    items2=new ArrayList<>();
+                    productMetaLiveData.setValue(subCategoryResponse.getData().get(0).getMeta());
+                    ArrayList<Product> items = subCategoryResponse.getData().get(0).getItems();
+                    for(Product s: items) {
+                        if (s.getCategoryId()==name) {
+                            items2.add(s);
+                        }
+                    }
+                    productsBySubCategoryIdLiveData.setValue(Resource.success(items2));
                 }, throwable -> {
                     productsBySubCategoryIdLiveData.setValue(Resource.error(throwable.getMessage(), null));
                     Log.d("Products",throwable.getMessage());

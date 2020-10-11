@@ -22,15 +22,16 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
     private Context context;
     private List<ProductImages> mSliderItems = new ArrayList<>();
     private int position = 0;
-
+    String image;
     public void fillAdapterData(List<ProductImages> dataList) {
         this.mSliderItems.clear();
         this.mSliderItems.addAll(dataList);
         notifyDataSetChanged();
     }
 
-    public ProductSliderAdapter(Context context) {
+    public ProductSliderAdapter(Context context,String image) {
         this.context = context;
+        this.image=image;
     }
 
     @Override
@@ -45,8 +46,16 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
         Context mContext = viewHolder.itemView.getContext();
         this.position = position;
         ProductImages sliderItem = mSliderItems.get(position);
-        Glide.with(mContext).load(sliderItem.getImage())
-                .into(viewHolder.homeSliderImage);
+
+        if (mSliderItems.size()>0) {
+            Glide.with(mContext).load(sliderItem.getImage()).placeholder(R.drawable.golden)
+                    .into(viewHolder.homeSliderImage);
+        }else
+        {
+            Glide.with(mContext).load(image).placeholder(R.drawable.golden)
+                    .into(viewHolder.homeSliderImage);
+        }
+
     }
 
     @Override

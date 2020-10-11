@@ -28,16 +28,16 @@ public class Product {
     private String textEn;
     @SerializedName("price")
     @Expose
-    private double price;
+    private String price;
     @SerializedName("total_price")
     @Expose
     private double totalPrice;
     @SerializedName("calorie")
     @Expose
-    private long calorie;
+    private double calorie;
     @SerializedName("discount_price")
     @Expose
-    private long discountPrice;
+    private String discountPrice;
     @SerializedName("quantity")
     @Expose
     private float quantity;
@@ -150,28 +150,31 @@ public class Product {
         this.textEn = textEn;
     }
 
-    public double getPrice() {
+    public String getPrice() {
 
-        return price;
+        return price.replace(",","");
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public long getCalorie() {
+    public double getCalorie() {
         return calorie;
     }
 
-    public void setCalorie(long calorie) {
+    public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
 
-    public long getDiscountPrice() {
-        return discountPrice;
+    public String getDiscountPrice() {
+        if(discountPrice == null || discountPrice.isEmpty())
+            return "0.0";
+        else {
+        return discountPrice; }
     }
 
-    public void setDiscountPrice(long discountPrice) {
+    public void setDiscountPrice(String discountPrice) {
         this.discountPrice = discountPrice;
     }
 

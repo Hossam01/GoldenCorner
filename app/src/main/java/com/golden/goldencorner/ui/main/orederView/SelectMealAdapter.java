@@ -22,6 +22,7 @@ import butterknife.OnClick;
 public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.OrderHolder> {
 
     private List<ProductSize> dataList = new ArrayList<>();
+    public int mSelectedItem = -1;
 
     public void fillAdapterData(List<ProductSize> dataList) {
         this.dataList.clear();
@@ -45,10 +46,16 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
         ProductSize record = dataList.get(position);
         mHolder.mealRBtn.setText(record.getSizeName());
         mHolder.priceTV.setText(record.getPrice()+mHolder.itemView.getContext().getString(R.string.sr));
-        if (record.getIsSelected()){
-            mHolder.mealRBtn.setChecked(true);
-        }
+//        if (record.getIsSelected()){
+//            mHolder.mealRBtn.setChecked(true);
+//        }
+
+        mHolder.mealRBtn.setChecked(position == mSelectedItem);
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -70,7 +77,11 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
         @OnClick(R.id.mealRBtn)
         public void onViewClicked() {
             if (mListener != null) {
-                mListener.onSelectedMeal(/*dataList.get(getAdapterPosition()),*/ getAdapterPosition()-1);
+                mListener.onSelectedMeal(dataList.get(getAdapterPosition()), getAdapterPosition());
+                mSelectedItem = getAdapterPosition();
+                notifyItemRangeChanged(0, dataList.size());
+
+
             }
         }
     }
@@ -78,6 +89,6 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
     public AdapterListener mListener;
 
     public interface AdapterListener {
-        void onSelectedMeal(/*ProductSize record,*/ int position);
+        void onSelectedMeal(ProductSize record, int position);
     }
 }

@@ -18,20 +18,26 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
+import com.golden.goldencorner.data.Utils.AppConstant;
+import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.ui.main.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.golden.goldencorner.data.Utils.AppConstant.USER_IMAGE;
+import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
+
 public class OrderEvaluationFragment extends DialogFragment {
 
     @BindView(R.id.closeIV)
     ImageView closeIV;
-//    @BindView(R.id.evaluationIV)
-//    CircleImageView evaluationIV;
+    @BindView(R.id.imageIV)
+    ImageView evaluationIV;
     @BindView(R.id.productMealsTV)
     TextView productMealsTV;
     @BindView(R.id.nameTV)
@@ -46,8 +52,8 @@ public class OrderEvaluationFragment extends DialogFragment {
     TextView cardHolderNameTv;
     @BindView(R.id.commentET)
     EditText commentET;
-//    @BindView(R.id.addCommentBtn)
-//    CircularProgressButton addCommentBtn;
+    @BindView(R.id.addcommentbtn)
+    CircularProgressButton addCommentBtn;
     @BindView(R.id.addEvaluationBtn)
     CircularProgressButton addEvaluationBtn;
     private OrderEvaluationViewModel mViewModel;
@@ -59,7 +65,7 @@ public class OrderEvaluationFragment extends DialogFragment {
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.order_evaluation_fragment, container, false);
+        return inflater.inflate(R.layout.evalute_product, container, false);
     }
 
     @Override
@@ -70,12 +76,15 @@ public class OrderEvaluationFragment extends DialogFragment {
                 .get(OrderEvaluationViewModel.class);
         subscribeRateObserver();
         subscribeCommentObserver();
+        String username= SharedPreferencesManager.getString(UserName);
+        nameTV.setText(username);
+        Picasso.get().load(SharedPreferencesManager.getString(USER_IMAGE)).into(evaluationIV);
 
-//        if (getArguments() != null){
-//            productId = getArguments().getLong(AppConstant.PRODUCT_ID);
-//            userImage = getArguments().getString(AppConstant.USER_IMAGE);
-//            Picasso.get().load(userImage).into(evaluationIV);
-//        }
+        if (getArguments() != null){
+            productId = getArguments().getLong(AppConstant.PRODUCT_ID);
+            userImage = getArguments().getString(AppConstant.USER_IMAGE);
+            Picasso.get().load(userImage).into(evaluationIV);
+        }
     }
 
     private void subscribeRateObserver() {
@@ -137,11 +146,11 @@ public class OrderEvaluationFragment extends DialogFragment {
     }
     private void showProgressBar2(boolean isLoading) {
         if (isLoading) {
-            //addCommentBtn.startMorphAnimation();
-            //addCommentBtn.setBackground(getActivity().getDrawable(R.drawable.rounded_red_bg));
+            addCommentBtn.startMorphAnimation();
+            addCommentBtn.setBackground(getActivity().getDrawable(R.drawable.rounded_red_bg));
         } else {
-            //addCommentBtn.stopAnimation();
-           // addCommentBtn.setBackground(getActivity().getDrawable(R.drawable.login_button_shape));
+            addCommentBtn.stopAnimation();
+            addCommentBtn.setBackground(getActivity().getDrawable(R.drawable.login_button_shape));
         }
     }
 
@@ -163,7 +172,8 @@ public class OrderEvaluationFragment extends DialogFragment {
         }
     }
 
-   // @OnClick(R.id.addCommentBtn)
+    @Nullable
+    @OnClick(R.id.addcommentbtn)
     public void onBtnClicked() {
         String token = ((MainActivity) getActivity()).getAccessToken();
         String comment = commentET.getText().toString();

@@ -44,7 +44,7 @@ public class RoundedCategoriesAdapter extends RecyclerView.Adapter<RoundedCatego
         Category record = dataList.get(position);
         mHolder.productTitleTV.setText(record.getTitle());
         try {
-            Glide.with(mContext).load(record.getImage()).placeholder(R.drawable.catogri1).dontAnimate().into(mHolder.productIV);
+            Glide.with(mContext).load(record.getImage()).placeholder(R.drawable.golden).dontAnimate().into(mHolder.productIV);
         }catch (Exception e){e.getMessage();}
     }
 
@@ -68,8 +68,9 @@ public class RoundedCategoriesAdapter extends RecyclerView.Adapter<RoundedCatego
 
         @Override
         public void onClick(View v) {
-            if (mListener != null)
+            if (mListener != null) {
                 mListener.onSubCategoriesClicked(dataList.get(getAdapterPosition()));
+            }
         }
     }
 

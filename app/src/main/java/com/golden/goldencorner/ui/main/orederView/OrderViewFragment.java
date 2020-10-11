@@ -1,5 +1,6 @@
 package com.golden.goldencorner.ui.main.orederView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,27 +8,32 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
+import com.golden.goldencorner.data.model.BranchRecords;
 import com.golden.goldencorner.data.model.ProductDetailData;
 import com.golden.goldencorner.data.model.ProductExtension;
+import com.golden.goldencorner.data.model.ProductSize;
 import com.golden.goldencorner.data.model.SimpleModel;
+import com.golden.goldencorner.ui.ViewDialog;
 import com.golden.goldencorner.ui.main.MainActivity;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -37,11 +43,18 @@ import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 
 public class OrderViewFragment extends Fragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener {
 
@@ -87,11 +100,16 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
     CircularProgressButton addToCartBtn;
     @BindView(R.id.minusBtn)
     ImageView minusBtn;
+    @BindView(R.id.ProductImage)
+    ImageView productImage;
     @BindView(R.id.pluseBtn)
     ImageView pluseBtn;
-    @BindView(R.id.addEvaluteBtn)
-    Button addCommentBtn;
-
+//    @BindView(R.id.addEvaluteBtn)
+//    Button addCommentBtn;
+    double orderTotal=0.0;
+    Double ext_price=0.0;
+    String starttime,closetime;
+    String kindMeal;
     private OrderViewViewModel mViewModel;
     private ProductDetailData detailData = null;
     private SelectMealAdapter selectMealAdapter;
@@ -120,17 +138,19 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         productDetailsAdditionsRV.setAdapter(extensionsAdapter);
         commentAdapter = new CommentAdapter();
         productDetailsCommentsRV.setAdapter(commentAdapter);
-        setUpSliderView();
+        setUpSliderView(getArguments().getString("image"));
         if (getArguments() != null) {
             long orderId = getArguments().getLong(AppConstant.PRODUCT_ID);
             mViewModel.invokeOrderApi(orderId);
         }
+        mViewModel.invokeBranchesApi();
+        Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
     }
 
     private ProductSliderAdapter mSliderAdapter;
 
-    private void setUpSliderView() {
-        mSliderAdapter = new ProductSliderAdapter(getContext());
+    private void setUpSliderView(String image) {
+        mSliderAdapter = new ProductSliderAdapter(getContext(),image);
         //mSliderAdapter.mListener = this;
         productDetailsSliderRV.setSliderAdapter(mSliderAdapter);
         productDetailsSliderRV.setIndicatorAnimation(IndicatorAnimationType.WORM);
@@ -138,7 +158,7 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         productDetailsSliderRV.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         productDetailsSliderRV.setIndicatorUnselectedColor(Color.GRAY);
         productDetailsSliderRV.setIndicatorSelectedColor(Color.WHITE);
-        productDetailsSliderRV.setScrollTimeInSec(4); //set scroll delay in seconds
+        productDetailsSliderRV.setScrollTimeInSec(2); //set scroll delay in seconds
         productDetailsSliderRV.startAutoCycle();
     }
 
@@ -151,6 +171,7 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
                             switch (resource.getStatus()) {
                                 case SUCCESS:
                                     detailData = resource.getData();
+                                    kindMeal=detailData.getProduct().getPrice().toString();
                                     showProgressBar(false);
                                     fillOrderDetails(detailData);
                                     break;
@@ -177,12 +198,19 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
             productNameTV.setText(data.getProduct().getTitleEn());
         }
         productCaloriesTV.setText(getString(R.string.calories) + data.getProduct().getCalorie());
-        productItemsCountTV.setText(data.getProduct().getQuantity() + "");
-        productPriceTV.setText(data.getProduct().getPrice() + getString(R.string.sr));
+        //productItemsCountTV.setText(data.getProduct().getQuantity() + "");
+        productPriceTV.setText(data.getProduct().getPrice());
         productRateTV.setText(data.getProduct().getRate() + "");
         detailData.getProduct().setTotalPrice(Double.valueOf(data.getProduct().getPrice()));
         updateFavoriteIcon();
-        mSliderAdapter.fillAdapterData(data.getProduct().getImages());
+        if (data.getProduct().getImages().size()>0) {
+            mSliderAdapter.fillAdapterData(data.getProduct().getImages());
+            productImage.setVisibility(View.INVISIBLE);
+        }else {
+            productDetailsSliderRV.setVisibility(View.INVISIBLE);
+            Glide.with(getContext()).load(getArguments().getString("image")).placeholder(R.drawable.golden)
+                    .into(productImage);
+        }
         selectMealAdapter.fillAdapterData(data.getProduct().getProductSize());
         extensionsAdapter.fillAdapterData(data.getProduct().getProductExtension());
         commentAdapter.fillAdapterData(data.getComments());
@@ -294,24 +322,93 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         }
     }
 
-    @OnClick(R.id.addEvaluteBtn)
-    public void onAddCommentBtnClicked() {
-        ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
-    }
+//    @OnClick(R.id.addEvaluteBtn)
+//    public void onAddCommentBtnClicked() {
+//
+//
+//        if (SharedPreferencesManager.getString(UserName)!= null)
+//            ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
+//        else {
+//            ViewDialog alert = new ViewDialog();
+//            alert.showDialog(getActivity());
+//        }
+//    }
 
     @OnClick(R.id.addToCartBtn)
     public void onAddToCartBtnClicked() {
 
-        detailData.getProduct().setPrice(detailData.getProduct().getTotalPrice());
-        ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+
+
+        subscribeBranchesObserver();
+        SimpleDateFormat sdf=new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+        String timeDate=sdf.format(new Date());
+       if (checktimings(timeDate,closetime,starttime)==true)
+       {
+           detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
+           ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+           new AlertDialog.Builder(getActivity())
+                   .setMessage(getString(R.string.added_succes))
+                   .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int which) {
+                           ((MainActivity)getActivity()).navToDestination(R.id.nav_cart);
+                       }
+                   })
+                   .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int which) {
+                           dialog.dismiss();
+                       }
+                   })
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .show();
+       }
+       else {
+           new AlertDialog.Builder(getActivity())
+                   .setMessage(getString(R.string.added_failed))
+                   .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int which) {
+                           dialog.dismiss();
+                       }
+                   })
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .show();
+       }
+
+    }
+
+    private boolean checktimings(String time, String endtime,String startTime) {
+
+        String pattern = "kk:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        try {
+            Date date1 = sdf.parse(time);
+            Date date2 = sdf.parse(endtime);
+            Date date3 = sdf.parse(startTime);
+
+            if(date1.after(date3)&&date1.before(date2)) {
+                return true;
+            } else {
+
+                return false;
+            }
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @OnClick(R.id.favoritesIV)
     public void onAddToFavoritesClicked() {
-        updateFavoriteIcon();
-        mViewModel.invokeAddToFavoritesApi(
-                ((MainActivity)getActivity()).getAccessToken()
-                , detailData.getProduct().getId());
+        if (SharedPreferencesManager.getString(UserName) != null) {
+            updateFavoriteIcon();
+            mViewModel.invokeAddToFavoritesApi(
+                    ((MainActivity) getActivity()).getAccessToken()
+                    , detailData.getProduct().getId());
+        }
+        else {
+            ViewDialog alert = new ViewDialog();
+            alert.showDialog(getActivity());
+        }
     }
 
     private void updateFavoriteIcon() {
@@ -336,8 +433,10 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         }
         productItemsCountTV.setText(count+"");
         detailData.getProduct().setQuantity((float) count);
-        double price = Double.valueOf(detailData.getProduct().getPrice());
-        detailData.getProduct().setTotalPrice(Math.abs(count-price));
+        double price = Double.valueOf(kindMeal);
+        orderTotal=Math.abs((count*Double.valueOf(price)));
+        detailData.getProduct().setTotalPrice(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price)));
+        productPriceTV.setText(String.valueOf(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price))));
     }
 
     @OnClick(R.id.pluseBtn)
@@ -346,17 +445,39 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         count++;
         productItemsCountTV.setText(count+"");
         detailData.getProduct().setQuantity((float) count);
-        double price = Double.valueOf(detailData.getProduct().getPrice());
-        detailData.getProduct().setTotalPrice(Math.abs(count+price));
+        double price = Double.valueOf(kindMeal);
+        orderTotal=Math.abs(count*price);
+        detailData.getProduct().setTotalPrice(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price)));
+        productPriceTV.setText(String.valueOf(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price))));
+    }
+
+    public void onExtensionBtnClicked(String price,boolean checked){
+        if (checked)
+        {
+            ext_price=Double.valueOf(price);
+            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString())+(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString())))));
+            detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString())+(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString()))));
+        }
+        else
+            {
+                ext_price=0.0;
+            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString())-(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString())))));
+            detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString())-(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString()))));
+
+            }
     }
 
     @Override
-    public void onSelectedExtension(ProductExtension record) {
+    public void onSelectedExtension(ProductExtension record,String price,boolean checked) {
         detailData.getProduct().getProductExtension().add(record);
+        onExtensionBtnClicked(price,checked);
     }
 
     @Override
-    public void onSelectedMeal(/*ProductSize record, */int position) {
+    public void onSelectedMeal(ProductSize record, int position) {
+        detailData.getProduct().getProductSize().add(record);
+        kindMeal=detailData.getProduct().getProductSize().get(position).getPrice().toString();
+        productPriceTV.setText(detailData.getProduct().getProductSize().get(position).getPrice().toString());
 
         //todo comment because crashing
 //        List<ProductSize> mList = selectMealAdapter.getDataList();
@@ -368,5 +489,34 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
 //            selectMealAdapter.fillAdapterData(mList);
 //            detailData.getProduct().getProductSize().add(mList.get(position));
 //        }
+    }
+
+    private void subscribeBranchesObserver() {
+        mViewModel.getBranchesLiveData().observe(getViewLifecycleOwner(),
+                new Observer<Resource<List<BranchRecords>>>() {
+                    @Override
+                    public void onChanged(Resource<List<BranchRecords>> resource) {
+                        if (resource != null) {
+                            switch (resource.getStatus()) {
+                                case SUCCESS:
+                                    showProgressBar(false);
+                                    List<BranchRecords> list = resource.getData();
+                                    Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
+                                    Log.d("id",""+branchId);
+                                    int id=branchId.intValue();
+                                   starttime=list.get(id-1).getOpenTime();
+                                   closetime=list.get(id-1).getClosedTime();
+                                    break;
+                                case ERROR:
+                                    showProgressBar(false);
+//                                    showToast(resource.getMessage());
+                                    break;
+                                case LOADING:
+                                    showProgressBar(true);
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 }

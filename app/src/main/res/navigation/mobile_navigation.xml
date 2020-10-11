@@ -61,7 +61,7 @@
         android:id="@+id/nav_order_evaluate"
         android:name="com.golden.goldencorner.ui.main.orderEvaluate.OrderEvaluationFragment"
         android:label=""
-        tools:layout="@layout/fragment_edit_address" />
+        tools:layout="@layout/evalute_product" />
     <dialog
         android:id="@+id/nav_driver_info"
         android:name="com.golden.goldencorner.ui.main.driverInfo.DriverInfoFragment"

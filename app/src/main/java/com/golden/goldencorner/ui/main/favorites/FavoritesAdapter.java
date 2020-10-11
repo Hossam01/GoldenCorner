@@ -54,8 +54,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Late
             mHolder.nameTV.setText(record.getTitleEn());
             mHolder.descriptionTV.setText(record.getTitleEn());
         }
-        mHolder.priceFavTV.setText(record.getPrice() + mHolder.itemView.getContext().getString(R.string.sr));
-        float discount = record.getDiscountPrice();
+
+            mHolder.priceFavTV.setText(record.getPrice() + mHolder.itemView.getContext().getString(R.string.sr));
+
+        float discount = Float.valueOf(record.getDiscountPrice());
         mHolder.discountTV.setText((record.getDiscountPrice()) + mHolder.itemView.getContext().getString(R.string.sr));
 
         if (discount == 0) {

@@ -2,6 +2,7 @@ package com.golden.goldencorner.ui.main.branches;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,12 @@ import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.BranchRecords;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +57,11 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
         mHolder.branchDistanceTV.setText(dataList.get(position).getDistance());
         Context mContext = mHolder.itemView.getContext();
         Glide.with(mContext).load(dataList.get(position)
-                .getImage()).into(mHolder.branchesIV);
-        if (dataList.get(position).getIsOpen()) {
+                .getImage()).placeholder(R.drawable.golden).into(mHolder.branchesIV);
+       SimpleDateFormat sdf=new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+        String timeDate=sdf.format(new Date());
+        Log.d("time",timeDate);
+        if (checktimings(timeDate,dataList.get(position).getClosedTime(),dataList.get(position).getOpenTime())==true) {
             mHolder.openTV.setText(R.string.open_now);
             Drawable drawable = ResourcesCompat.getDrawable(
                     mHolder.itemView.getContext().getResources()
@@ -67,7 +75,27 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
             mHolder.openIV.setImageDrawable(drawable);
         }
     }
+    private boolean checktimings(String time, String endtime,String startTime) {
 
+        String pattern = "kk:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        try {
+            Date date1 = sdf.parse(time);
+            Date date2 = sdf.parse(endtime);
+            Date date3 = sdf.parse(startTime);
+
+            if(date1.after(date3)&&date1.before(date2)) {
+                return true;
+            } else {
+
+                return false;
+            }
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
     @Override
     public int getItemCount() {
         return dataList.size();

@@ -111,5 +111,7 @@ public class CardsFragment extends Fragment {
 
     @OnClick(R.id.addEvaluteBtn)
     public void onViewClicked() {
+
+
     }
 }

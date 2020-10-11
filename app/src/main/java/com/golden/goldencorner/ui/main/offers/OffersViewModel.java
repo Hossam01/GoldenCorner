@@ -1,5 +1,7 @@
 package com.golden.goldencorner.ui.main.offers;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -27,6 +29,7 @@ public class OffersViewModel extends ViewModel {
                     productLiveData.setValue(Resource.success(productResponse));
                 }, throwable -> {
                     productLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.d("Offers",throwable.getMessage());
                 });
     }
     private MutableLiveData<Resource<SimpleModel>> addToFavLiveData = new MutableLiveData<>();

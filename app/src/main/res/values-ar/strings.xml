@@ -155,6 +155,7 @@
     <string name="delete_address">حذف العنوان</string>
     <string name="address_note">ملاحظة العنوان</string>
     <string name="street">الشارع</string>
+    <string name="evaluation2">تقيم النتج</string>
     <string name="login_or_create_new_account_and_try_again">سجيل الدخول أو إنشاء حساب جديد وحاول مرة أخرى</string>
     <string name="select_the_location_on_the_map">حدد الموقع على الخريطة</string>
     <string name="select_you_location">حدد موقعك</string>
@@ -196,5 +197,11 @@
     <string name="old_phone_number">رقم الجوال القديم</string>
     <string name="new_phone_number">رقم الجوال الجديد</string>
     <string name="language">اللغة</string>
+    <string name="loginMessage">للمتابعه علي تسجيل الدخول</string>
+    <string name="added_succes">تمت إضافة هذا المنتج بنجاح إلى السلة</string>
+    <string name="added_failed">هذا الفرع مغلق الان</string>
+    <string name="added_delete">المنتاجات داخل العربه سوف تحذف</string>
+
+
 
 </resources>

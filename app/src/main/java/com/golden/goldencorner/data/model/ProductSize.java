@@ -19,7 +19,7 @@ public class ProductSize {
     private String sizeName;
     @SerializedName("price")
     @Expose
-    private Long price;
+    private String price;
     @SerializedName("dis_price")
     @Expose
     private Long disPrice;
@@ -28,7 +28,7 @@ public class ProductSize {
     private float quantity;
     @SerializedName("calorie")
     @Expose
-    private Long calorie;
+    private double calorie;
     @SerializedName("is_default")
     @Expose
     private Long isDefault;
@@ -76,11 +76,11 @@ public class ProductSize {
         this.sizeName = sizeName;
     }
 
-    public Long getPrice() {
-        return price;
+    public String getPrice() {
+        return price.replace(",","");
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -100,11 +100,11 @@ public class ProductSize {
         this.quantity = quantity;
     }
 
-    public Long getCalorie() {
+    public double getCalorie() {
         return calorie;
     }
 
-    public void setCalorie(Long calorie) {
+    public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
 

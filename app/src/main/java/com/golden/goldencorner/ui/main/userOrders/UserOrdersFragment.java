@@ -2,8 +2,6 @@ package com.golden.goldencorner.ui.main.userOrders;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,7 +24,6 @@ import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.OrderRecords;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.ui.main.MainActivity;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,24 +141,22 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
 
     @Override
     public void onCancelOrderClicked(OrderRecords record) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(getString(R.string.are_you_sure_to_cancel_this_order));
-        builder.setPositiveButton(getString(R.string.confirm),
-                new DialogInterface.OnClickListener() {
-                    @Override
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage(getString(R.string.are_you_sure_to_cancel_this_order))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String token = ((MainActivity) getActivity()).getAccessToken();
                         mViewModel.invokeDeleteApi(token, record.getId());
                     }
-                });
-        builder.setPositiveButton(getString(R.string.cancel),
-                new DialogInterface.OnClickListener() {
-                    @Override
+                })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                       dialog.dismiss();
                     }
-                });
-        builder.create().show();
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override
@@ -190,10 +185,10 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
     @Override
     public void OnOrderEvaluateClicked(OrderRecords record) {
         //todo comment because crashing
-//        Bundle bundle = new Bundle();
-//        bundle.putLong(AppConstant.PRODUCT_ID, record.getId());
-//        bundle.putString(AppConstant.USER_IMAGE, record.getUser().getAvatar());
-//        ((MainActivity)getActivity()).navToDestination(R.id.nav_order_evaluate, bundle);
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstant.PRODUCT_ID, record.getId());
+        bundle.putString(AppConstant.USER_IMAGE, record.getUser().getAvatar());
+        ((MainActivity)getActivity()).navToDestination(R.id.nav_order_evaluate, bundle);
     }
 
     private boolean isLoading = false;

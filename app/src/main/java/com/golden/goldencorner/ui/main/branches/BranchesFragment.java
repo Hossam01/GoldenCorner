@@ -91,8 +91,9 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
         branchesRV.setAdapter(mAdapter);
         mAdapter.mListener = this;
         setUpMapUi();
-        subscribeBranchesObserver();
         mViewModel.invokeBranchesApi();
+        subscribeBranchesObserver();
+
     }
 
 
@@ -325,7 +326,8 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
 
     @OnClick(R.id.continueBtn)
     public void onViewClicked() {
-        getActivity().onBackPressed();
+//        getActivity().onBackPressed();
+        ((MainActivity) getActivity()).navToDestination(R.id.nav_home);
     }
 
     @Override

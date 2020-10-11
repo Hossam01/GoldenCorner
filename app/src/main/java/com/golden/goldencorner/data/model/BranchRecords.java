@@ -170,6 +170,7 @@ public class BranchRecords {
     }
 
     public String getOpenTime() {
+
         return openTime;
     }
 

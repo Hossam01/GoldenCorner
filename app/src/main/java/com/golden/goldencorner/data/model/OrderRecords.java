@@ -3,10 +3,6 @@ package com.golden.goldencorner.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRecords {
@@ -52,7 +48,7 @@ public class OrderRecords {
     public String description;
     @SerializedName("tax")
     @Expose
-    public Long tax;
+    public String tax;
     @SerializedName("shipping")
     @Expose
     public Long shipping;
@@ -70,7 +66,7 @@ public class OrderRecords {
     public double taxPrice;
     @SerializedName("discount_price")
     @Expose
-    public Long discountPrice;
+    public double discountPrice;
     @SerializedName("grand_total")
     @Expose
     public double grandTotal;
@@ -218,11 +214,11 @@ public class OrderRecords {
         this.description = description;
     }
 
-    public Long getTax() {
+    public String getTax() {
         return tax;
     }
 
-    public void setTax(Long tax) {
+    public void setTax(String tax) {
         this.tax = tax;
     }
 
@@ -266,11 +262,11 @@ public class OrderRecords {
         this.taxPrice = taxPrice;
     }
 
-    public Long getDiscountPrice() {
+    public double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Long discountPrice) {
+    public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
     }
 

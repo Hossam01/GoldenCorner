@@ -19,7 +19,7 @@ public class ProductExtension {
     private String extensionName;
     @SerializedName("price")
     @Expose
-    private Long price;
+    private String price;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class ProductExtension {
         this.extensionName = extensionName;
     }
 
-    public Long getPrice() {
-        return price;
+    public String getPrice() {
+        return price.replace(",","");
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

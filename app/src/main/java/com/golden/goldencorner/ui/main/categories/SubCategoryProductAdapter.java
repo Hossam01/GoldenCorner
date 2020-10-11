@@ -54,12 +54,13 @@ public class SubCategoryProductAdapter extends RecyclerView.Adapter<SubCategoryP
         }
         mHolder.caloriesTV.setText(mHolder.itemView.getContext().getString(R.string.calories)+record.getCalorie());
         mHolder.priceTV.setText(record.getPrice()+mHolder.itemView.getContext().getString(R.string.sr));
+
         mHolder.priceDiscountTV.setText(record.getDiscountPrice()+mHolder.itemView.getContext().getString(R.string.sr));
         Context mContext = mHolder.itemView.getContext();
         try {
-            Glide.with(mContext).load(record.getImage()).placeholder(R.drawable.catogri1).dontAnimate().into(mHolder.categoryIV);
+            Glide.with(mContext).load(record.getImage()).placeholder(R.drawable.golden).dontAnimate().into(mHolder.categoryIV);
         }catch (Exception e){}
-        if (record.getDiscountPrice() <= 0)
+        if ( Double.valueOf(record.getDiscountPrice()) <= 0)
             mHolder.priceDiscountTV.setVisibility(View.INVISIBLE);
         else
             mHolder.priceTV.setPaintFlags(mHolder.priceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

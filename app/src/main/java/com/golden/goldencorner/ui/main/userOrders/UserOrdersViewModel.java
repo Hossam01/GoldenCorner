@@ -1,5 +1,7 @@
 package com.golden.goldencorner.ui.main.userOrders;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -36,6 +38,7 @@ public class UserOrdersViewModel extends ViewModel {
                     orderLiveData.setValue(Resource.success(response.getData().get(0).getItems()));
                 }, throwable -> {
                     orderLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.d("myOrders",throwable.getMessage());
                 });
     }
 
@@ -52,6 +55,7 @@ public class UserOrdersViewModel extends ViewModel {
                     deleteLiveData.setValue(Resource.success(simpleResponse.getData().get(0)));
                 }, throwable -> {
                     deleteLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.d("myOrders",throwable.getMessage());
                 });
     }
 }

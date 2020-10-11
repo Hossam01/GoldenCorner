@@ -55,6 +55,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.JavaHolder> {
         mHolder.productItemsCountTV.setText(record.getQuantity()+"");
         mHolder.productPriceTV.setText(record.getQuantity()+mContext.getString(R.string.sr));
         mHolder.totalPriceTV.setText(record.getPrice()+mContext.getString(R.string.sr));
+
     }
 
     @Override
@@ -92,12 +93,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.JavaHolder> {
         @OnClick(R.id.deleteBtn)
         public void onDeleteBtnClicked() {
             dataList.remove(getAdapterPosition());
+            fillAdapterData(dataList);
             notifyDataSetChanged();
         }
 
         @OnClick(R.id.minusBtn)
         public void onMinusBtnClicked() {
-            long count = (long) dataList.get(getAdapterPosition()).getQuantity()-1;
+            long count = (long) dataList.get(getAdapterPosition()).getQuantity();
             if (count > 1)
                 count--;
             dataList.get(getAdapterPosition()).setQuantity(count);

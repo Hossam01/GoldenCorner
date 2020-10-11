@@ -1,6 +1,7 @@
 package com.golden.goldencorner.ui.main.categories;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
     private SubCategoriesViewModel mViewModel;
     private Long categoryID = null;
     private String categoryTitle="";
-
+    Resource<List<Category>> listResource;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_sub_categories, container, false);
     }
@@ -85,6 +86,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
                 new Observer<Meta>() {
                     @Override
                     public void onChanged(Meta meta) {
+
                         SubCategoriesFragment.this.meta = meta;
                     }
                 });
@@ -127,7 +129,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
                                     showProgressBar(false);
 //                                    mDilatingDotsProgressBar.setNumberOfDots(resource.getData().size());
                                     mSubCategoryProductAdapter.fillAdapterData(resource.getData());
-                                    //onSubCategoriesClicked(resource.getData().get(0));
+                                   // onSubCategoriesClicked((Category) listResource.getData());
                                     break;
                                 case ERROR:
                                     showProgressBar(false);
@@ -150,6 +152,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
     public void onAddToCartClicked(Product record) {
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstant.PRODUCT_ID, record.id);
+        bundle.putString("image", record.getImage());
         ((MainActivity) getActivity()).navToDestination(R.id.nav_order_view, bundle);
     }
 
@@ -157,8 +160,13 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
     public void onSubCategoriesClicked(Category record) {
         long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
         if (branchId >= 1 && meta != null) {
-            mViewModel.invokeProductsBySubCategoryIdApi(categoryID, meta.getNumberOfPage());
+            Log.d("Catrory",record.getTitle().toString());
+           // mViewModel.invokeProductsBySubCategoryIdApi(categoryID, meta.getNumberOfPage());
+            mViewModel.invokeProductsBySubCategoryIdApifilter(categoryID, meta.getNumberOfPage(),record.getId());
+            mSubCategoryProductAdapter.notifyDataSetChanged();
+
         }
+
     }
 
     private boolean isLoading = false;

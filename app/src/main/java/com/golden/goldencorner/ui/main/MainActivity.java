@@ -1,5 +1,6 @@
 package com.golden.goldencorner.ui.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
@@ -429,7 +431,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             isSpinnerFirstTime = true;
             return;
         }
-        saveSelectedBranch(dataList.get(position));
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(getString(R.string.added_delete))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveSelectedBranch(dataList.get(position));
+
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override

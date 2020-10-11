@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -133,7 +132,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderHolde
 
         @OnClick({R.id.orderDetailsBtn
                 , R.id.contactDriverBtn
-                , R.id.orderEvaluateBtn})
+                , R.id.orderEvaluateBtn
+                ,R.id.cancelBtn})
         public void onViewClicked(View view) {
             if (mListener != null) {
                 switch (view.getId()) {

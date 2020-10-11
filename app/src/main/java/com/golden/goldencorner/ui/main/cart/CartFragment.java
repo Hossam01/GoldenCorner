@@ -17,8 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.golden.goldencorner.R;
+import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.Product;
+import com.golden.goldencorner.ui.ViewDialog;
 import com.golden.goldencorner.ui.main.MainActivity;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 
 public class CartFragment extends Fragment {
 
@@ -115,16 +119,16 @@ public class CartFragment extends Fragment {
             productsRV.setAdapter(mAdapter);
             mAdapter.fillAdapterData(products);
 
-//            long totalPrice = getTotalPrice();
-//            long dicount = totalPrice*()
-//            PaymentSummaryOrderTotalPriceTV.setText(totalPrice+"");
+            long totalPrice = getTotalPrice();
+            //long dicount = totalPrice*()
+            PaymentSummaryOrderTotalPriceTV.setText(totalPrice+"");
         }
     }
 
     private long getTotalPrice() {
         long totalPrice = 0;
         for (Product product: products) {
-            totalPrice+=(double)product.getPrice();
+            totalPrice+=Double.valueOf(product.getPrice());
         }
         return totalPrice;
     }
@@ -136,6 +140,12 @@ public class CartFragment extends Fragment {
 
     @OnClick(R.id.proceedPurchaseBtn)
     public void onProceedPurchaseBtnClicked() {
+        if (SharedPreferencesManager.getString(UserName)!= null){}
+           // ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
+        else {
+            ViewDialog alert = new ViewDialog();
+            alert.showDialog(getActivity());
+        }
     }
 
 

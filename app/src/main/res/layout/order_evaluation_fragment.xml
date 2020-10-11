@@ -1,6 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:orientation="vertical"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginVertical="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/orderDetailsTV"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:textStyle="bold"
+                android:layout_margin="20dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/din_next_bold"
+                android:text="@string/evaluate_product"
+                android:textColor="@color/textColor3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                app:layout_constraintStart_toStartOf="@+id/orderDetailsTV"
+                app:layout_constraintTop_toBottomOf="@+id/orderDetailsTV"
+                android:background="@color/colorPrimaryDark"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/orderDetailsCollapseBtn"
+                android:layout_width ="60dp"
+                android:layout_height="60dp"
+                android:padding="12dp"
+                android:layout_marginHorizontal="20dp"
+                android:src="@drawable/catogri1"
+                android:background="@drawable/rounded_stroke_bg"
+                app:layout_constraintTop_toTopOf="@+id/viewLine"
+                app:layout_constraintTop_toBottomOf="@+id/viewLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/username"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:text="@string/name"
+                android:textColor="@color/textColor3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/orderDetailsCollapseBtn"
+
+                app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+            <LinearLayout
+                android:id="@+id/orderDetailsFieldsLi"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/orderDetailsCollapseBtn"
+                >
+            <TextView
+                android:id="@+id/nameTv"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_next_bold"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@string/select_evaluation_now"
+                android:background="@color/gray"
+                android:textColor="@color/textColor3"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/nameTv2"
+                       style="@style/TextAppearance.AppCompat.Medium"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:textStyle="bold"
+                       android:fontFamily="@font/din_next_bold"
+                       android:gravity="center"
+                       android:text="@string/what_your_evaluation_level"
+                       android:textColor="@color/textColor3"
+                     />
+
+                   <RatingBar
+                       android:id="@+id/nameET"
+                       style="@style/TextAppearance.AppCompat.Small"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="@drawable/edit_text_white_bg"
+                       android:clickable="true"
+                       android:isIndicator="true"
+                       android:numStars="5"
+                       android:stepSize="0.5" />
+               </LinearLayout>
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/addEvaluteBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="?attr/actionBarSize"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/add_your_evaluation"
+                    android:textColor="@android:color/white"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notesOnOrderTextTV"
+                    android:background="@drawable/login_button_shape"/>
+                <TextView
+                    android:id="@+id/emailTV"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/din_next_bold"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="@string/your_comment"
+                    android:textColor="@color/textColor3"
+                    />
+            <EditText
+                android:id="@+id/emailET"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edit_text_white_bg"
+                android:inputType="textMultiLine"
+                android:padding="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:backgroundTint="@color/gray"
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Small"
+                />
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="?attr/actionBarSize"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/add_comment"
+                    android:textColor="@android:color/white"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notesOnOrderTextTV"
+                    android:background="@drawable/login_button_shape"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

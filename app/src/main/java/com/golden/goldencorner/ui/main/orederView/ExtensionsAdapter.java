@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.golden.goldencorner.R;
-import com.golden.goldencorner.data.model.OrderRecords;
 import com.golden.goldencorner.data.model.ProductExtension;
 
 import java.util.ArrayList;
@@ -64,13 +63,22 @@ public class ExtensionsAdapter extends RecyclerView.Adapter<ExtensionsAdapter.Or
         @OnClick(R.id.extensionCB)
         public void onViewClicked() {
             if (mListener != null)
-                mListener.onSelectedExtension(dataList.get(getAdapterPosition()));
+                if (extensionCB.isChecked()) {
+                    mListener.onSelectedExtension(
+                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(),true
+                    );
+                }
+            else {
+                    mListener.onSelectedExtension(
+                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(),false
+                    );
+                }
         }
     }
 
     public AdapterListener mListener;
 
     public interface AdapterListener {
-        void onSelectedExtension(ProductExtension record);
+        void onSelectedExtension(ProductExtension record,String s,boolean checked);
     }
 }

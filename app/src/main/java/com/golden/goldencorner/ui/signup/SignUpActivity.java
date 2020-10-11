@@ -6,25 +6,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.StringRes;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
-import com.golden.goldencorner.data.model.AdsRecords;
+import com.golden.goldencorner.data.Utils.Utils;
 import com.golden.goldencorner.data.model.SimpleModel;
+import com.golden.goldencorner.data.receiver.NetworkReceiver;
 import com.golden.goldencorner.ui.accountActivation.AccountActivationActivity;
 import com.golden.goldencorner.ui.base.BaseActivity;
-import com.golden.goldencorner.R;
-import com.golden.goldencorner.data.Utils.Utils;
-import com.golden.goldencorner.data.receiver.NetworkReceiver;
-import com.golden.goldencorner.ui.main.MainActivity;
 import com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar;
-
-import java.util.List;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
@@ -137,7 +131,7 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
             signup_activity_email_edit_text.setError(getString(R.string.this_field_is_required));
             return;
         }
-        if (mViewModel.isEmailValid(email_edit_text)){
+        if (!mViewModel.isEmailValid(email_edit_text)){
             signup_activity_email_edit_text.setError(getString(R.string.invalid_email));
             return;
         }
@@ -149,7 +143,7 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
             signup_activity_password__confirm_edit_text.setError(getString(R.string.this_field_is_required));
             return;
         }
-        if (!password_edit_text.equalsIgnoreCase(password_edit_text)) {
+        if (!password__confirm_edit_text.equals(password_edit_text)) {
                 showToast(getString(R.string.password_not_match));
         }
         if (signup_activity_rules_checkbox.isChecked()){
@@ -158,7 +152,7 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
         mViewModel.invokeSignUp(firstname_edit_text,
                 family_name_edit_text,
                 phone_edit_text,
-                email_edit_text,
+                password_edit_text,
                 password__confirm_edit_text,
                 email_edit_text);
 

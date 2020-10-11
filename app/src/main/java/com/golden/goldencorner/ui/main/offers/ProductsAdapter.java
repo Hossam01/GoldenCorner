@@ -56,7 +56,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Latest
             mHolder.descriptionTV.setText(record.getTitleEn());
         }
         mHolder.priceTV.setText(record.getPrice()+mHolder.itemView.getContext().getString(R.string.sr));
-        float discount = record.getDiscountPrice();
+
+        float discount = Float.valueOf(record.getDiscountPrice());
         mHolder.discountTV.setText((record.getDiscountPrice())+mHolder.itemView.getContext().getString(R.string.sr));
         Bitmap icon = null;
         if (record.getIsFavorite() == 0) {

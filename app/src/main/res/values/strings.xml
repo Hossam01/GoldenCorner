@@ -198,5 +198,11 @@
     <string name="old_phone_number">Old Mobile number</string>
     <string name="new_phone_number">New Mobile number</string>
     <string name="language">Languge</string>
+    <string name="evaluation2">Product evaluation</string>
+    <string name="loginMessage">login to follow</string>
+    <string name="added_succes">This product was added successfully to the card</string>
+    <string name="added_failed">This branch was closed</string>
+    <string name="added_delete">the item cart will delete</string>
+
 
 </resources>
