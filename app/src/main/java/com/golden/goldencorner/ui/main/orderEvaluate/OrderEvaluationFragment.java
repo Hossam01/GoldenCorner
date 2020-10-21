@@ -80,11 +80,11 @@ public class OrderEvaluationFragment extends DialogFragment {
         nameTV.setText(username);
         Picasso.get().load(SharedPreferencesManager.getString(USER_IMAGE)).into(evaluationIV);
 
-        if (getArguments() != null){
+//        if (getArguments() != null){
             productId = getArguments().getLong(AppConstant.PRODUCT_ID);
             userImage = getArguments().getString(AppConstant.USER_IMAGE);
             Picasso.get().load(userImage).into(evaluationIV);
-        }
+       // }
     }
 
     private void subscribeRateObserver() {
@@ -142,6 +142,7 @@ public class OrderEvaluationFragment extends DialogFragment {
         } else {
             addEvaluationBtn.stopAnimation();
             addEvaluationBtn.setBackground(getActivity().getDrawable(R.drawable.login_button_shape));
+
         }
     }
     private void showProgressBar2(boolean isLoading) {
@@ -172,7 +173,6 @@ public class OrderEvaluationFragment extends DialogFragment {
         }
     }
 
-    @Nullable
     @OnClick(R.id.addcommentbtn)
     public void onBtnClicked() {
         String token = ((MainActivity) getActivity()).getAccessToken();

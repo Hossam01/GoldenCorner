@@ -3,7 +3,6 @@ package com.golden.goldencorner.ui.main.home;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.Utils.PaginationScrollListener;
-import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.Category;
 import com.golden.goldencorner.data.model.HomeSliderRecords;
 import com.golden.goldencorner.data.model.Meta;
@@ -62,20 +60,33 @@ public class HomeFragment extends Fragment implements HomeCategoriesAdapter.Adap
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        subscribeMetaObserver();
+        subscribeSliderObserver();
+        subscribeCategoriesObserver();
         mAdapter = new HomeCategoriesAdapter();
         categoriesRV.setAdapter(mAdapter);
         categoriesRV.addOnScrollListener(getScrollListener());
         mAdapter.mListener = this;
-        setUpSliderView();
-        subscribeMetaObserver();
-        subscribeSliderObserver();
-        subscribeCategoriesObserver();
         long page = 1;
         mViewModel.invokeHomeSliderApi();
         mViewModel.invokeCategoriesApi(getContext(), page);
         categoriesRV.addItemDecoration(new MemberItemDecoration());
+        setUpSliderView();
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setUpSliderView();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpSliderView();
     }
 
     private HomeSliderAdapter mSliderAdapter;
@@ -84,13 +95,15 @@ public class HomeFragment extends Fragment implements HomeCategoriesAdapter.Adap
         mSliderAdapter = new HomeSliderAdapter(getContext());
         mSliderAdapter.mListener = this;
         imageSliderHome.setSliderAdapter(mSliderAdapter);
+        mSliderAdapter.notifyDataSetChanged();
         imageSliderHome.setIndicatorAnimation(IndicatorAnimationType.WORM);
         imageSliderHome.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         imageSliderHome.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        imageSliderHome.setIndicatorUnselectedColor(Color.GRAY);
-        imageSliderHome.setIndicatorSelectedColor(Color.WHITE);
+        imageSliderHome.setIndicatorUnselectedColor(Color.WHITE);
+        imageSliderHome.setIndicatorSelectedColor(getResources().getColor(R.color.colorAccent));
         imageSliderHome.setScrollTimeInSec(4); //set scroll delay in seconds
         imageSliderHome.startAutoCycle();
+        imageSliderHome.setIndicatorEnabled(true);
     }
 
     private Meta meta = null;

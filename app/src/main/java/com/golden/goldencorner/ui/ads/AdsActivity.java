@@ -69,7 +69,8 @@ public class AdsActivity extends BaseActivity {
 
         subscribeAdsObserver();
         mViewModel.invokeAdsApi(this);
-
+        Lingver.getInstance().setLocale(this, ARABIC_LANGUAGE);
+        SharedPreferencesManager.saveCurrentLang(ARABIC_LANGUAGE);
         recyclerviewPagerIndicator.attachToRecyclerView(adsRecyclerView);
 
     }

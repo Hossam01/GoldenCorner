@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/whiteColor"
     tools:context=".ui.main.branches.BranchesFragment">
 
     <LinearLayout
@@ -13,7 +13,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/background"
         android:paddingHorizontal="9dp"
         android:paddingVertical="12dp"
         map:layout_constraintTop_toTopOf="parent">

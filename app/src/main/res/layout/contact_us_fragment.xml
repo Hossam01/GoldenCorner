@@ -18,7 +18,7 @@
         android:text="@string/contact_us"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         style="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -165,6 +165,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:paddingTop="6dp"
+                android:fontFamily="@font/din_next_regular"
                 android:paddingBottom="10dp"
                 android:text="@string/send"
                 android:textColor="@android:color/white"

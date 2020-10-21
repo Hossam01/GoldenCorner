@@ -25,11 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:tabSelectedTextColor="@color/colorPrimaryDark"
         app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorHeight="7dp"
         app:tabBackground="@color/transparent"
-        app:tabTextColor="@color/textColor3"
+        app:tabTextColor="@color/black"
         app:tabMode="fixed"
         app:tabGravity="fill"
         app:tabPadding="5dp"
+
+        app:tabTextAppearance="@style/tab_text"
         >
         <com.google.android.material.tabs.TabItem
             android:id="@+id/OffersTabItem"
@@ -39,6 +42,7 @@
             android:visibility="visible"
             android:text="@string/offers"
             android:labelFor="@string/offers"
+
             />
         <com.google.android.material.tabs.TabItem
             android:id="@+id/lastTabItem"

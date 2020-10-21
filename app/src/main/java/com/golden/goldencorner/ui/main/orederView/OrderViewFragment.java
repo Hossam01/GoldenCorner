@@ -12,13 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +57,7 @@ import butterknife.OnClick;
 
 import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 
-public class OrderViewFragment extends Fragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener {
+public class OrderViewFragment extends DialogFragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener {
 
     @BindView(R.id.productDetailsSliderRV)
     SliderView productDetailsSliderRV;
@@ -104,8 +105,8 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
     ImageView productImage;
     @BindView(R.id.pluseBtn)
     ImageView pluseBtn;
-//    @BindView(R.id.addEvaluteBtn)
-//    Button addCommentBtn;
+    @BindView(R.id.addEvaluteBtn)
+    Button addCommentBtn;
     double orderTotal=0.0;
     Double ext_price=0.0;
     String starttime,closetime;
@@ -115,10 +116,16 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
     private SelectMealAdapter selectMealAdapter;
     private ExtensionsAdapter extensionsAdapter;
     private CommentAdapter commentAdapter;
-
+    long orderId;
+    @Override
+    public int getTheme() {
+        return R.style.FullScreenDialog;
+    }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.order_view_fragment, container, false);
+
+        return inflater.inflate(R.layout.order_view2_fragment, container, false);
+
     }
 
     @Override
@@ -140,11 +147,11 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         productDetailsCommentsRV.setAdapter(commentAdapter);
         setUpSliderView(getArguments().getString("image"));
         if (getArguments() != null) {
-            long orderId = getArguments().getLong(AppConstant.PRODUCT_ID);
+             orderId = getArguments().getLong(AppConstant.PRODUCT_ID);
             mViewModel.invokeOrderApi(orderId);
         }
         mViewModel.invokeBranchesApi();
-        Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
+      //  Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
     }
 
     private ProductSliderAdapter mSliderAdapter;
@@ -311,6 +318,8 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         }
     }
 
+
+
     @OnClick(R.id.productExpandMealCommentsBtn)
     public void onProductExpandMealCommentsBtnClicked() {
         if (productDetailsCommentsRV.getVisibility() == View.VISIBLE) {
@@ -322,17 +331,20 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
         }
     }
 
-//    @OnClick(R.id.addEvaluteBtn)
-//    public void onAddCommentBtnClicked() {
-//
-//
-//        if (SharedPreferencesManager.getString(UserName)!= null)
-//            ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
-//        else {
-//            ViewDialog alert = new ViewDialog();
-//            alert.showDialog(getActivity());
-//        }
-//    }
+    @OnClick(R.id.addEvaluteBtn)
+    public void onAddCommentBtnClicked() {
+
+        Bundle bundle = new Bundle();
+
+        if (SharedPreferencesManager.getString(UserName)!= null) {
+            bundle.putLong(AppConstant.PRODUCT_ID, orderId);
+            ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate, bundle);
+        }
+        else {
+            ViewDialog alert = new ViewDialog();
+            alert.showDialog(getActivity());
+        }
+    }
 
     @OnClick(R.id.addToCartBtn)
     public void onAddToCartBtnClicked() {
@@ -519,4 +531,5 @@ public class OrderViewFragment extends Fragment implements ExtensionsAdapter.Ada
                     }
                 });
     }
+
 }

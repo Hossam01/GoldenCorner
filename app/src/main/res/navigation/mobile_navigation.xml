@@ -56,7 +56,7 @@
         android:id="@+id/nav_map_fragment"
         android:name="com.golden.goldencorner.ui.main.addresses.MapFragment"
         android:label=""
-        tools:layout="@layout/fragment_edit_address" />
+        tools:layout="@layout/fragment_map" />
     <dialog
         android:id="@+id/nav_order_evaluate"
         android:name="com.golden.goldencorner.ui.main.orderEvaluate.OrderEvaluationFragment"
@@ -66,13 +66,17 @@
         android:id="@+id/nav_driver_info"
         android:name="com.golden.goldencorner.ui.main.driverInfo.DriverInfoFragment"
         android:label=""
-        tools:layout="@layout/fragment_edit_address" />
-    <fragment
-        android:id="@+id/nav_order_view"
-        android:name="com.golden.goldencorner.ui.main.orederView.OrderViewFragment"
+        tools:layout="@layout/driver_info_fragment" />
+   <dialog
+       android:id="@+id/nav_order_view"
+       android:name="com.golden.goldencorner.ui.main.orederView.OrderFragment2"
+       android:label=""
+       tools:layout="@layout/order_view_fragment"/>
+    <dialog
+        android:id="@+id/nav_dicount_code"
+        android:name="com.golden.goldencorner.ui.main.AddCode"
         android:label=""
-        tools:layout="@layout/order_view_fragment" />
-
+        tools:layout="@layout/discount_code"/>
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.golden.goldencorner.ui.main.favorites.FavoritesFragment"
@@ -138,12 +142,16 @@
             app:destination="@id/editMobileFragment" />
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/nav_terms_and_conditions"
         android:name="com.golden.goldencorner.ui.main.termsAndCondition.TermsAndConditionFragment"
         android:label="@string/terms_and_conditions"
         tools:layout="@layout/terms_and_condition_fragment" />
-
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.golden.goldencorner.ui.payment.PaymentFragment"
+        android:label="@string/terms_and_conditions"
+        tools:layout="@layout/payment_fragment" />
     <fragment
         android:id="@+id/nav_branches"
         android:name="com.golden.goldencorner.ui.main.branches.BranchesFragment"
@@ -170,4 +178,9 @@
         android:name="com.golden.goldencorner.ui.main.profile.EditMobileFragment"
         android:label="fragment_edit_mobile"
         tools:layout="@layout/fragment_edit_mobile" />
+    <fragment
+        android:id="@+id/orderViewFragment"
+        android:name="com.golden.goldencorner.ui.main.orederView.OrderViewFragment"
+        android:label=""
+        tools:layout="@layout/order_view2_fragment" />
 </navigation>

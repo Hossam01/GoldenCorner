@@ -15,6 +15,7 @@ import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.Product;
+import com.golden.goldencorner.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ import butterknife.OnClick;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.JavaHolder> {
 
     private List<Product> dataList = new ArrayList<>();
-    public void fillAdapterData(List<Product> dataList) {
+    Context context;
+    public void fillAdapterData(List<Product> dataList,Context context) {
+        this.context=context;
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
@@ -52,9 +55,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.JavaHolder> {
         } else {
             mHolder.productNameTV.setText(record.getTitleEn());
         }
-        mHolder.productItemsCountTV.setText(record.getQuantity()+"");
-        mHolder.productPriceTV.setText(record.getQuantity()+mContext.getString(R.string.sr));
-        mHolder.totalPriceTV.setText(record.getPrice()+mContext.getString(R.string.sr));
+        if (record.getQuantity()==0.0) {
+            mHolder.productItemsCountTV.setText(record.getQuantity() +1+ "");
+        }
+        else
+            mHolder.productItemsCountTV.setText(record.getQuantity() +"");
+        mHolder.productPriceTV.setText(record.getPrice()+mContext.getString(R.string.sr));
+        mHolder.totalPriceTV.setText(record.getTotalPrice()+mContext.getString(R.string.sr));
 
     }
 
@@ -92,8 +99,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.JavaHolder> {
 
         @OnClick(R.id.deleteBtn)
         public void onDeleteBtnClicked() {
+
+            ((MainActivity)context).removeProductFromCard(dataList.get(getAdapterPosition()));
             dataList.remove(getAdapterPosition());
-            fillAdapterData(dataList);
+
+            //fillAdapterData(dataList);
             notifyDataSetChanged();
         }
 

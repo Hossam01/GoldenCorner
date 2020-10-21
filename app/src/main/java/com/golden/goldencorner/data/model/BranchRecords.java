@@ -1,5 +1,6 @@
 package com.golden.goldencorner.data.model;
 
+import com.golden.goldencorner.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -56,6 +57,16 @@ public class BranchRecords {
     @SerializedName("isSelected")
     @Expose
     private boolean isSelected;
+
+    int background= R.drawable.stroke_bg_red;
+
+    public int getBackground() {
+        return background;
+    }
+
+    public void setBackground(int background) {
+        this.background = background;
+    }
 
     public boolean isOpen() {
         return isOpen;

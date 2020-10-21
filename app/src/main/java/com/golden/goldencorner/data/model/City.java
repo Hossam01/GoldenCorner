@@ -8,7 +8,7 @@ public class City {
     //    @PrimaryKey
     @SerializedName("id")
     @Expose
-    private Long id;
+    private String id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -19,11 +19,12 @@ public class City {
     @Expose
     private Long status;
 
-    public Long getId() {
+    public String getId() {
+
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

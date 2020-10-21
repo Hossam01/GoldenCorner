@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteColor"
 
     tools:context="com.golden.goldencorner.ui.main.profile.ProfileFragment">
 
@@ -26,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/first_name"
+                android:fontFamily="@font/din_next_regular"
                 android:textColor="@color/textColor3"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +39,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
+                android:fontFamily="@font/din_next_regular"
+
                 android:ems="10"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
@@ -51,6 +55,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:fontFamily="@font/din_next_regular"
+
                 android:padding="5dp"
                 android:text="@string/last_name"
                 android:textColor="@color/textColor3"
@@ -64,6 +70,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
+                android:fontFamily="@font/din_next_regular"
+
                 android:ems="10"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName"
@@ -77,6 +85,8 @@
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/din_next_regular"
+
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/email"
@@ -91,6 +101,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
+                android:fontFamily="@font/din_next_regular"
+
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textPersonName"
@@ -102,6 +114,8 @@
             <TextView
                 android:id="@+id/passwordTv"
                 style="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="@font/din_next_regular"
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -118,6 +132,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
+                android:fontFamily="@font/din_next_regular"
+
                 android:ems="10"
                 android:enabled="false"
                 android:hint="@string/password"
@@ -135,6 +151,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:background="@drawable/login_button_shape"
+                android:fontFamily="@font/din_next_regular"
+
                 android:clickable="true"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
@@ -151,6 +169,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:fontFamily="@font/din_next_regular"
+
                 android:padding="5dp"
                 android:text="@string/mobile_number"
                 android:textColor="@color/textColor3"
@@ -167,6 +187,8 @@
                 android:ems="10"
                 android:enabled="false"
                 android:hint="@string/mobile_number"
+                android:fontFamily="@font/din_next_regular"
+
                 android:inputType="phone"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
@@ -184,6 +206,8 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
+                android:fontFamily="@font/din_next_regular"
+
                 android:text="@string/edit"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/mobileNumberET"
@@ -196,6 +220,8 @@
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/din_next_regular"
+
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/my_points"
@@ -210,7 +236,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
+                android:clickable="false"
                 android:ems="10"
+                android:enabled="false"
+                android:focusableInTouchMode="false"
+                android:fontFamily="@font/din_next_regular"
                 android:hint="@string/my_points"
                 android:inputType="textPersonName"
                 android:padding="10dp"
@@ -223,12 +253,14 @@
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="2dp"
                 android:layout_marginVertical="?attr/actionBarSize"
                 android:background="@drawable/login_button_shape"
                 android:clickable="true"
                 android:gravity="center"
                 android:paddingVertical="10dp"
+                android:fontFamily="@font/din_next_regular"
+
                 android:text="@string/save_data"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"

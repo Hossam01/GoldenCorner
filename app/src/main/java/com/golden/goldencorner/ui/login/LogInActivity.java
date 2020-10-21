@@ -21,6 +21,7 @@ import com.golden.goldencorner.data.model.User;
 import com.golden.goldencorner.data.receiver.NetworkReceiver;
 import com.golden.goldencorner.ui.accountActivation.AccountActivationActivity;
 import com.golden.goldencorner.ui.forgetPassword.ForgetPasswordActivity;
+import com.golden.goldencorner.ui.main.MainActivity;
 import com.golden.goldencorner.ui.signup.SignUpActivity;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
@@ -134,7 +135,8 @@ public class LogInActivity extends BaseActivity implements NetworkReceiver.Netwo
     @OnClick({R.id.saveBtn,
             R.id.forgetPasswordBtn,
             R.id.registerBtn,
-            R.id.accountActivateBtn})
+            R.id.accountActivateBtn,
+            R.id.login_activity_close_icn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.saveBtn:
@@ -149,11 +151,19 @@ public class LogInActivity extends BaseActivity implements NetworkReceiver.Netwo
             case R.id.accountActivateBtn:
                 onAccountActivate();
                 break;
+            case R.id.login_activity_close_icn:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+                break;
         }
     }
 
+
+
+
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
 
@@ -184,4 +194,6 @@ public class LogInActivity extends BaseActivity implements NetworkReceiver.Netwo
         }
         mViewModel.invokeLogin(username,password);
     }
+
+
 }

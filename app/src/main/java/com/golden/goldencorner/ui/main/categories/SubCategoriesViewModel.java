@@ -41,7 +41,6 @@ public class SubCategoriesViewModel extends ViewModel {
 //    }
 
 
-
     private MutableLiveData<Resource<List<Category>>> subCategoryByIdLiveData = new MutableLiveData<>();
     public MutableLiveData<Resource<List<Category>>> getSubCategoryByIdLiveData() {
         return subCategoryByIdLiveData;

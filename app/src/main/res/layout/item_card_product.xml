@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:layout_weight="1"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         android:minWidth="100dp"
         android:padding="2dp"
         android:text="Mandy Checken"
@@ -39,90 +39,94 @@
         android:background="@drawable/stroke_bg_red3"
         android:fontFamily="@font/din_next_regular"
         android:gravity="center"
+        android:layout_weight="1"
         android:paddingHorizontal="10dp"
         android:paddingBottom="4dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/delete"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/productIV"
-        app:layout_constraintStart_toEndOf="@+id/productIV">
-
-        <ImageView
-            android:id="@+id/minusBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/login_button_shape4"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="7dp"
-            app:srcCompat="@drawable/ic_minus" />
-
-        <TextView
-            android:id="@+id/productItemsCountTV"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginHorizontal="5dp"
-            android:background="@drawable/text_view_white_bg"
-            android:fontFamily="@font/din_next_regular"
-            android:gravity="center"
-            android:minWidth="100dp"
-            android:text="1"
-            android:textColor="@color/textColor3"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productIV" />
 
         <ImageView
             android:id="@+id/addBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/login_button_shape4"
             android:padding="7dp"
-            app:srcCompat="@drawable/ic_add_24" />
+            app:srcCompat="@drawable/ic_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/productIV"
+            app:layout_constraintStart_toEndOf="@+id/productIV"
+            app:layout_constraintEnd_toStartOf="@id/productItemsCountTV"/>
+
 
         <TextView
-            android:id="@+id/productPriceTV"
+            android:id="@+id/productItemsCountTV"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="1dp"
             android:background="@drawable/text_view_white_bg"
             android:fontFamily="@font/din_next_regular"
             android:gravity="center"
-            android:minWidth="100dp"
-            android:padding="2dp"
-            android:text="30.00 SR"
+            android:minWidth="70dp"
+            android:paddingBottom="4dp"
+            android:text="1"
             android:textColor="@color/textColor3"
-            android:textStyle="bold" />
+            app:layout_constraintBottom_toBottomOf="@+id/productIV"
+            app:layout_constraintStart_toEndOf="@+id/addBtn"
+            app:layout_constraintEnd_toStartOf="@id/minusBtn"/>
 
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/minusBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/login_button_shape4"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="7dp"
+            app:srcCompat="@drawable/ic_minus"
+            app:layout_constraintBottom_toBottomOf="@+id/productIV"
+            app:layout_constraintStart_toEndOf="@+id/productItemsCountTV"
+            app:layout_constraintEnd_toStartOf="@id/productPriceTV"/>
+
+
+
+    <TextView
+        android:id="@+id/productPriceTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:background="@drawable/text_view_white_bg"
+        android:fontFamily="@font/din_next_regular"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:minWidth="70dp"
+        android:text="30.00 SR"
+        android:textColor="@color/textColor3"
+        app:layout_constraintBottom_toBottomOf="@+id/productIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/minusBtn" />
+
+
 
     <TextView
         android:id="@+id/totalPriceHintTV"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@color/gray"
         android:fontFamily="@font/din_next_regular"
-        android:gravity="center"
+        android:gravity="center|end"
         android:minWidth="100dp"
-        android:padding="2dp"
         android:text="@string/total"
+        android:padding="2dp"
         android:textColor="@color/textColor3"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,20 +135,19 @@
 
     <TextView
         android:id="@+id/totalPriceTV"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight="1"
         android:background="@color/gray"
         android:fontFamily="@font/din_next_regular"
-        android:gravity="center|end"
-        android:paddingEnd="50dp"
+        android:gravity="center|start"
         android:minWidth="100dp"
         android:padding="2dp"
+        android:paddingEnd="10dp"
         android:text="30.00 SR"
+
         android:textColor="@color/textColor3"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/totalPriceHintTV"
         app:layout_constraintTop_toBottomOf="@+id/productIV" />

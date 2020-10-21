@@ -10,5 +10,5 @@
     android:text="فرع المحمويه"
     android:layout_gravity="center"
     android:textSize="12sp"
-    android:fontFamily="@font/din_next_bold"
-    android:textAlignment="viewStart"/>
+    android:fontFamily="@font/din_next_regular"
+    />

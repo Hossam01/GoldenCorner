@@ -4,26 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class SimpleModel {
 
-    @SerializedName("field")
-    private int field;
+
     @SerializedName("status")
-    private int status;
+    private String status;
     @SerializedName("message")
     private String message;
 
-    public int getField() {
-        return field;
-    }
 
-    public void setField(int field) {
-        this.field = field;
-    }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

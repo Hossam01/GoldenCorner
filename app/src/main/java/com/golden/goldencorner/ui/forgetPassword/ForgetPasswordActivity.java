@@ -3,31 +3,31 @@ package com.golden.goldencorner.ui.forgetPassword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
-import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.ui.base.BaseActivity;
 import com.golden.goldencorner.ui.changePassword.ChangePasswordActivity;
-import com.golden.goldencorner.ui.login.LogInActivity;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.golden.goldencorner.data.Utils.AppConstant.ACCESS_TOKEN;
-
 public class ForgetPasswordActivity extends BaseActivity {
 
 
     @BindView(R.id.passwordET)
     EditText passwordET;
+    @BindView(R.id.edit_password_activity_close_icn)
+    ImageView edit_password_activity_close_icn;
     @BindView(R.id.sendBtn)
     CircularProgressButton sendBtn;
     private ForgetPasswordViewModel mViewModel;
@@ -52,7 +52,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                                 case SUCCESS:
                                     showProgressBar(false);
                                     showToast(resource.getData().getMessage());
-                                    if (resource.getData().getStatus() != 0) {
+                                    if (Integer.valueOf(resource.getData().getStatus()) != 0) {
                                         navToChangePasswored();
                                     }
                                     break;
@@ -84,13 +84,23 @@ public class ForgetPasswordActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.sendBtn)
-    public void onViewClicked() {
-        String password = passwordET.getText().toString();
-        if (TextUtils.isEmpty(password)){
-            passwordET.setError(getString(R.string.this_field_is_required));
-            return;
+
+
+    @OnClick({R.id.sendBtn,
+            R.id.edit_password_activity_close_icn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.sendBtn:
+                String password = passwordET.getText().toString();
+                if (TextUtils.isEmpty(password)){
+                    passwordET.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                mViewModel.invokeResetPasswordApi(password);
+                break;
+            case R.id.edit_password_activity_close_icn:
+                finish();
+                break;
         }
-        mViewModel.invokeResetPasswordApi(password);
     }
 }

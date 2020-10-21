@@ -22,12 +22,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.Utils.Utils;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
+import com.golden.goldencorner.ui.main.MainActivity;
 import com.golden.goldencorner.ui.main.branches.BranchesViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -69,13 +71,34 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
     CircularProgressButton confirmLocationBtn;
     @BindView(R.id.closeIV)
     ImageView closeIV;
-
+    String state = null;
+    String map_location = null;
     private GoogleMap mMap;
     private BranchesViewModel mViewModel;
     private FusedLocationProviderClient fusedLocationClient;
-//    private Location location;
+    private LatLng latLng;
+    AddressesViewModel playerViewModel;
+    private EditNameDialogListener listener;
+
+    //    private Location location;
     private String currentAddress;
 //    private Location currentLocation;
+    public SendDataLocation sendDataLocation;
+    ShareViewModel viewModel;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            // Instantiate the EditNameDialogListener so we can send events to the host
+            listener = (MapFragment.EditNameDialogListener) context;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(context.toString()
+                    + " must implement EditNameDialogListener");
+        }
+    }
+
 
     @Override
     public int getTheme() {
@@ -86,12 +109,16 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mViewModel = ViewModelProviders.of(this)
                 .get(BranchesViewModel.class);
+         playerViewModel = ViewModelProviders.of(getActivity()).get(AddressesViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(ShareViewModel.class);
         setUpMapUi();
     }
 
@@ -151,6 +178,9 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
             mMap.addMarker(markerOptions);
             //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
+            mapLocationTV.setText(currentAddress);
+            this.latLng=latLng;
+
         }
     }
 //    private void addMarkerToMap(@NonNull LatLng latLng) {
@@ -287,12 +317,6 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
 
     @Override
     public void onMarkerDrag(Marker marker) {
-
-    }
-
-    private LatLng latLng;
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
         mMap.clear();
         mapLocationTV.setText(marker.getTitle());
         latLng = marker.getPosition();
@@ -302,10 +326,23 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
         state = mViewModel.getAddress(getContext(), latLng);
         map_location = marker.getTitle();
     }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        mMap.clear();
+        latLng = marker.getPosition();
+//        lat = (long) latLng.latitude;
+//        lang = (long) latLng.longitude;
+        addMarkerToMap(latLng);
+        state = mViewModel.getAddress(getContext(), latLng);
+
+        map_location = marker.getTitle();
+        mapLocationTV.setText(marker.getTitle());
+
+    }
 //    long lat = 0;
 //    long lang = 0;
-    String state = null;
-    String map_location = null;
+
     @OnClick(R.id.confirmLocationBtn)
     public void onConfirmLocationBtnClicked() {
 //        Bundle result = new Bundle();
@@ -314,11 +351,15 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
 //        result.putString(AppConstant.STATE, state);
 //        result.putString(AppConstant.MAP_LOCATION, map_location);
 
+
         SharedPreferencesManager.put(AppConstant.LATITUDE, (long) latLng.latitude);
         SharedPreferencesManager.put(AppConstant.LONGITUDE, (long)  latLng.longitude);
         SharedPreferencesManager.put(AppConstant.STATE, state);
-        SharedPreferencesManager.put(AppConstant.MAP_LOCATION, map_location);
-
+        SharedPreferencesManager.put(AppConstant.MAP_LOCATION, currentAddress);
+        listener.onFinishEditDialog(currentAddress);
+        listener.onFinishEditDialog(currentAddress);
+        ((MainActivity)getActivity()).navToDestination(R.id.nav_add_address);
+        dismiss();
     }
 
     @OnClick(R.id.closeIV)
@@ -352,26 +393,29 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
 //        }
 //        return currentAddress;
 //    }
-//    public String getAddress(@NonNull Context mContext, @NonNull Location location) {
-//        if (location == null) return null;
-//        String currentAddress = null;
-//        if (currentAddress == null) {
-//            try {
-//                Geocoder geocoder = null;
-//                String language =  SharedPreferencesManager.getString(AppConstant.FLAG_CURRENT_LANGUAGE);
-//                if (!TextUtils.isEmpty(language) && language.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE))
-//                    geocoder = new Geocoder(mContext, new Locale(language));
-//                else
-//                    geocoder = new Geocoder(mContext, Locale.getDefault());
-//                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-//                        location.getLongitude(), 1);
-//                Address mAddress = addresses.get(0);
-//                currentAddress = mAddress.getAddressLine(0);
-//            } catch (Exception e) {
-//                Utils.getInstance().LogError(TAG, e.getMessage());
-//            }
-//        }
-//        return currentAddress;
-//    }
+    public String getAddress(@NonNull Context mContext, @NonNull Location location) {
+        if (location == null) return null;
+        String currentAddress = null;
+        if (currentAddress == null) {
+            try {
+                Geocoder geocoder = null;
+                String language =  SharedPreferencesManager.getString(AppConstant.FLAG_CURRENT_LANGUAGE);
+                if (!TextUtils.isEmpty(language) && language.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE))
+                    geocoder = new Geocoder(mContext, new Locale(language));
+                else
+                    geocoder = new Geocoder(mContext, Locale.getDefault());
+                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
+                        location.getLongitude(), 1);
+                Address mAddress = addresses.get(0);
+                currentAddress = mAddress.getAddressLine(0);
+            } catch (Exception e) {
+                Utils.getInstance().LogError(TAG, e.getMessage());
+            }
+        }
+        return currentAddress;
+    }
 
+    public interface EditNameDialogListener {
+        void onFinishEditDialog(String inputText);
+    }
 }

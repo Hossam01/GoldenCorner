@@ -3,7 +3,9 @@ package com.golden.goldencorner.ui.changePassword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,6 +27,8 @@ import static com.golden.goldencorner.data.Utils.AppConstant.ACCESS_TOKEN;
 public class ChangePasswordActivity extends BaseActivity {
 
 
+    @BindView(R.id. edit_password_activity_close_icn)
+    ImageView  edit_password_activity_close_icn;
     @BindView(R.id.codeNumberET)
     EditText codeNumberET;
     @BindView(R.id.newMovbileET)
@@ -56,7 +60,7 @@ public class ChangePasswordActivity extends BaseActivity {
                                 case SUCCESS:
                                     showProgressBar(false);
                                     showToast(resource.getData().getMessage());
-                                    if (resource.getData().getStatus() != 0) {
+                                    if (Integer.valueOf(resource.getData().getStatus()) != 0) {
                                         navToLogin();
                                     }
                                     break;
@@ -87,34 +91,41 @@ public class ChangePasswordActivity extends BaseActivity {
             loginBtn.setBackground(this.getDrawable(R.drawable.login_button_shape));
         }
     }
-    @OnClick(R.id.saveBtn)
-    public void onViewClicked() {
-        String codeNumber = codeNumberET.getText().toString();
-        String new_password = new_passwored_ET.getText().toString();
-        String confirm_pass_edit = confirm_pass_edit_text.getText().toString();
-        if (TextUtils.isEmpty(codeNumber)){
-            codeNumberET.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (TextUtils.isEmpty(new_password)){
-            new_passwored_ET.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (TextUtils.isEmpty(confirm_pass_edit)){
-            confirm_pass_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (!new_password.equalsIgnoreCase(confirm_pass_edit)){
-            showToast(getString(R.string.password_not_match));
-            return;
-        }
-        String accessToken = SharedPreferencesManager.getString(ACCESS_TOKEN);
-        mViewModel.invokeResetPasswordApi(accessToken, new_password);
+    @OnClick({R.id.saveBtn,R.id.edit_password_activity_close_icn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.saveBtn:
+                String codeNumber = codeNumberET.getText().toString();
+                String new_password = new_passwored_ET.getText().toString();
+                String confirm_pass_edit = confirm_pass_edit_text.getText().toString();
+                if (TextUtils.isEmpty(codeNumber)) {
+                    codeNumberET.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(new_password)) {
+                    new_passwored_ET.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(confirm_pass_edit)) {
+                    confirm_pass_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (!new_password.equalsIgnoreCase(confirm_pass_edit)) {
+                    showToast(getString(R.string.password_not_match));
+                    return;
+                }
+                String accessToken = SharedPreferencesManager.getString(ACCESS_TOKEN);
+                mViewModel.invokeResetPasswordApi(accessToken, new_password);
 //        if (TextUtils.isEmpty(accessToken)){
 //            showToast(getString(R.string.password_not_match));
 //        } else {
 //            mViewModel.invokeResetPasswordApi(accessToken, new_password);
 //        }
+                break;
+            case R.id.edit_password_activity_close_icn:
+                finish();
+                break;
+        }
     }
 
 }

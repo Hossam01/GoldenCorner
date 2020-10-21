@@ -9,18 +9,17 @@
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/langLiftBtn"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@drawable/language_btn_bg"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         android:gravity="center"
         android:paddingBottom="3dp"
         android:text="@string/en"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +31,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@drawable/language_btn_bg"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         android:gravity="center"
         android:paddingBottom="3dp"
         android:text="@string/arabic"
@@ -43,18 +42,17 @@
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/skipLiftBtn"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@drawable/language_btn_bg"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         android:gravity="center"
         android:paddingBottom="3dp"
         android:text="@string/skip_en"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,7 +64,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@drawable/language_btn_bg"
-        android:fontFamily="@font/din_next_bold"
+        android:fontFamily="@font/din_next_regular"
         android:gravity="center"
         android:paddingBottom="3dp"
         android:text="@string/skipp_ar"

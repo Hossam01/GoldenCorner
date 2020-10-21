@@ -2,7 +2,9 @@ package com.golden.goldencorner.ui.main.addresses;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,6 +16,7 @@ import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.data.remote.RetrofitProvider;
 
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -25,6 +28,21 @@ public class AddressesViewModel extends ViewModel {
     public MutableLiveData<Meta> getMetaLiveData() {
         return metaLiveData;
     }
+
+    private final MutableLiveData<String> selectedPlayer = new MutableLiveData<>();
+
+    public LiveData<String> getSelectedPlayer() {
+        return selectedPlayer;
+    }
+
+    public void selectPlayer(String player) {
+        selectedPlayer.setValue(player);
+    }
+
+
+
+
+
 
     // get Saved Addresses
     private MutableLiveData<Resource<List<AddressRecords>>> addressesLiveData = new MutableLiveData<>();
@@ -65,6 +83,7 @@ public class AddressesViewModel extends ViewModel {
                     metaLiveData.setValue(addressResponse.getData().get(0).getMeta());
                 }, throwable -> {
                     addressesLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.i("error",throwable.getMessage());
                 });
     }
 

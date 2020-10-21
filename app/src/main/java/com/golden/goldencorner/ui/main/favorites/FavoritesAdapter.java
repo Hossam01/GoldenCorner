@@ -89,9 +89,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Late
         TextView priceFavTV;
         @BindView(R.id.viewLineBottom)
         View viewLineBottom;
+        Context context;
 
         public LatestProductHolder(View view) {
             super(view);
+            this.context=view.getContext();
             ButterKnife.bind(this, view);
         }
 
@@ -101,6 +103,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Late
                 mListener.onAddToCart(dataList.get(getAdapterPosition()).getProduct());
                 dataList.remove(getAdapterPosition());
                 notifyDataSetChanged();
+
             }
         }
 

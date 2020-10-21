@@ -19,40 +19,43 @@
         android:layout_marginVertical="32dp"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/back"
-        android:padding="10dp"
+        android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back" />
+        app:srcCompat="@drawable/icon_auto_mirrored" />
 
     <TextView
         android:id="@+id/signup_activity_signup_txt"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="27dp"
         android:gravity="center"
         android:text="@string/new_account_signup"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:fontFamily="@font/din_next_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:paddingTop="10dp"
         app:cardBackgroundColor="@color/whiteColor"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_activity_signup_txt">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -62,15 +65,16 @@
 
                 <TextView
                     android:id="@+id/signup_activity_firstname_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/first_name"
-                    android:textColor="@color/colorText"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintBottom_toTopOf="@+id/signup_activity_firstname_edit_text"
                     app:layout_constraintStart_toStartOf="@+id/signup_activity_firstname_edit_text"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <EditText
                     android:id="@+id/signup_activity_firstname_edit_text"
@@ -81,6 +85,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/first_name"
                     android:inputType="textPersonName"
                     android:paddingHorizontal="8dp"
@@ -95,15 +100,16 @@
 
                 <TextView
                     android:id="@+id/signup_activity_family_name_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/family_name"
-                    android:textColor="@color/colorText"
                     android:layout_marginTop="15dp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/din_next_regular"
+                    android:text="@string/family_name"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintStart_toStartOf="@+id/signup_activity_firstname_edit_text"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_firstname_edit_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_firstname_edit_text"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <EditText
                     android:id="@+id/signup_activity_family_name_edit_text"
@@ -114,6 +120,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/family_name"
                     android:inputType="textPersonName"
                     android:paddingHorizontal="8dp"
@@ -127,16 +134,17 @@
 
                 <TextView
                     android:id="@+id/signup_activity_phone_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/phone_number"
-                    android:textColor="@color/colorText"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_family_name_edit_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_family_name_edit_text"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <EditText
                     android:id="@+id/signup_activity_phone_edit_text"
@@ -147,6 +155,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/phone_number"
                     android:inputType="phone"
                     android:paddingHorizontal="8dp"
@@ -158,17 +167,18 @@
 
                 <TextView
                     android:id="@+id/signup_activity_email_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/email"
-                    android:textColor="@color/colorText"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintBottom_toTopOf="@+id/signup_activity_email_edit_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_phone_edit_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_phone_edit_text"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
                     android:id="@+id/optional"
@@ -176,6 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/optional"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBaseline_toBaselineOf="@+id/signup_activity_email_txt"
@@ -190,6 +201,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="8dp"
@@ -200,17 +212,18 @@
 
                 <TextView
                     android:id="@+id/signup_activity_password_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/password"
-                    android:textColor="@color/colorText"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintBottom_toTopOf="@+id/signup_activity_password_edit_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_email_edit_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_email_edit_text"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <EditText
                     android:id="@+id/signup_activity_password_edit_text"
@@ -221,6 +234,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:paddingStart="8dp"
@@ -231,22 +245,23 @@
                     android:textColor="@color/colorText"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/signup_activity_password_txt" />
 
                 <TextView
                     android:id="@+id/signup_activity_password_confirm_txt"
-                    style="@style/TextAppearance.AppCompat.Medium"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/confirm_password"
-                    android:textColor="@color/colorText"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_password_edit_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_password_edit_text"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <EditText
                     android:id="@+id/signup_activity_password__confirm_edit_text"
@@ -257,6 +272,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/din_next_regular"
                     android:hint="@string/confirm_password"
                     android:inputType="textPassword"
                     android:paddingStart="8dp"
@@ -273,21 +289,21 @@
 
                 <CheckBox
                     android:id="@+id/signup_activity_rules_checkbox"
-                    android:layout_width ="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginStart="22dp"
                     android:layout_marginTop="22dp"
                     android:layout_marginBottom="10dp"
-                    android:buttonTint="@android:color/transparent"
                     android:background="@drawable/check_box_bg"
+                    android:buttonTint="@android:color/transparent"
+                    android:checked="false"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:checked="false"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_password__confirm_edit_text"
                     app:layout_constraintBottom_toTopOf="@+id/signupBtn"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_password__confirm_edit_text" />
 
-<!--                checked
+                <!--                checked
 
 android:background="@drawable/check_box_selector"-->
                 <TextView
@@ -296,6 +312,7 @@ android:background="@drawable/check_box_selector"-->
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/_09665xxxxxxxx"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBaseline_toBaselineOf="@+id/signup_activity_phone_txt"
@@ -305,11 +322,12 @@ android:background="@drawable/check_box_selector"-->
                     android:id="@+id/signup_activity_rules_txt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="-4dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/din_next_regular"
                     android:text="@string/accept_terms"
-                    android:textColor="@color/colorText"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="@+id/signup_activity_rules_checkbox"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/signup_activity_rules_checkbox"
@@ -325,14 +343,15 @@ android:background="@drawable/check_box_selector"-->
                     android:background="@drawable/login_button_shape"
                     android:clickable="true"
                     android:focusable="true"
+                    android:fontFamily="@font/din_next_regular"
                     android:gravity="center"
                     android:padding="7dp"
                     android:text="@string/signup"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_rules_checkbox"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signup_activity_rules_checkbox" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

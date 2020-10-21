@@ -9,7 +9,6 @@ public class SimpleResponse {
     @SerializedName("status")
     private String status;
     @SerializedName("data")
-    @NotNull
     private List<SimpleModel> data;
 
     public String getStatus() {

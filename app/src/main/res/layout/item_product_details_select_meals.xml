@@ -15,6 +15,7 @@
         android:fontFamily="@font/din_next_regular"
         style="@style/TextAppearance.AppCompat.Small"
         android:padding="5dp"
+        app:buttonTint="@color/colorPrimary"
         android:textColor="@color/textColor3"
         android:layout_marginHorizontal="5dp"
         app:layout_constraintBottom_toBottomOf="parent"

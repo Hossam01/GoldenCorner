@@ -39,10 +39,13 @@ import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.BranchRecords;
+import com.golden.goldencorner.data.model.DataItemTerms;
 import com.golden.goldencorner.data.model.Product;
 import com.golden.goldencorner.data.receiver.NetworkReceiver;
+import com.golden.goldencorner.ui.ViewDialog;
 import com.golden.goldencorner.ui.base.BaseActivity;
 import com.golden.goldencorner.ui.login.LogInActivity;
+import com.golden.goldencorner.ui.main.addresses.MapFragment;
 import com.golden.goldencorner.ui.main.latestProducts.LastProductsFragment;
 import com.golden.goldencorner.ui.main.mostRequested.MustRequestedFragment;
 import com.golden.goldencorner.ui.main.offers.OffersFragment;
@@ -65,7 +68,7 @@ import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 import static com.golden.goldencorner.ui.main.offers.ProductsFragment.SELECTED_FRAGMENT_NAME;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener, AdapterView.OnItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+        View.OnClickListener, AdapterView.OnItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener, MapFragment.EditNameDialogListener {
 
 
     public static final String TAG = MainActivity.class.getName();
@@ -94,7 +97,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.mDilatingDotsProgressBar)
     DilatingDotsProgressBar mDilatingDotsProgressBar;
-
+    boolean value=false;
     private NavController navController;
     private AppBarConfiguration mAppBarConfiguration;
     private TextView loginNavHeaderTV;
@@ -116,6 +119,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        hideNavigation();
         subscribeBranchesObserver();
         rxPermissions = new RxPermissions(this);
+        ArrayList<DataItemTerms> arrayList=new ArrayList<>();
+        try {
+            value = getIntent().getExtras().getBoolean("move", false);
+        }catch (NullPointerException e)
+        {}
+        if (value) {
+
+                navToDestination(R.id.nav_terms_and_conditions);
+            }
+
+
     }
 
     private ArrayAdapter<String> branchesSpinnerAdapter = null;
@@ -155,9 +169,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             else
                 branchesSpinnerAdapter.add(records.getNameEn());
         }
+
         branchesSpinnerAdapter.notifyDataSetChanged();
     }
 
+    public void setPromot(int text)
+    {
+        spinnerToolbar.setSelection(text);
+
+    }
     private void setUpUiViews() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
@@ -177,6 +197,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (TextUtils.isEmpty(SharedPreferencesManager.getString(AppConstant.SELECTED_BRANCH_NAME))) {
             navToDestination(R.id.nav_branches);
         }
+        if (SharedPreferencesManager.getString(UserName)!=null)
+            navigationView.getMenu().removeItem(R.id.nav_signup_drawer);
+
     }
 
     private void fillViewOnLogin() {
@@ -192,6 +215,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             Glide.with(getApplicationContext()).load(R.drawable.menuico_person_62).into(logoNavHeaderIV);
         }
+        if (SharedPreferencesManager.getString(UserName)!=null)
+            navigationView.getMenu().removeItem(R.id.nav_signup_drawer);
     }
 
     private void hideNavigation() {
@@ -265,7 +290,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.nav_account:
             case R.id.nav_account_drawer:
-                navToDestination(R.id.nav_account);
+                if (SharedPreferencesManager.getString(UserName) != null) {
+                    navToDestination(R.id.nav_account);
+                }
+                else {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MainActivity.this);
+                }
+
                 break;
             case R.id.nav_branches:
                 navToDestination(R.id.nav_branches);
@@ -287,16 +319,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.nav_addresses:
             case R.id.nav_addresses_drawer:
-                navToDestination(R.id.nav_addresses);
+                if (SharedPreferencesManager.getString(UserName) != null) {
+                    navToDestination(R.id.nav_addresses);
+                }
+                else {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MainActivity.this);
+                }
+
                 break;
             case R.id.nav_favorites:
             case R.id.nav_favorites_drawer:
-                navToDestination(R.id.nav_favorites);
+                if (SharedPreferencesManager.getString(UserName) != null) {
+                    navToDestination(R.id.nav_favorites);
+                }
+                else {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MainActivity.this);
+                }
+
                 break;
             case R.id.nav_my_orders:
             case R.id.nav_my_orders_bottom:
             case R.id.nav_my_orders_drawer:
-                navToDestination(R.id.nav_my_orders);
+                if (SharedPreferencesManager.getString(UserName) != null) {
+                    navToDestination(R.id.nav_my_orders);
+                }
+                else {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MainActivity.this);
+                }
                 break;
             case R.id.nav_language_setting:
             case R.id.nav_language_setting_drawer:
@@ -426,26 +478,34 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     // spinner click listener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        spinnerToolbar.setSelection(position);
         ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
         if (!isSpinnerFirstTime) {
             isSpinnerFirstTime = true;
             return;
         }
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(getString(R.string.added_delete))
-                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveSelectedBranch(dataList.get(position));
+        if (cardListProducts.size()>0) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setMessage(getString(R.string.added_delete))
+                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveSelectedBranch(dataList.get(position));
+                            clearCardListProducts();
 
-                    }
-                })
-                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+                        }
+
+                    })
+                    .setNegativeButton(getString(R.string.off), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(false)
+                    .show();
+        }
     }
 
     @Override
@@ -478,6 +538,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return SharedPreferencesManager.getLong(AppConstant.SELECTED_BRANCH_NAME);
     }
 
+
+
+
+    public void savename(String name) {
+        SharedPreferencesManager.put("Edit",name);
+    }
+
+    public String getName() {
+        return SharedPreferencesManager.getString("Edit");
+    }
+
     public String getAccessToken() {
         return SharedPreferencesManager.getString(ACCESS_TOKEN);
     }
@@ -494,7 +565,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void removeProductFromCard(Product product) {
         this.cardListProducts.remove(product);
-        cartCountIV.setText(cardListProducts.size() + "");
+        if (cardListProducts.size()==0)
+        {
+            cartCountIV.setVisibility(View.INVISIBLE);
+        }else {
+            cartCountIV.setText(cardListProducts.size() + "");
+        }
     }
 
     public void clearCardListProducts() {
@@ -507,4 +583,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return rxPermissions;
     }
 
+    private String myString = "hello";
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        myString=inputText;
+    }
+    public String getMyData() {
+        return myString;
+    }
 }

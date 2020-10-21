@@ -22,6 +22,7 @@ import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.Product;
 import com.golden.goldencorner.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,7 +40,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
     private SubCategoriesViewModel mViewModel;
     private Long categoryID = null;
     private String categoryTitle="";
-    Resource<List<Category>> listResource;
+    ArrayList<Category> listResource=new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_sub_categories, container, false);
     }
@@ -104,6 +105,7 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
                                     showProgressBar(false);
 //                                    mDilatingDotsProgressBar.setNumberOfDots(resource.getData().size());
                                     mRoundedAdapter.fillAdapterData(resource.getData());
+                                    listResource.addAll(resource.getData());
                                     break;
                                 case ERROR:
                                     showProgressBar(false);
@@ -153,12 +155,29 @@ public class SubCategoriesFragment extends Fragment implements SubCategoryProduc
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstant.PRODUCT_ID, record.id);
         bundle.putString("image", record.getImage());
+       // ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
         ((MainActivity) getActivity()).navToDestination(R.id.nav_order_view, bundle);
     }
 
     @Override
-    public void onSubCategoriesClicked(Category record) {
+    public void onAddToCartClickedDetails(Product record) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstant.PRODUCT_ID, record.id);
+        bundle.putString("image", record.getImage());
+        ((MainActivity) getActivity()).navToDestination(R.id.orderViewFragment, bundle);
+    }
+
+    @Override
+    public void onSubCategoriesClicked(Category record,int position) {
         long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
+
+        for (int i = 0; i < listResource.size(); i++) {
+            listResource.get(i).setBackground(R.drawable.rounded_stroke_bg);
+        }
+        listResource.get(position).setBackground(R.drawable.rounded_stroke_bg_accent);
+        mRoundedAdapter.notifyDataSetChanged();
+
+
         if (branchId >= 1 && meta != null) {
             Log.d("Catrory",record.getTitle().toString());
            // mViewModel.invokeProductsBySubCategoryIdApi(categoryID, meta.getNumberOfPage());

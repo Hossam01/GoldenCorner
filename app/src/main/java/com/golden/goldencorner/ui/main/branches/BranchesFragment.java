@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,7 +217,8 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
             }
             mMap.addMarker(markerOptions);
            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 11.0f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 25.0f));
+
         }
     }
 
@@ -330,16 +332,26 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
         ((MainActivity) getActivity()).navToDestination(R.id.nav_home);
     }
 
+
     @Override
     public void onSelectBranch(BranchRecords record, int position) {
         Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
         for (int i = 0; i < dataList.size(); i++) {
             record.setSelected(false);
+            dataList.get(i).setBackground(R.drawable.stroke_bg_red);
         }
+        dataList.get(position).setBackground(R.drawable.stroke_bg_red2);
         dataList.get(position).setSelected(true);
         branchTitleTV.setText(record.getName());
         ((MainActivity)getActivity()).saveSelectedBranch(record);
-        mAdapter.fillAdapterData(dataList);
         addMarkerToMap(new LatLng((dataList.get(position).getLat()),(dataList.get(position).getLang())));
+        ((MainActivity) getActivity()).setPromot(position);
+
+        mAdapter.fillAdapterData(dataList);
+
+
+
+        Log.d("position",""+position+""+branchId);
+
     }
 }

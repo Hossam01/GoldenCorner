@@ -37,6 +37,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
+        android:theme="@style/Widget.BottomNavigationView"
         app:menu="@menu/bottom_nav_menu" />
 
     <include layout="@layout/dilating_dot_progress_bar"/>

@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.Observer;
@@ -14,11 +16,16 @@ import androidx.lifecycle.ViewModelProviders;
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.Utils.Utils;
+import com.golden.goldencorner.data.model.DataItemTerms;
+import com.golden.goldencorner.data.model.ResponseTerms;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.data.receiver.NetworkReceiver;
 import com.golden.goldencorner.ui.accountActivation.AccountActivationActivity;
 import com.golden.goldencorner.ui.base.BaseActivity;
+import com.golden.goldencorner.ui.main.MainActivity;
 import com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar;
+
+import java.util.ArrayList;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
@@ -28,6 +35,8 @@ import butterknife.OnClick;
 public class SignUpActivity extends BaseActivity implements NetworkReceiver.NetworkReceiverListener {
 
 
+    @BindView(R.id.signup_activity_close_icn)
+    ImageView signup_activity_close_icn;
     @BindView(R.id.signup_activity_firstname_edit_text)
     EditText signup_activity_firstname_edit_text;
     @BindView(R.id.signup_activity_family_name_edit_text)
@@ -48,21 +57,46 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
     CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.mDilatingDotsProgressBar)
     DilatingDotsProgressBar mDilatingDotsProgressBar;
-
+    @BindView(R.id. signup_activity_rules_txt)
+    TextView signup_activity_rules_txt;
     private SignUpViewModel mViewModel;
+    boolean move = false;
 
-
+    ArrayList<DataItemTerms> terms=new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         ButterKnife.bind(this);
         mViewModel = ViewModelProviders.of(this)
                 .get(SignUpViewModel.class);
         NetworkReceiver.getInstance().setNetworkReceiverListener(this);
         subscribeObserver();
+        subscribeObserverterm();
 
 
+
+    }
+    private void subscribeObserverterm() {
+        mViewModel.getTermsLiveData().observe(this,
+                new Observer<Resource<ResponseTerms>>() {
+                    @Override
+                    public void onChanged(Resource<ResponseTerms> resource) {
+                        if (resource != null) {
+                            switch (resource.getStatus()) {
+                                case SUCCESS:
+                                    ResponseTerms data = resource.getData();
+                                    terms.addAll(resource.getData().getData());
+                                    break;
+                                case ERROR:
+                                    break;
+                                case LOADING:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     private void subscribeObserver() {
@@ -106,55 +140,74 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
     }
 
 
-    @OnClick(R.id.signupBtn)
-    public void onSignupBtnClicked() {
-        String firstname_edit_text = signup_activity_firstname_edit_text.getText().toString();
-        String family_name_edit_text = signup_activity_family_name_edit_text.getText().toString();
-        String phone_edit_text = signup_activity_phone_edit_text.getText().toString();
-        String email_edit_text = signup_activity_email_edit_text.getText().toString();
-        String password_edit_text = signup_activity_password_edit_text.getText().toString();
-        String password__confirm_edit_text = signup_activity_password__confirm_edit_text.getText().toString();
+    @OnClick({R.id.signupBtn,R.id.signup_activity_close_icn,R.id.signup_activity_rules_txt})
+    public void onSignupBtnClicked(View view) {
+        switch (view.getId()) {
+            case R.id.signupBtn:
+                String firstname_edit_text = signup_activity_firstname_edit_text.getText().toString();
+                String family_name_edit_text = signup_activity_family_name_edit_text.getText().toString();
+                String phone_edit_text = signup_activity_phone_edit_text.getText().toString();
+                String email_edit_text = signup_activity_email_edit_text.getText().toString();
+                String password_edit_text = signup_activity_password_edit_text.getText().toString();
+                String password__confirm_edit_text = signup_activity_password__confirm_edit_text.getText().toString();
 
-        if (TextUtils.isEmpty(firstname_edit_text)){
-            signup_activity_firstname_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
+                if (TextUtils.isEmpty(firstname_edit_text)) {
+                    signup_activity_firstname_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(family_name_edit_text)) {
+                    signup_activity_family_name_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(phone_edit_text)) {
+                    signup_activity_phone_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(email_edit_text)) {
+                    signup_activity_email_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (!mViewModel.isEmailValid(email_edit_text)) {
+                    signup_activity_email_edit_text.setError(getString(R.string.invalid_email));
+                    return;
+                }
+                if (TextUtils.isEmpty(password_edit_text)) {
+                    signup_activity_password_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(password__confirm_edit_text)) {
+                    signup_activity_password__confirm_edit_text.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (!password__confirm_edit_text.equals(password_edit_text)) {
+                    showToast(getString(R.string.password_not_match));
+                }
+                if (signup_activity_rules_checkbox.isChecked()) {
+                    showToast(getString(R.string.accept_terms_and_conditions_please));
+                }
+                mViewModel.invokeSignUp(firstname_edit_text,
+                        family_name_edit_text,
+                        phone_edit_text,
+                        password_edit_text,
+                        password__confirm_edit_text,
+                        email_edit_text);
+                break;
+            case R.id.signup_activity_close_icn:
+                finish();
+                break;
+            case R.id.signup_activity_rules_txt:
+                move=true;
+                Intent intent=new Intent(SignUpActivity.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("move", move);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+
+
+                break;
         }
-        if (TextUtils.isEmpty(family_name_edit_text)){
-            signup_activity_family_name_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (TextUtils.isEmpty(phone_edit_text)){
-            signup_activity_phone_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (TextUtils.isEmpty(email_edit_text)){
-            signup_activity_email_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (!mViewModel.isEmailValid(email_edit_text)){
-            signup_activity_email_edit_text.setError(getString(R.string.invalid_email));
-            return;
-        }
-        if (TextUtils.isEmpty(password_edit_text)){
-            signup_activity_password_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (TextUtils.isEmpty(password__confirm_edit_text)){
-            signup_activity_password__confirm_edit_text.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        if (!password__confirm_edit_text.equals(password_edit_text)) {
-                showToast(getString(R.string.password_not_match));
-        }
-        if (signup_activity_rules_checkbox.isChecked()){
-            showToast(getString(R.string.accept_terms_and_conditions_please));
-        }
-        mViewModel.invokeSignUp(firstname_edit_text,
-                family_name_edit_text,
-                phone_edit_text,
-                password_edit_text,
-                password__confirm_edit_text,
-                email_edit_text);
+
 
     }
 
@@ -187,6 +240,7 @@ public class SignUpActivity extends BaseActivity implements NetworkReceiver.Netw
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
+
 
 
 }

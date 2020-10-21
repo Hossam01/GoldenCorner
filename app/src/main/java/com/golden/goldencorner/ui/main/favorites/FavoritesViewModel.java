@@ -1,30 +1,18 @@
 package com.golden.goldencorner.ui.main.favorites;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.golden.goldencorner.data.Resource;
-import com.golden.goldencorner.data.model.FavData;
 import com.golden.goldencorner.data.model.FavDataList;
-import com.golden.goldencorner.data.model.FavResponse;
 import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.data.remote.RetrofitProvider;
-import com.google.gson.Gson;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FavoritesViewModel extends ViewModel {
 
@@ -38,7 +26,6 @@ public class FavoritesViewModel extends ViewModel {
     public MutableLiveData<Resource<List<FavDataList>>> getFavLiveData() {
         return FavLiveData;
     }
-    private Handler mHandler = new Handler(Looper.getMainLooper());
     public void invokeFavoritesApi(String token, long page) {
         FavLiveData.setValue(Resource.loading());
         RetrofitProvider.getClient().getProductsFavs(page, token)

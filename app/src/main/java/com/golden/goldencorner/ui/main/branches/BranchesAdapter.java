@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ import butterknife.ButterKnife;
 public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.BranchHolder> {
 
     private List<BranchRecords> dataList = new ArrayList<>();
+//    List<LinearLayout>cardViewList = new ArrayList<>();
+    LinearLayout branch;
     public void fillAdapterData(List<BranchRecords> dataList) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
@@ -47,6 +50,21 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
 
     @Override
     public void onBindViewHolder(@NonNull BranchHolder mHolder, int position) {
+
+        branch=mHolder.branch;
+
+//        if (!cardViewList.contains(mHolder.branch)) {
+//            cardViewList.add(mHolder.branch);
+//        }
+//        mHolder.branch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+
+        mHolder.branch.setBackgroundResource(dataList.get(position).getBackground());
         String currentLang = SharedPreferencesManager.getCurrentLang();
         if (currentLang.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE)) {
             mHolder.branchTitleTV.setText(dataList.get(position).getName());
@@ -54,6 +72,8 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
             mHolder.branchTitleTV.setText(dataList.get(position).getNameEn());
         }
 
+        mHolder.time.setText(dataList.get(position).getOpenTime()+"  "+dataList.get(position).getClosedTime());
+       
         mHolder.branchDistanceTV.setText(dataList.get(position).getDistance());
         Context mContext = mHolder.itemView.getContext();
         Glide.with(mContext).load(dataList.get(position)
@@ -111,8 +131,15 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
         TextView branchDistanceTV;
         @BindView(R.id.openIV)
         ImageView openIV;
+        @BindView(R.id.time)
+        TextView time;
+
         @BindView(R.id.openTV)
         TextView openTV;
+        @BindView(R.id.branch)
+         LinearLayout branch;
+
+
 
         public BranchHolder(View view) {
             super(view);

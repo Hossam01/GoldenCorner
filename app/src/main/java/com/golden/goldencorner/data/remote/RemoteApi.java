@@ -22,8 +22,8 @@ import com.golden.goldencorner.data.model.OrderResponse;
 import com.golden.goldencorner.data.model.ProductDetailResponse;
 import com.golden.goldencorner.data.model.ProductResponse;
 import com.golden.goldencorner.data.model.ProfileResponse;
+import com.golden.goldencorner.data.model.ResponseTerms;
 import com.golden.goldencorner.data.model.SimpleResponse;
-import com.golden.goldencorner.data.model.TermsAndConditionsRecords;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +37,6 @@ import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -121,7 +120,7 @@ public interface RemoteApi {
                                                    @Field("activation_code") String activation_code);
 
     @GET("golden/api/web/v1/site/term")
-    Single<TermsAndConditionsRecords> getTermsAndConditions();
+    Single<ResponseTerms> getTermsAndConditions();
 
     @GET("golden/api/web/v1/site/about")
     Single<AboutResponse> getAboutUs();

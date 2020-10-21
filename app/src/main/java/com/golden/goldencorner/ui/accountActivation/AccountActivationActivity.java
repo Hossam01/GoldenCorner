@@ -3,10 +3,10 @@ package com.golden.goldencorner.ui.accountActivation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -24,7 +24,8 @@ import butterknife.OnClick;
 
 public class AccountActivationActivity extends BaseActivity {
 
-
+    @BindView(R.id.edit_password_activity_close_icn)
+    ImageView edit_password_activity_close_icn;
     @BindView(R.id.mobileNumberET)
     EditText mobileNumberET;
     @BindView(R.id.codeTVET)
@@ -90,18 +91,29 @@ public class AccountActivationActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.activateBtn)
-    public void onViewClicked() {
-        String mobileNumber = mobileNumberET.getText().toString();
-        String codeTV = codeTVET.getText().toString();
-        if (TextUtils.isEmpty(mobileNumber)){
-            mobileNumberET.setError(getString(R.string.this_field_is_required));
-            return;
+    @OnClick({R.id.activateBtn,R.id.edit_password_activity_close_icn})
+    public void onViewClicked(View view) {
+
+        switch (view.getId()) {
+            case R.id.activateBtn:
+                String mobileNumber = mobileNumberET.getText().toString();
+                String codeTV = codeTVET.getText().toString();
+                if (TextUtils.isEmpty(mobileNumber)) {
+                    mobileNumberET.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                if (TextUtils.isEmpty(codeTV)) {
+                    codeTVET.setError(getString(R.string.this_field_is_required));
+                    return;
+                }
+                mViewModel.invokeActivateApi(mobileNumber, codeTV);
+                break;
+            case R.id.edit_password_activity_close_icn:
+                finish();
+                break;
+
+
+
         }
-        if (TextUtils.isEmpty(codeTV)){
-            codeTVET.setError(getString(R.string.this_field_is_required));
-            return;
-        }
-        mViewModel.invokeActivateApi(mobileNumber, codeTV);
     }
 }

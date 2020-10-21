@@ -16,8 +16,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <string name="delete">Delete</string>
     <string name="menu_home">Home</string>
+    <string name="off">Cancel</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_about">About</string>
     <string name="title_activity_login">Login</string>
@@ -51,13 +52,13 @@
     <string name="save_data">Save Data</string>
     <string name="edit">Edit</string>
     <string name="name">Name</string>
-    <string name="accept_terms">I agree to the terms and conditions of Golden Corner</string>
+    <string name="accept_terms">I agree to the terms and conditions</string>
     <string name="enter_mobile_number">Enter mobile number</string>
     <string name="enter_password">Enter password</string>
     <string name="enter_first_name">Enter first name</string>
     <string name="enter_last_name">Enter last name</string>
     <string name="optional">Optional</string>
-    <string name="_09665xxxxxxxx">09665XXXXXXXX</string>
+    <string name="_09665xxxxxxxx">055XXXXXXXX</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="back">back</string>
     <string name="title_activity_change_password">Change Password</string>
@@ -74,7 +75,7 @@
     <string name="english_language">English Language</string>
     <string name="arabic_language">Arabic Language</string>
     <string name="order_details">Order Details</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Continue shopping</string>
     <string name="this_field_is_required">This Field is Required</string>
     <string name="Favorites">Favorites</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
@@ -100,7 +101,6 @@
     <string name="what_your_evaluation_level">What Your Evaluation Level</string>
     <string name="your_comment">Your Comment</string>
     <string name="add_comment">Add Comment</string>
-    <string name="delete">Delete</string>
     <string name="evaluate_product">Evaluate Product</string>
     <string name="discount_code">Discount Code</string>
     <string name="select_delivery_time_from_the_branch">Select delivery time from the branch</string>
@@ -162,7 +162,7 @@
     <string name="select_you_location">Select You Location</string>
     <string name="select_your_city">Select Your City</string>
     <string name="confirm_address">Confirm Address</string>
-    <string name="you_can_add_discount_code">You can add discount code</string>
+    <string name="you_can_add_discount_code">  You can add discount code  </string>
     <string name="add_code">Add code</string>
     <string name="order_note">Order Note</string>
     <string name="total">Total</string>
@@ -181,11 +181,11 @@
     <string name="password_not_match">Password not match</string>
     <string name="activate_account">Activate Account</string>
     <string name="order_number">Order Number</string>
-    <string name="prepared">Prepared</string>
+    <string name="prepared">In kitchen</string>
     <string name="on_the_way">On The Way</string>
     <string name="delivered">Delivered</string>
     <string name="order_date">Order Date</string>
-    <string name="confirm">Confirm</string>
+    <string name="confirm">Go to basket</string>
     <string name="are_you_sure_to_cancel_this_order">Are you sure to cancel this order</string>
     <string name="couldnt_share_product_image">Couldn\'t share product</string>
     <string name="add_your_evaluation">Add Your Evaluation</string>
@@ -203,6 +203,20 @@
     <string name="added_succes">This product was added successfully to the card</string>
     <string name="added_failed">This branch was closed</string>
     <string name="added_delete">the item cart will delete</string>
+
+    <string name="activation">Activate your Account</string>
+    <string name="entercode">Enter the sent to your Mobile</string>
+    <string name="add_copone">Add Copone</string>
+    <string name="title">Terms and Conditions</string>
+    <string name="content">Contrary to popular belief, Lorem Epsom is not a random text,
+    It has roots in classical Latin literature since 45 BC,
+    - making it more than 2000 years in the foot.
+    - Terms and conditions of use of the application of Sky Restaurant
+    - Terms and conditions of use of the application of the restaurant Sky Dirti
+    - Terms and conditions of use of the application of the Sky Restaurant Deraty
+    - Terms and conditions of the use of the application of the Sky Restaurant Deraty</string>
+    <string name="order_data">Order Data</string>
+    <string name="Dopay">Payment</string>
 
 
 </resources>

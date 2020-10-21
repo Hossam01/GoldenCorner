@@ -41,6 +41,13 @@ public class BranchesViewModel extends ViewModel {
 
     public static final String TAG = BranchesViewModel.class.getName();
     private MutableLiveData<Resource<List<BranchRecords>>> banchesLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> name = new MutableLiveData<>();
+
+
+    public MutableLiveData<String> getName() {
+        return name;
+    }
+
     public MutableLiveData<Resource<List<BranchRecords>>> getBranchesLiveData() {
         return banchesLiveData;
     }
@@ -101,6 +108,7 @@ public class BranchesViewModel extends ViewModel {
                 Utils.getInstance().LogError(TAG, e.getMessage());
             }
         }
+        name.setValue(name.toString());
         return currentAddress;
     }
 

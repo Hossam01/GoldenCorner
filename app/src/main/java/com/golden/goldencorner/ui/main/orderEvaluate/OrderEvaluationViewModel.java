@@ -1,5 +1,7 @@
 package com.golden.goldencorner.ui.main.orderEvaluate;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.golden.goldencorner.data.Resource;
@@ -40,6 +42,7 @@ public class OrderEvaluationViewModel extends ViewModel {
                     commentLiveData.setValue(Resource.success(response.getData().get(0)));
                 }, throwable -> {
                     commentLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                    Log.d("comment",throwable.getMessage());
                 });
     }
 }

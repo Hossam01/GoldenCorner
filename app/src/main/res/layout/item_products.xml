@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/productIV"
         android:layout_width="150dp"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
         android:src="@drawable/catogri1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,9 +71,9 @@
         android:gravity="center"
         android:text="30 SR"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/priceDiscountTV"
         app:layout_constraintEnd_toEndOf="@+id/priceDiscountTV"
-        app:layout_constraintStart_toStartOf="@+id/priceDiscountTV" />
+        app:layout_constraintStart_toStartOf="@+id/priceDiscountTV"
+        app:layout_constraintTop_toTopOf="@id/productIV" />
 
     <TextView
         android:id="@+id/priceDiscountTV"
@@ -120,7 +120,7 @@
         android:id="@+id/viewLineBottom"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="30dp"
         android:background="@color/gray"
         app:layout_constraintTop_toBottomOf="@+id/productIV"
         app:layout_constraintBottom_toBottomOf="parent"/>

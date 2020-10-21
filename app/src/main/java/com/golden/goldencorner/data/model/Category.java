@@ -1,5 +1,6 @@
 package com.golden.goldencorner.data.model;
 
+import com.golden.goldencorner.R;
 import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +20,16 @@ public class Category implements Serializable {
     @SerializedName("image")
     @NotNull
     private String image;
+
+    int background= R.drawable.rounded_stroke_bg;
+
+    public int getBackground() {
+        return background;
+    }
+
+    public void setBackground(int background) {
+        this.background = background;
+    }
 
     public int getId() {
         return id;

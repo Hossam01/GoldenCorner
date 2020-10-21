@@ -1,5 +1,6 @@
 package com.golden.goldencorner.ui.main.addresses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.City;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.ui.main.MainActivity;
+import com.golden.goldencorner.ui.main.branches.BranchesViewModel;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class AddAddressFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddAddressFragment extends Fragment implements AdapterView.OnItemSelectedListener,SendDataLocation {
 
     @BindView(R.id.addAddressesTitleTV)
     TextView addAddressesTitleTV;
@@ -55,7 +57,7 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
     @BindView(R.id.locationHintTv)
     TextView locationHintTv;
     @BindView(R.id.locationTV)
-    TextView locationTV;
+    public TextView locationTV;
     @BindView(R.id.navLocationBtn)
     ImageButton navLocationBtn;
     @BindView(R.id.selectLocationBtn)
@@ -67,7 +69,10 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
     @BindView(R.id.addEvaluteBtn)
     CircularProgressButton addAddressBtn;
     private AddressesViewModel mViewModel;
+    BranchesViewModel branchesViewModel;
     private ArrayAdapter<String> mSpinnerAdapter = null;
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,9 +85,22 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
         ButterKnife.bind(this, view);
         mViewModel = ViewModelProviders.of(this)
                 .get(AddressesViewModel.class);
+
         subscribeCitiesObserver();
         subscribeAddressActionsObserver();
         mViewModel.invokeCitiesApi();
+
+
+        MainActivity activity = (MainActivity) getActivity();
+        String myDataFromActivity = activity.getMyData();
+        locationTV.setText(myDataFromActivity);
+
+        if (addressNameET.getText().length()==0)
+        {
+            addressNameET.setText(((MainActivity)getActivity()).getName());
+        }
+
+
     }
     private void subscribeAddressActionsObserver() {
         mViewModel.getAddressActionsLiveData().observe(getViewLifecycleOwner(),
@@ -115,6 +133,7 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
 //            mDilatingDotsProgressBar.hideNow();
         }
     }
+
     private void subscribeCitiesObserver() {
         mViewModel.getCitiesLiveData().observe(getViewLifecycleOwner(),
                 new Observer<Resource<List<City>>>() {
@@ -135,6 +154,9 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
                     }
                 });
     }
+
+
+
 
     private void setUpSpinnerUi(List<City> dataList) {
         mSpinnerAdapter = new ArrayAdapter<>(getContext(),
@@ -162,8 +184,43 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
     @OnClick({R.id.locationTV
             , R.id.navLocationBtn})
     public void onLocationClicked() {
+
+        ((MainActivity)getActivity()).savename(addressNameET.getText().toString());
+
+        MapFragment mapFragment=new MapFragment();
+        mapFragment.setTargetFragment(AddAddressFragment.this,1);
+
         ((MainActivity)getActivity()).navToDestination(R.id.nav_map_fragment);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MainActivity activity = (MainActivity) getActivity();
+        String myDataFromActivity = activity.getMyData();
+        locationTV.setText(myDataFromActivity);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        MainActivity activity = (MainActivity) getActivity();
+        String myDataFromActivity = activity.getMyData();
+        locationTV.setText(myDataFromActivity);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+                    // here the part where I get my selected date from the saved variable in the intent and the displaying it.
+                    MainActivity activity = (MainActivity) getActivity();
+                    String myDataFromActivity = activity.getMyData();
+                    locationTV.setText(myDataFromActivity);
+
+        }
 
     @OnClick(R.id.addEvaluteBtn)
     public void onViewClicked() {
@@ -208,5 +265,11 @@ public class AddAddressFragment extends Fragment implements AdapterView.OnItemSe
             mViewModel.invokeAddAddressApi(token, addressName, address, state, lat, lang, isDefault, map_location);
         }
 
+    }
+
+
+    @Override
+    public void sendData(String location) {
+        locationTV.setText(location);
     }
 }

@@ -9,6 +9,7 @@
     <color name="background_light_dark">#5B0C0D</color>
     <color name="black_overlay">#66000000</color>
     <color name="whiteColor">#FFFFFF</color>
+    <color name="arrow">#880308</color>
     <color name="yellowColor">#FEC209</color>
     <color name="lightBackgroundColor">#F9F9F9</color>
     <color name="btnColor">#6E2E15</color>

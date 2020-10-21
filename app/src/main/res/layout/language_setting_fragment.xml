@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
             android:buttonTint="@color/colorPrimaryDark"
+            android:fontFamily="@font/din_next_regular"
             android:text="@string/arabic_language"
             />
 
@@ -34,6 +35,8 @@
             android:layout_marginTop="30dp"
             android:buttonTint="@color/colorPrimaryDark"
             android:checked="false"
+            android:fontFamily="@font/din_next_regular"
+
             android:text="@string/english_language"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +69,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@drawable/login_button_shape"
+        android:fontFamily="@font/din_next_regular"
         android:clickable="true"
         android:gravity="center"
         android:paddingTop="6dp"

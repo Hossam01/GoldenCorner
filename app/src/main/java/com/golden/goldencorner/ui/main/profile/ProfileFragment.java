@@ -149,6 +149,8 @@ public class ProfileFragment extends Fragment {
         lastNameET.setText(data.getUsername());
         emailET.setText(data.getEmail());
         mobileNumberET.setText(data.getMobile());
+        if (data.getPoint()!=null)
+            myPointsET.setText(String.valueOf(data.getPoint()));
 
     }
 

@@ -117,30 +117,35 @@ public class CartFragment extends Fragment {
             cardEmptyView.setVisibility(View.GONE);
             mAdapter = new CardAdapter();
             productsRV.setAdapter(mAdapter);
-            mAdapter.fillAdapterData(products);
+            mAdapter.fillAdapterData(products,getActivity());
 
-            long totalPrice = getTotalPrice();
+            Double totalPrice = getTotalPrice();
             //long dicount = totalPrice*()
             PaymentSummaryOrderTotalPriceTV.setText(totalPrice+"");
         }
     }
 
-    private long getTotalPrice() {
-        long totalPrice = 0;
+    private Double getTotalPrice() {
+        Double totalPrice = 0.0;
         for (Product product: products) {
             totalPrice+=Double.valueOf(product.getPrice());
         }
         return totalPrice;
     }
 
-    @OnClick(R.id.addYourOrderBtn)
-    public void onAddYourOrderBtnClicked() {
-        ((MainActivity)getActivity()).navToDestination(R.id.nav_home);
+    @OnClick({R.id.addYourOrderBtn,R.id.discountCodeTV})
+    public void onAddYourOrderBtnClicked(View view) {
+        if (view.getId()==R.id.addYourOrderBtn)
+            ((MainActivity)getActivity()).navToDestination(R.id.nav_home);
+        else if (view.getId()==R.id.discountCodeTV)
+            ((MainActivity)getActivity()).navToDestination(R.id.nav_dicount_code);
     }
 
     @OnClick(R.id.proceedPurchaseBtn)
     public void onProceedPurchaseBtnClicked() {
-        if (SharedPreferencesManager.getString(UserName)!= null){}
+        if (SharedPreferencesManager.getString(UserName)!= null){
+            ((MainActivity) getActivity()).navToDestination(R.id.nav_payment);
+        }
            // ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate);
         else {
             ViewDialog alert = new ViewDialog();

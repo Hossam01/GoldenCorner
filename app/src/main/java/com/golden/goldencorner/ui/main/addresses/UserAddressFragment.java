@@ -2,6 +2,7 @@ package com.golden.goldencorner.ui.main.addresses;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,10 @@ public class UserAddressFragment extends Fragment implements AddressesAdapter.Ad
         subscribeAddressesObserver();
         subscribeAddressActionsObserver();
 
+
+
         String token = ((MainActivity) getActivity()).getAccessToken();
+        Log.i("access",token);
         if (TextUtils.isEmpty(token)){
             ((MainActivity) getActivity()).showToast(getString(R.string.login_or_create_new_account_and_try_again));
         } else {

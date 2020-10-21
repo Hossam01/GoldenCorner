@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                app:layout_constraintDimensionRatio="w,5:6"
+                app:layout_constraintDimensionRatio="w,4:6"
                 android:src="@drawable/catogri1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +49,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/din_next_regular"
                 android:gravity="center"
-                android:paddingBottom="15dp"
+                android:paddingBottom="5dp"
                 android:text="Meet sdass"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="@+id/categoriesIV"
                 app:layout_constraintStart_toStartOf="@+id/categoriesIV"
                 app:layout_constraintTop_toBottomOf="@+id/homeLine"
-
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

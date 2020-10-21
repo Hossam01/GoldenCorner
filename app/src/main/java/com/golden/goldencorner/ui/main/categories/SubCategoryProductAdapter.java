@@ -1,6 +1,8 @@
 package com.golden.goldencorner.ui.main.categories;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +29,9 @@ import butterknife.OnClick;
 public class SubCategoryProductAdapter extends RecyclerView.Adapter<SubCategoryProductAdapter.JavaHolder> {
 
     private List<Product> dataList = new ArrayList<>();
-
     public void fillAdapterData(List<Product> dataList) {
+
+
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
@@ -64,6 +67,18 @@ public class SubCategoryProductAdapter extends RecyclerView.Adapter<SubCategoryP
             mHolder.priceDiscountTV.setVisibility(View.INVISIBLE);
         else
             mHolder.priceTV.setPaintFlags(mHolder.priceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        Bitmap icon = null;
+        if (dataList.get(position).getIsFavorite()==0)
+        {
+            icon = BitmapFactory.decodeResource(mHolder.itemView.getResources(),
+                    R.drawable.ic_fav_62);
+        }else {
+            icon = BitmapFactory.decodeResource(mHolder.itemView.getResources(),
+                    R.drawable.ic_fav_red_62);
+        }
+        mHolder.favoritesIV.setImageBitmap(icon);
+
+
     }
 
     @Override
@@ -83,22 +98,31 @@ public class SubCategoryProductAdapter extends RecyclerView.Adapter<SubCategoryP
         TextView priceTV;
         @BindView(R.id.priceDiscountTV)
         TextView priceDiscountTV;
+        @BindView(R.id.favoritesIV)
+        ImageView favoritesIV;
         @BindView(R.id.addToCartIV)
         ImageView addToCartIV;
+
 
         public JavaHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
-        @OnClick(R.id.addToCartIV)
-        public void onViewClicked() {
-            if (mListener != null)
-                mListener.onAddToCartClicked(dataList.get(getAdapterPosition()));
+        @OnClick({R.id.addToCartIV,R.id.productIV})
+        public void onViewClicked(View view) {
+            if (mListener != null) {
+                if (view.getId()==R.id.addToCartIV)
+                    mListener.onAddToCartClicked(dataList.get(getAdapterPosition()));
+                if (view.getId()==R.id.productIV)
+                    mListener.onAddToCartClickedDetails(dataList.get(getAdapterPosition()));
+            }
+
         }
     }
 
     public AdapterListener mListener;
     public interface AdapterListener {
         void onAddToCartClicked(Product record);
+        void onAddToCartClickedDetails(Product record);
     }
 }

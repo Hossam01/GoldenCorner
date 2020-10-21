@@ -53,7 +53,6 @@
                 android:layout_width ="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/menuico_person_62"
-
                 android:scaleType="fitCenter"
                 android:padding="9dp"
                 android:background="@drawable/rounded_stroke_bg"
@@ -131,16 +130,19 @@
 
             <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/addEvaluationBtn"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/login_button_shape"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="@string/add_your_evaluation"
                 android:textColor="@android:color/white"
-                style="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@+id/evaluationHintTv2"
-                android:background="@drawable/login_button_shape"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/evaluationHintTv2" />
 
 
             <View
@@ -186,16 +188,20 @@
 
             <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/addcommentbtn"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+
+                android:background="@drawable/login_button_shape"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="@string/add_comment"
                 android:textColor="@android:color/white"
-                style="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@+id/commentET"
-                android:background="@drawable/login_button_shape"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentET" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

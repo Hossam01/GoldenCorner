@@ -1,5 +1,6 @@
 package com.golden.goldencorner.ui.main.offers;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -157,6 +159,20 @@ public class OffersFragment extends Fragment implements ProductsAdapter.AdapterL
 
     @Override
     public void onAddToCart(Product record) {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(getString(R.string.added_succes))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((MainActivity)getActivity()).navToDestination(R.id.nav_cart);
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
         ((MainActivity)getActivity()).addProductToCard(record);
     }
 

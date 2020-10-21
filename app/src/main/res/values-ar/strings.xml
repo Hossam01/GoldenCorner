@@ -21,11 +21,12 @@
     <string name="title_activity_login">تسجيل الدخول</string>
     <string name="phone_number">رقم الجوال</string>
     <string name="password">كلمه المرور</string>
-    <string name="forgot_password">نسيت كلمه المرور؟</string>
+    <string name="forgot_password">هل فقدت كلمه المرور؟</string>
     <string name="login">تسجيل الدخول</string>
     <string name="login_to_continue">للمتابعة عليك تسجيل الدخول</string>
-    <string name="new_account_signup">انشاء حساب جديد</string>
+    <string name="new_account_signup">تسجيل حساب جديد</string>
     <string name="account_activation">يمكنك تفعيل الحساب الخاص بك</string>
+    <string name="activation"> تفعيل حسابك</string>
     <string name="main">الرئيسية</string>
     <string name="my_account">حسابي</string>
     <string name="branches">الفروع</string>
@@ -49,13 +50,13 @@
     <string name="save_data">حفظ البيانات</string>
     <string name="edit">تغيير</string>
     <string name="name">الأسم</string>
-    <string name="accept_terms">أوافق على جميع الشروط والأحكام الخاصه بالركن الذهبي</string>
+    <string name="accept_terms">أوافق على جميع الشروط والأحكام </string>
     <string name="enter_mobile_number">ادخل رقم الجوال</string>
     <string name="enter_password">ادخل كلمة المرور</string>
     <string name="enter_first_name">ادخل الإسم الاول</string>
     <string name="enter_last_name">ادخل الإسم الأخير</string>
     <string name="optional">اختياري</string>
-    <string name="_09665xxxxxxxx">09665XXXXXXXX</string>
+    <string name="_09665xxxxxxxx">055XXXXXXXX</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="back">عودة</string>
     <string name="title_activity_change_password">غير كلمة السر</string>
@@ -65,14 +66,15 @@
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="change">تغيير</string>
     <string name="enter_confirmation_code_sent_to_your_mobile_number">أدخل رمز التأكيد المرسل إلى رقم جوالك</string>
-    <string name="title_activity_forget_password"> نسيت كلمة المرور</string>
-    <string name="did_you_forget_your_password_will_send_confirmation_code_to_you_mobile_number">هل نسيت كلمة المرور الخاصة بك ، سوف يتم ارسال كود تاكيد لجوالك ليتم تعديل كلمه المرورالخاصه بك</string>
+    <string name="title_activity_forget_password">فقدت كلمة المرور</string>
+    <string name="did_you_forget_your_password_will_send_confirmation_code_to_you_mobile_number">هل فقدت كلمة المرور سوف يتم ارسال كود تاكيد لجوالك ليتم تعديل كلمه المرورالخاصه بك</string>
+    <string name="entercode">ادخل الكود المرسل الي جوالك</string>
     <string name="send">ارسال</string>
     <string name="message">رسالة</string>
     <string name="english_language">اللغة الانجليزية</string>
     <string name="arabic_language">اللغة العربية</string>
     <string name="order_details">تفاصيل الطلب</string>
-    <string name="cancel">إلغاء</string>
+    <string name="cancel">متابعه التسوق</string>
     <string name="this_field_is_required">هذه الخانة مطلوبه</string>
     <string name="Favorites">المفضلة</string>
     <string name="terms_and_conditions">الأحكام والشروط</string>
@@ -83,11 +85,12 @@
     <string name="skip_en">Skip</string>
     <string name="no_offers_for_this_week">لا توجد عروض لهذا الأسبوع</string>
     <string name="title_activity_branches">الخريطة</string>
-    <string name="continue_str">استمر</string>
+    <string name="continue_str">متابعه</string>
     <string name="from_you">يبعد عنك</string>
     <string name="KM"> كم </string>
     <string name="open_now">مفتوح الان</string>
     <string name="close_now">مغلق الأن</string>
+    <string name="off">الغاء</string>
     <string name="select_meal">حدد وجبتك</string>
     <string name="extras">الإضافات</string>
     <string name="comments">التعليقات</string>
@@ -98,7 +101,7 @@
     <string name="what_your_evaluation_level">ما هو مستوى تقييمك</string>
     <string name="your_comment">تعليقك</string>
     <string name="add_comment">إضافة تعليق</string>
-    <string name="delete">Delete</string>
+    <string name="delete">حذف</string>
     <string name="evaluate_product">تقييم المنتج</string>
     <string name="discount_code">كود التخفيض</string>
     <string name="select_delivery_time_from_the_branch">حدد موعد التسليم من الفرع</string>
@@ -161,10 +164,10 @@
     <string name="select_you_location">حدد موقعك</string>
     <string name="select_your_city">اختر مدينتك</string>
     <string name="confirm_address">تأكيد العنوان</string>
-    <string name="you_can_add_discount_code">يمكنك إضافة كود الخصم</string>
-    <string name="add_code">أضف الكود</string>
+    <string name="you_can_add_discount_code">  يمكنك إضافة كبون خصم  </string>
+    <string name="add_code">أضف الكبون</string>
     <string name="order_note">ملاحظة على الطلب</string>
-    <string name="total">الإجمالي</string>
+    <string name="total">المجموع</string>
     <string name="proceed_to_purchase">متابعة الشراء</string>
     <string name="order_summary">ملخص الطلب</string>
     <string name="add_your_order">أضف طلبك</string>
@@ -180,14 +183,14 @@
     <string name="password_not_match">كلمة المرور غير متطابقة</string>
     <string name="activate_account">تفعيل الحساب</string>
     <string name="order_number">رقم الطلب الخاص بك</string>
-    <string name="prepared">تحت التجهيز</string>
+    <string name="prepared">في المطبخ</string>
     <string name="on_the_way">في الطريق</string>
-    <string name="delivered">تم التسليم</string>
+    <string name="delivered">تم التوصيل</string>
     <string name="order_date">تاريخ الطلب</string>
-    <string name="confirm">ـأكيد</string>
+    <string name="confirm">اذهب للسله</string>
     <string name="are_you_sure_to_cancel_this_order">هل انت متاكد من الغاء الطلب</string>
     <string name="couldnt_share_product_image">فشل مشاركة هذا المنتج</string>
-    <string name="add_your_evaluation">Add Your Evaluation</string>
+    <string name="add_your_evaluation">اضف تقيمك</string>
     <string name="comment_cant_be_empty">لا يمكن ترك التعليق فارغًا</string>
     <string name="no_mobile_number">لا يوجد رقم للسائق</string>
     <string name="rate_cant_be_zero">التقييم لايمكن ان يكون صفر</string>
@@ -201,6 +204,17 @@
     <string name="added_succes">تمت إضافة هذا المنتج بنجاح إلى السلة</string>
     <string name="added_failed">هذا الفرع مغلق الان</string>
     <string name="added_delete">المنتاجات داخل العربه سوف تحذف</string>
+    <string name="add_copone">اضافه كبون خصم</string>
+    <string name="title">الشروط والاحكام</string>
+    <string name="content">خلافًا للاعتقاد الشائع ، فإن لوريم إبسوم ليس نصًا عشوائيًا ،
+     لها جذور في الأدب اللاتيني الكلاسيكي منذ 45 قبل الميلاد ،
+     - مما يجعلها أكثر من 2000 سنة في القدم.
+     - شروط وأحكام استخدام تطبيق مطعم Sky
+     - شروط وأحكام استخدام تطبيق مطعم Sky Dirti
+     - شروط وأحكام استخدام تطبيق Sky Restaurant Deraty
+     - شروط وأحكام استخدام تطبيق Sky Restaurant Deraty</string>
+    <string name="order_data">بيانات الطلب</string>
+    <string name="Dopay">تنفيذ الدفع</string>
 
 
 

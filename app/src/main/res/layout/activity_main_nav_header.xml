@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/side_nav_bar"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -12,10 +13,10 @@
     <ImageView
         android:id="@+id/header_IV"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="180dp"
         android:contentDescription="@string/nav_header_desc"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/side_bar_header_bg"
+        app:srcCompat="@drawable/bgmenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -26,9 +27,9 @@
         android:layout_height="?attr/actionBarSize"
         android:contentDescription="@string/nav_header_desc"
         android:scaleType="fitCenter"
-        android:background="#F5F5F5"
+        android:background="@color/gray"
         android:padding="15dp"
-        app:srcCompat="@drawable/menuico_person_62"
+        app:srcCompat="@drawable/menuicouser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_IV"/>
 
@@ -39,14 +40,16 @@
         android:text="@string/login"
         android:textAlignment="viewStart"
         android:paddingHorizontal="10dp"
-        android:background="#F5F5F5"
+        android:background="@color/gray"
+        android:fontFamily="@font/din_next_regular"
         android:textColor="@color/black"
         android:gravity="center_vertical"
         android:layout_marginStart="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="@+id/logoNavHeaderIV"
         app:layout_constraintTop_toTopOf="@+id/logoNavHeaderIV"
         app:layout_constraintStart_toEndOf="@+id/logoNavHeaderIV"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:ignore="RtlCompat" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

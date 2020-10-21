@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/activity_horizontal_margin"
     android:paddingVertical="@dimen/activity_vertical_margin"
+    android:background="@color/whiteColor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.golden.goldencorner.ui.main.addresses.UserAddressFragment">
 
