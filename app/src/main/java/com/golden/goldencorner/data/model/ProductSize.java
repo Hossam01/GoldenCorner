@@ -22,7 +22,7 @@ public class ProductSize {
     private String price;
     @SerializedName("dis_price")
     @Expose
-    private Long disPrice;
+    private String disPrice;
     @SerializedName("quantity")
     @Expose
     private float quantity;
@@ -84,11 +84,11 @@ public class ProductSize {
         this.price = price;
     }
 
-    public Long getDisPrice() {
+    public String getDisPrice() {
         return disPrice;
     }
 
-    public void setDisPrice(Long disPrice) {
+    public void setDisPrice(String disPrice) {
         this.disPrice = disPrice;
     }
 

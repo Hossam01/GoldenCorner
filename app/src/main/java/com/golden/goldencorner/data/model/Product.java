@@ -29,6 +29,16 @@ public class Product {
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("product_name")
+    @Expose
+    private String product_name;
+    @SerializedName("rice")
+    @Expose
+    private List<Rice> rice = null;
+    @SerializedName("dish")
+    @Expose
+    private List<Dish> dish = null;
+
     @SerializedName("total_price")
     @Expose
     private double totalPrice;
@@ -71,6 +81,35 @@ public class Product {
     @SerializedName("comments")
     @Expose
     private List<Comment> comments = null;
+
+    public String getProduct_name() {
+        if (product_name == null || product_name.equals("")) {
+            return "دجاج";
+        } else {
+            return product_name;
+        }
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public List<Rice> getRice() {
+        return rice;
+    }
+
+    public void setRice(List<Rice> rice) {
+        this.rice = rice;
+    }
+
+    public List<Dish> getDish() {
+        return dish;
+    }
+
+    public void setDish(List<Dish> dish) {
+        this.dish = dish;
+    }
+
     @SerializedName("rate")
     @Expose
     private float rate;

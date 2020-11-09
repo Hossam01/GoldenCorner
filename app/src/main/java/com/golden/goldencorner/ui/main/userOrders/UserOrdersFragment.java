@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
-import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.Utils.PaginationScrollListener;
 import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.OrderRecords;
@@ -120,6 +119,8 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
                                     if (!TextUtils.isEmpty(token)) {
                                         mViewModel.invokeOrderApi(token, page);
                                     }
+                                    mAdapter.notifyDataSetChanged();
+                                    ((MainActivity) getActivity()).navToDestination(R.id.nav_my_orders);
                                     break;
                                 case ERROR:
                                     showProgressBar(false);
@@ -141,18 +142,17 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
 
     @Override
     public void onCancelOrderClicked(OrderRecords record) {
-
         new AlertDialog.Builder(getActivity())
                 .setMessage(getString(R.string.are_you_sure_to_cancel_this_order))
-                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String token = ((MainActivity) getActivity()).getAccessToken();
                         mViewModel.invokeDeleteApi(token, record.getId());
                     }
                 })
-                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                       dialog.dismiss();
+                        dialog.dismiss();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -166,10 +166,13 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
                 .subscribe(granted -> {
                     if (granted) { // Always true pre-M
                         // I can control the camera now
-                        if (TextUtils.isEmpty(record.getDriver())){
-                            ((MainActivity)getActivity()).showToast(getString(R.string.no_mobile_number));
+                        if (TextUtils.isEmpty(record.getDriver().getMobile())) {
+                            ((MainActivity) getActivity()).showToast(getString(R.string.no_mobile_number));
                         } else {
-                            ((MainActivity)getActivity()).navToDestination(R.id.nav_driver_info);
+                            Bundle b = new Bundle();
+                            b.putString("DriverName", record.getDriver().getName());
+                            b.putString("DriverPhone", record.getDriver().getMobile());
+                            ((MainActivity) getActivity()).navToDestination(R.id.nav_driver_info, b);
                         }
                     }
                 });
@@ -178,17 +181,17 @@ public class UserOrdersFragment extends Fragment implements OrdersAdapter.Adapte
     @Override
     public void onOrderDetailsClicked(OrderRecords record) {
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstant.PRODUCT_ID, record.getId());
-        ((MainActivity)getActivity()).navToDestination(R.id.nav_order_view, bundle);
+        bundle.putLong("orderId", record.getId());
+        ((MainActivity) getActivity()).navToDestination(R.id.orderDetailsFragment, bundle);
     }
 
     @Override
     public void OnOrderEvaluateClicked(OrderRecords record) {
         //todo comment because crashing
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstant.PRODUCT_ID, record.getId());
-        bundle.putString(AppConstant.USER_IMAGE, record.getUser().getAvatar());
-        ((MainActivity)getActivity()).navToDestination(R.id.nav_order_evaluate, bundle);
+        bundle.putLong("orderId", record.getId());
+        bundle.putString("driverId", record.getDriver().getId());
+        ((MainActivity) getActivity()).navToDestination(R.id.orderRateFragment, bundle);
     }
 
     private boolean isLoading = false;

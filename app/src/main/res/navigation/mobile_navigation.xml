@@ -44,14 +44,14 @@
         tools:layout="@layout/fragment_edit_address" />
     <fragment
         android:id="@+id/nav_cards"
-        android:name="com.golden.goldencorner.ui.main.creditCards.CardsFragment"
+        android:name="com.golden.goldencorner.ui.main.creditCards.AddCardFragment"
         android:label="@string/credit_cards"
         tools:layout="@layout/fragment_cards" />
     <fragment
         android:id="@+id/nav_add_card"
-        android:name="com.golden.goldencorner.ui.main.creditCards.AddCardFragment"
+        android:name="com.golden.goldencorner.ui.main.creditCards.CardsFragment"
         android:label="@string/add_credit_card"
-        tools:layout="@layout/add_card_fragment" />
+        tools:layout="@layout/cridet_cards" />
     <dialog
         android:id="@+id/nav_map_fragment"
         android:name="com.golden.goldencorner.ui.main.addresses.MapFragment"
@@ -74,7 +74,7 @@
        tools:layout="@layout/order_view_fragment"/>
     <dialog
         android:id="@+id/nav_dicount_code"
-        android:name="com.golden.goldencorner.ui.main.AddCode"
+        android:name="com.golden.goldencorner.ui.main.DiscounteCode.AddCode"
         android:label=""
         tools:layout="@layout/discount_code"/>
     <fragment
@@ -183,4 +183,26 @@
         android:name="com.golden.goldencorner.ui.main.orederView.OrderViewFragment"
         android:label=""
         tools:layout="@layout/order_view2_fragment" />
+    <dialog
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.golden.goldencorner.ui.main.orderDetails.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
+    <dialog
+        android:id="@+id/orderRateFragment"
+        android:name="com.golden.goldencorner.ui.main.OrderRate.OrderRateFragment"
+        android:label="OrderRateFragment"
+        tools:layout="@layout/order_evaluation" />
+    <dialog
+        android:id="@+id/deliveryDateFragment"
+        android:name="com.golden.goldencorner.ui.DeliveryDate.DeliveryDateFragment"
+        android:label="DeliveryDateFragment" />
+    <dialog
+        android:id="@+id/billFragment"
+        android:name="com.golden.goldencorner.ui.main.BillFragment"
+        android:label="BillFragment" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.golden.goldencorner.ui.main.creditCards.EditFragment"
+        android:label="EditFragment" />
 </navigation>

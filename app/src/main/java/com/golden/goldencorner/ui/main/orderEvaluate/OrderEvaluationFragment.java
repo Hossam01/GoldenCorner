@@ -44,7 +44,7 @@ public class OrderEvaluationFragment extends DialogFragment {
     TextView nameTV;
     @BindView(R.id.evaluationHintTv)
     TextView evaluationHintTv;
-    @BindView(R.id.evaluationHintTv2)
+    @BindView(R.id.NotesHintTv2)
     TextView evaluationHintTv2;
     @BindView(R.id.rateRB)
     RatingBar rateRB;

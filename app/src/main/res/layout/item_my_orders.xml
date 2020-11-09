@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:layout_marginTop="3dp"
-                android:text="@string/cancel"
+                android:text="@string/cancelorder"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="11dp"
                 app:layout_constraintEnd_toStartOf="@+id/cardLi"

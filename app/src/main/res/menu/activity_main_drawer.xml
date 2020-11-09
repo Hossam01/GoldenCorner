@@ -30,7 +30,7 @@
         android:id="@+id/group3"
         android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_branches"
+            android:id="@+id/nav_branches_drawer"
             android:icon="@drawable/menu_branches_62"
             android:title="@string/branches" />
     </group>
@@ -88,16 +88,23 @@
             android:id="@+id/nav_language_setting_drawer"
             android:icon="@drawable/menu_language_settings_62"
             android:title="@string/language_settings" />
-    </group >
+    </group>
     <group
         android:id="@+id/group11"
         android:checkableBehavior="none">
         <item
             android:id="@+id/nav_about_app_drawer"
             android:icon="@drawable/menuico_cellphone"
-            android:title="@string/about_app"
-            />
-    </group >
+            android:title="@string/about_app" />
+    </group>
+    <group
+        android:id="@+id/group15"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_card_drawer"
+            android:icon="@drawable/credit_card"
+            android:title="@string/credit_cards" />
+    </group>
     <group
         android:id="@+id/group12"
         android:checkableBehavior="none">

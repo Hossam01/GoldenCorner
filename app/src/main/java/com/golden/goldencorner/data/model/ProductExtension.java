@@ -14,6 +14,29 @@ public class ProductExtension {
     @SerializedName("color_id")
     @Expose
     private Long colorId;
+    @SerializedName("name")
+    @Expose
+    private String Name;
+    @SerializedName("select")
+    @Expose
+    private boolean select;
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
     @SerializedName("extension_name")
     @Expose
     private String extensionName;
@@ -46,7 +69,11 @@ public class ProductExtension {
     }
 
     public String getExtensionName() {
-        return extensionName;
+        if (extensionName == null || extensionName.equals("")) {
+            return "rice";
+        } else {
+            return extensionName;
+        }
     }
 
     public void setExtensionName(String extensionName) {

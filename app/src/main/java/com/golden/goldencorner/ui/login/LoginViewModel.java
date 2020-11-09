@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.golden.goldencorner.data.Resource;
-import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.User;
 import com.golden.goldencorner.data.remote.RetrofitProvider;
@@ -17,13 +16,11 @@ import io.reactivex.schedulers.Schedulers;
 import static com.golden.goldencorner.data.Utils.AppConstant.ACCESS_TOKEN;
 import static com.golden.goldencorner.data.Utils.AppConstant.Name;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserActivation;
-import static com.golden.goldencorner.data.Utils.AppConstant.UserAddress;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserAvatar;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserCity;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserDescription;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserDeviceToken;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserEmail;
-import static com.golden.goldencorner.data.Utils.AppConstant.UserFamilyName;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserId;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserMobile;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
@@ -74,10 +71,10 @@ public class LoginViewModel extends ViewModel {
         SharedPreferencesManager.put(UserDescription, user.getDescription());
         SharedPreferencesManager.put(UserDeviceToken, user.getDeviceToken());
         SharedPreferencesManager.put(UserMobile, user.getMobile());
-//        SharedPreferencesManager.put(UserFamilyName, user.getFamilyName());
-//        SharedPreferencesManager.put(UserAddress, user.getAddress());
-//        SharedPreferencesManager.put(UserPoint, user.getPoints());
-//        SharedPreferencesManager.put(UserType, user.getUser_type());
+        //   SharedPreferencesManager.put(UserFamilyName, user.get());
+        //   SharedPreferencesManager.put(UserAddress, user.get());
+        SharedPreferencesManager.put(UserPoint, user.getPoint());
+        SharedPreferencesManager.put(UserType, user.getUserType());
     }
     public void removeDataFromShared() {
         SharedPreferencesManager.remove(UserId);
@@ -91,7 +88,7 @@ public class LoginViewModel extends ViewModel {
         SharedPreferencesManager.remove(UserMobile);
 //        SharedPreferencesManager.remove(UserFamilyName);
 //        SharedPreferencesManager.remove(UserAddress);
-//        SharedPreferencesManager.remove(UserPoint);
-//        SharedPreferencesManager.remove(UserType);
+        SharedPreferencesManager.remove(UserPoint);
+        SharedPreferencesManager.remove(UserType);
     }
 }

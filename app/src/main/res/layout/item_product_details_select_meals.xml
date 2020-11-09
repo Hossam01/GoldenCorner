@@ -20,8 +20,26 @@
         android:layout_marginHorizontal="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/priceDiscountTV"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:fontFamily="@font/din_next_regular"
+        android:gravity="center"
+        android:minWidth="100dp"
+        android:padding="2dp"
+        android:paddingBottom="3dp"
+        android:textColor="@color/textColor3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/priceTV"
+        app:layout_constraintStart_toEndOf="@+id/mealRBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/priceTV"
         style="@style/TextAppearance.AppCompat.Small"

@@ -23,10 +23,14 @@ public class ExtensionsAdapter extends RecyclerView.Adapter<ExtensionsAdapter.Or
 
     private List<ProductExtension> dataList = new ArrayList<>();
 
-    public void fillAdapterData(List<ProductExtension> dataList) {
+    float quantity = 0;
+
+    public void fillAdapterData(List<ProductExtension> dataList, float quantity) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
+        this.quantity = quantity;
         notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -40,7 +44,7 @@ public class ExtensionsAdapter extends RecyclerView.Adapter<ExtensionsAdapter.Or
     public void onBindViewHolder(@NonNull OrderHolder mHolder, int position) {
         ProductExtension record = dataList.get(position);
         mHolder.extensionCB.setText(record.getExtensionName());
-        mHolder.priceTV.setText(record.getPrice()+mHolder.itemView.getContext().getString(R.string.sr));
+        mHolder.priceTV.setText(Double.valueOf(record.getPrice()) * quantity + mHolder.itemView.getContext().getString(R.string.sr));
     }
 
     @Override
@@ -48,6 +52,12 @@ public class ExtensionsAdapter extends RecyclerView.Adapter<ExtensionsAdapter.Or
         return dataList.size();
     }
 
+
+    public interface AdapterListener {
+        void onSelectedExtension(ProductExtension record, String s, boolean checked, int position);
+    }
+
+    public AdapterListener mListener;
 
     public class OrderHolder extends RecyclerView.ViewHolder {
 
@@ -64,21 +74,17 @@ public class ExtensionsAdapter extends RecyclerView.Adapter<ExtensionsAdapter.Or
         public void onViewClicked() {
             if (mListener != null)
                 if (extensionCB.isChecked()) {
+                    dataList.get(getAdapterPosition()).setSelect(true);
                     mListener.onSelectedExtension(
-                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(),true
+                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(), true, getAdapterPosition()
                     );
                 }
             else {
+                    dataList.get(getAdapterPosition()).setSelect(false);
                     mListener.onSelectedExtension(
-                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(),false
+                            dataList.get(getAdapterPosition()), dataList.get(getAdapterPosition()).getPrice(), false, getAdapterPosition()
                     );
                 }
         }
-    }
-
-    public AdapterListener mListener;
-
-    public interface AdapterListener {
-        void onSelectedExtension(ProductExtension record,String s,boolean checked);
     }
 }

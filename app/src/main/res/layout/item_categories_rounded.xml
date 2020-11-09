@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingStart="15dp"
+    android:background="@color/colorAccent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -27,8 +28,13 @@
         android:gravity="center"
         android:maxWidth="70dp"
         android:text="Name"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:textSize="10dp"
         android:textColor="@color/textColor3"
-        android:foregroundGravity="center"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 

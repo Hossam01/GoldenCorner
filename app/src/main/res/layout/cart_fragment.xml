@@ -75,71 +75,71 @@
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 tools:listitem="@layout/item_card_product"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/topCategoryRV" />
 
-            <TextView
-                android:id="@+id/addCodeTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="100dp"
-                android:textStyle="bold"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:fontFamily="@font/din_next_regular"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:text="@string/add_copone"
-                android:textColor="@color/textColor3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productsRV" />
+            <!-- <TextView
+                 android:id="@+id/addCodeTV"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:minWidth="100dp"
+                 android:textStyle="bold"
+                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                 android:fontFamily="@font/din_next_regular"
+                 style="@style/TextAppearance.AppCompat.Medium"
+                 android:text="@string/add_copone"
+                 android:textColor="@color/textColor3"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/productsRV" />
 
-            <View
-                android:id="@+id/addCodeLine"
-                android:layout_width="45dp"
-                android:layout_height="3dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addCodeTV"
-                android:background="@color/colorPrimaryDark"/>
-            <TextView
-                android:id="@+id/discountCodeHintTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="@string/you_can_add_discount_code"
-                android:drawableRight="@drawable/menuicocoupon"
-                android:layout_weight="1"
-                android:textColor="@color/textColor3"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:fontFamily="@font/din_next_regular"
-                style="@style/TextAppearance.AppCompat.Small"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addCodeLine" />
+               <View
+                  android:id="@+id/addCodeLine"
+                  android:layout_width="45dp"
+                  android:layout_height="3dp"
+                  android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/addCodeTV"
+                  android:background="@color/colorPrimaryDark"/>
+              <TextView
+                  android:id="@+id/discountCodeHintTV"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:padding="2dp"
+                  android:text="@string/you_can_add_discount_code"
+                  android:drawableRight="@drawable/menuicocoupon"
+                  android:layout_weight="1"
+                  android:textColor="@color/textColor3"
+                  android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                  android:fontFamily="@font/din_next_regular"
+                  style="@style/TextAppearance.AppCompat.Small"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/addCodeLine" />
+             Students grades are uploaded by months
 
-            <TextView
-                android:id="@+id/discountCodeTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="@string/add_code"
-                android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:fontFamily="@font/din_next_regular"
-                style="@style/TextAppearance.AppCompat.Small"
-                app:layout_constraintBottom_toBottomOf="@+id/discountCodeHintTV"
-                app:layout_constraintStart_toEndOf="@+id/discountCodeHintTV"
-                app:layout_constraintTop_toTopOf="@+id/discountCodeHintTV" />
+             <TextView
+                 android:id="@+id/discountCodeTV"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:padding="2dp"
+                 android:text="@string/add_code"
+                 android:layout_weight="1"
+                 android:textColor="@color/colorPrimaryDark"
+                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                 android:fontFamily="@font/din_next_regular"
+                 style="@style/TextAppearance.AppCompat.Small"
+                 app:layout_constraintBottom_toBottomOf="@+id/discountCodeHintTV"
+                 app:layout_constraintStart_toEndOf="@+id/discountCodeHintTV"
+                 app:layout_constraintTop_toTopOf="@+id/discountCodeHintTV" />
 
-            <View
-                android:id="@+id/discountCodeLine"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="10dp"
-                android:background="@color/gray"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/discountCodeTV"/>
+             <View
+                 android:id="@+id/discountCodeLine"
+                 android:layout_width="match_parent"
+                 android:layout_height="2dp"
+                 android:layout_marginVertical="10dp"
+                 android:background="@color/gray"
+                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                 app:layout_constraintTop_toBottomOf="@+id/discountCodeTV"/>-->
 
             <TextView
                 android:id="@+id/orderNoteTV"
@@ -153,7 +153,7 @@
                 android:textColor="@color/textColor3"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/discountCodeLine" />
+                app:layout_constraintTop_toBottomOf="@+id/productsRV" />
 
             <View
                 android:id="@+id/orderNoteRedLine"
@@ -225,13 +225,13 @@
                     android:background="@color/colorPrimaryDark"/>
 
                 <TextView
-                    android:id="@+id/PaymentSummaryOrderTotalTV"
+                    android:id="@+id/deliveryService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="@string/order_total"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
@@ -247,30 +247,30 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="30.00 SR"
+                    android:text="00.00 SR"
                     android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryOrderTotalTV"
-                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryOrderTotalTV" />
+                    app:layout_constraintBottom_toBottomOf="@+id/deliveryService"
+                    app:layout_constraintTop_toTopOf="@+id/deliveryService" />
 
                 <TextView
-                    android:id="@+id/PaymentSummaryOrderTaxTV"
+                    android:id="@+id/discounte"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="@string/tax"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryOrderTotalTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/deliveryService" />
 
                 <TextView
                     android:id="@+id/PaymentSummaryOrderTaxPriceTV"
@@ -280,30 +280,30 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="30.00 SR"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="00.00 SR"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryOrderTaxTV"
-                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryOrderTaxTV" />
+                    app:layout_constraintBottom_toBottomOf="@+id/discounte"
+                    app:layout_constraintTop_toTopOf="@+id/discounte" />
 
                 <TextView
-                    android:id="@+id/PaymentSummaryDiscountCodeTV"
+                    android:id="@+id/dicounteCodeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="@string/discount_code"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryOrderTaxTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/discounte" />
 
                 <TextView
                     android:id="@+id/PaymentSummaryDiscountCodePriceTV"
@@ -313,28 +313,82 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="30.00 SR"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="00.00 SR"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:textColor="@color/textColor3"
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/PaymentSummaryDiscountCodeTV"
-                    app:layout_constraintTop_toTopOf="@+id/PaymentSummaryDiscountCodeTV" />
+                    app:layout_constraintBottom_toBottomOf="@+id/dicounteCodeTv"
+                    app:layout_constraintTop_toTopOf="@+id/dicounteCodeTv" />
 
                 <TextView
-                    android:id="@+id/PaymentSummaryDiscountCodeNumberTV"
+                    android:id="@+id/TotalWithoutTax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="lksdk5s55sdJJJs"
-                    android:textColor="@color/gray2"
-                    android:paddingBottom="10dp"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:text="@string/TotalWithoutTax"
                     android:fontFamily="@font/din_next_regular"
-                    style="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/textColor3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryDiscountCodeTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/dicounteCodeTv" />
+
+                <TextView
+                    android:id="@+id/TotalWithoutTaxPriceTV"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/din_next_regular"
+                    android:gravity="center"
+                    android:minWidth="100dp"
+                    android:padding="5dp"
+                    android:text="00.00 SR"
+                    android:textColor="@color/textColor3"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/TotalWithoutTax"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/TotalWithoutTax" />
+
+                <TextView
+                    android:id="@+id/Delivery"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/din_next_regular"
+                    android:padding="5dp"
+                    android:text="@string/delivery_service"
+                    android:textColor="@color/textColor3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TotalWithoutTax" />
+
+                <TextView
+                    android:id="@+id/DeliveryPriceTV"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/din_next_regular"
+                    android:gravity="center"
+                    android:minWidth="100dp"
+                    android:padding="5dp"
+                    android:text="00.00 SR"
+                    android:textColor="@color/textColor3"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/Delivery"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/Delivery" />
+
 
                 <View
                     android:layout_width="match_parent"
@@ -357,7 +411,7 @@
                     android:fontFamily="@font/din_next_regular"
                     style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/PaymentSummaryDiscountCodeNumberTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/Delivery" />
 
                 <TextView
                     android:id="@+id/PaymentSummaryTotalPriceTV"
@@ -367,7 +421,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="30.00 SR"
+                    android:text="00.00 SR"
                     android:textColor="@color/textColor"
                     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                     android:fontFamily="@font/din_next_regular"

@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -43,7 +42,7 @@
             android:textSize="30dp"
             android:paddingBottom="5dp"
             android:background="@color/background_light_dark"
-            android:fontFamily="@font/din_next_bold"
+            android:fontFamily="@font/din_next_regular"
             style="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/textColor"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:fontFamily="@font/din_next_bold"
+            android:fontFamily="@font/din_next_regular"
             android:gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginHorizontal="20dp"
@@ -72,23 +71,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:fontFamily="@font/din_next_bold"
+            android:fontFamily="@font/din_next_regular"
             android:gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginHorizontal="20dp"
-            android:text="@string/select_minutes"
+            android:text="@string/select_hours"
             android:textColor="@color/textColor3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/minutesHintTv"
             app:layout_constraintTop_toBottomOf="@+id/hourTV" />
 
         <Spinner
-            android:id="@+id/commentET"
+            android:id="@+id/minutesSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawSelectorOnTop="true"
             android:entries="@array/minutes"
-            android:fontFamily="@font/din_next_bold"
+            android:fontFamily="@font/din_next_regular"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@+id/minutesHintTv"
@@ -100,8 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawSelectorOnTop="true"
-            android:entries="@array/minutes"
-            android:fontFamily="@font/din_next_bold"
+            android:entries="@array/hours"
+            android:fontFamily="@font/din_next_regular"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@+id/hoursHintTv"
@@ -115,11 +114,12 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="@string/add_comment"
+            android:fontFamily="@font/din_next_regular"
+            android:text="@string/confirm_time"
             android:textColor="@android:color/white"
             style="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@+id/commentET"
-            android:background="@drawable/login_button_shape"/>
+            app:layout_constraintTop_toBottomOf="@+id/minutesSpinner"
+            android:background="@drawable/login_button_shape" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

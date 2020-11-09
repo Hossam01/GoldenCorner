@@ -22,14 +22,13 @@
 
             <TextView
                 android:id="@+id/nameTv"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/first_name"
                 android:fontFamily="@font/din_next_regular"
                 android:textColor="@color/textColor3"
-                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +39,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
                 android:fontFamily="@font/din_next_regular"
-
                 android:ems="10"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
                 android:padding="10dp"
@@ -51,15 +51,14 @@
 
             <TextView
                 android:id="@+id/lastNameTv"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/din_next_regular"
-
                 android:padding="5dp"
-                android:text="@string/last_name"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@color/textColor3"
+                android:fontFamily="@font/din_next_regular"
+                android:text="@string/last_name"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
                 android:fontFamily="@font/din_next_regular"
-
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:ems="10"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName"
@@ -82,15 +82,14 @@
 
             <TextView
                 android:id="@+id/emailTv"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/din_next_regular"
-
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/textColor3"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/email"
-                android:textColor="@color/textColor3"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
                 android:fontFamily="@font/din_next_regular"
-
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textPersonName"
@@ -113,15 +113,15 @@
 
             <TextView
                 android:id="@+id/passwordTv"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:fontFamily="@font/din_next_regular"
 
+                android:fontFamily="@font/din_next_regular"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/textColor3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/password"
-                android:textColor="@color/textColor3"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +133,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_white_bg"
                 android:fontFamily="@font/din_next_regular"
-
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:ems="10"
                 android:enabled="false"
                 android:hint="@string/password"
@@ -165,12 +166,11 @@
 
             <TextView
                 android:id="@+id/mobileNumberProfileET"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/din_next_regular"
-
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:padding="5dp"
                 android:text="@string/mobile_number"
                 android:textColor="@color/textColor3"
@@ -188,7 +188,8 @@
                 android:enabled="false"
                 android:hint="@string/mobile_number"
                 android:fontFamily="@font/din_next_regular"
-
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:inputType="phone"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
@@ -217,11 +218,10 @@
 
             <TextView
                 android:id="@+id/myPointsTv"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/din_next_regular"
-
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_marginTop="15dp"
                 android:padding="5dp"
                 android:text="@string/my_points"
@@ -238,6 +238,8 @@
                 android:background="@drawable/edit_text_white_bg"
                 android:clickable="false"
                 android:ems="10"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:enabled="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/din_next_regular"

@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,9 +32,11 @@ import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.data.model.BranchRecords;
+import com.golden.goldencorner.data.model.Dish;
 import com.golden.goldencorner.data.model.ProductDetailData;
 import com.golden.goldencorner.data.model.ProductExtension;
 import com.golden.goldencorner.data.model.ProductSize;
+import com.golden.goldencorner.data.model.Rice;
 import com.golden.goldencorner.data.model.SimpleModel;
 import com.golden.goldencorner.ui.ViewDialog;
 import com.golden.goldencorner.ui.main.MainActivity;
@@ -46,6 +50,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +62,7 @@ import butterknife.OnClick;
 
 import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 
-public class OrderViewFragment extends DialogFragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener {
+public class OrderViewFragment extends DialogFragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener, RiceAdapter.AdapterListener, dishAdapter.AdapterListener {
 
     @BindView(R.id.productDetailsSliderRV)
     SliderView productDetailsSliderRV;
@@ -81,6 +86,11 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     TextView productMealsTV;
     @BindView(R.id.productExpandMealBtn)
     ImageView productExpandMealBtn;
+    @BindView(R.id.riceExpandMealAdditionsBtn)
+    ImageView riceExpandMealAdditionsBtn;
+    @BindView(R.id.dishesExpandMealAdditionsBtn)
+    ImageView dishesExpandMealAdditionsBtn;
+    boolean first = false;
     @BindView(R.id.productDetailsMailsRV)
     RecyclerView productDetailsMailsRV;
     @BindView(R.id.productAdditionsTV)
@@ -97,6 +107,15 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     ImageView productExpandMealCommentsBtn;
     @BindView(R.id.productDetailsCommentsRV)
     RecyclerView productDetailsCommentsRV;
+
+    @BindView(R.id.riceDetailsAdditionsRV)
+    RecyclerView riceDetailsAdditionsRV;
+    @BindView(R.id.dishesDetailsAdditionsRV)
+    RecyclerView dishesDetailsAdditionsRV;
+
+    double dishPrice = 0.0;
+    double ricePrice = 0.0;
+
     @BindView(R.id.addToCartBtn)
     CircularProgressButton addToCartBtn;
     @BindView(R.id.minusBtn)
@@ -107,25 +126,46 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     ImageView pluseBtn;
     @BindView(R.id.addEvaluteBtn)
     Button addCommentBtn;
-    double orderTotal=0.0;
-    Double ext_price=0.0;
-    String starttime,closetime;
+    @BindView(R.id.addLayout)
+    ConstraintLayout addLayout;
+    @BindView(R.id.dishLayout)
+    ConstraintLayout dishLayout;
+    @BindView(R.id.riceLayout)
+    ConstraintLayout riceLayout;
+    @BindView(R.id.line2)
+    View line2;
+    @BindView(R.id.line3)
+    View line3;
+    @BindView(R.id.line4)
+    View line4;
+    double orderTotal = 0.0;
+    Double ext_price = 0.0;
+    int size;
+    String starttime, closetime;
     String kindMeal;
     private OrderViewViewModel mViewModel;
     private ProductDetailData detailData = null;
     private SelectMealAdapter selectMealAdapter;
     private ExtensionsAdapter extensionsAdapter;
     private CommentAdapter commentAdapter;
+    int mealselect = 0;
+    int riceselect = 0;
+    int riceSize;
     long orderId;
+    float quntity = 0;
+    RiceAdapter riceAdapter;
+    dishAdapter dishAdapter;
+    List<ProductExtension> extensions = new ArrayList<>();
+    List<ProductSize> productSizes = new ArrayList<>();
+
     @Override
     public int getTheme() {
         return R.style.FullScreenDialog;
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.order_view2_fragment, container, false);
-
     }
 
     @Override
@@ -137,6 +177,8 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
                 .get(OrderViewViewModel.class);
         subscribeOrderObserver();
         subscribeActionsObserver();
+        riceAdapter = new RiceAdapter();
+        dishAdapter = new dishAdapter();
         selectMealAdapter = new SelectMealAdapter();
         selectMealAdapter.mListener = this;
         productDetailsMailsRV.setAdapter(selectMealAdapter);
@@ -145,13 +187,19 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
         productDetailsAdditionsRV.setAdapter(extensionsAdapter);
         commentAdapter = new CommentAdapter();
         productDetailsCommentsRV.setAdapter(commentAdapter);
+        riceAdapter.mListener = this;
+        dishAdapter.mListener = this;
+        riceDetailsAdditionsRV.setAdapter(riceAdapter);
+        dishesDetailsAdditionsRV.setAdapter(dishAdapter);
         setUpSliderView(getArguments().getString("image"));
         if (getArguments() != null) {
-             orderId = getArguments().getLong(AppConstant.PRODUCT_ID);
+            orderId = getArguments().getLong(AppConstant.PRODUCT_ID);
             mViewModel.invokeOrderApi(orderId);
         }
         mViewModel.invokeBranchesApi();
-      //  Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
+        //  Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
+
+
     }
 
     private ProductSliderAdapter mSliderAdapter;
@@ -178,9 +226,11 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
                             switch (resource.getStatus()) {
                                 case SUCCESS:
                                     detailData = resource.getData();
+
                                     kindMeal=detailData.getProduct().getPrice().toString();
                                     showProgressBar(false);
                                     fillOrderDetails(detailData);
+                                    quntity = detailData.getProduct().getProductSize().get(0).getQuantity();
                                     break;
                                 case ERROR:
                                     showProgressBar(false);
@@ -196,6 +246,8 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     }
 
     private void fillOrderDetails(ProductDetailData data) {
+        if (!data.getProduct().getDiscountPrice().equals("0") || data.getProduct().getDiscountPrice() != null)
+            data.getProduct().setPrice(data.getProduct().getDiscountPrice());
         String currentLanguage = SharedPreferencesManager.getString(AppConstant.FLAG_CURRENT_LANGUAGE);
         if (currentLanguage.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE)) {
             productNameTV.setText(data.getProduct().getTitle());
@@ -210,17 +262,38 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
         productRateTV.setText(data.getProduct().getRate() + "");
         detailData.getProduct().setTotalPrice(Double.valueOf(data.getProduct().getPrice()));
         updateFavoriteIcon();
-        if (data.getProduct().getImages().size()>0) {
+        if (data.getProduct().getImages().size() > 0) {
             mSliderAdapter.fillAdapterData(data.getProduct().getImages());
             productImage.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             productDetailsSliderRV.setVisibility(View.INVISIBLE);
             Glide.with(getContext()).load(getArguments().getString("image")).placeholder(R.drawable.golden)
                     .into(productImage);
         }
-        selectMealAdapter.fillAdapterData(data.getProduct().getProductSize());
-        extensionsAdapter.fillAdapterData(data.getProduct().getProductExtension());
+        Log.i("product", "" + data.getProduct().getId());
+
+        size = data.getProduct().getProductSize().size();
+        riceSize = data.getProduct().getRice().size();
+        selectMealAdapter.fillAdapterData(data.getProduct().getProductSize(), data.getProduct().getPrice());
+        riceAdapter.fillAdapterData(data.getProduct().getRice(), data.getProduct().getQuantity());
+        dishAdapter.fillAdapterData(data.getProduct().getDish());
+        extensionsAdapter.fillAdapterData(data.getProduct().getProductExtension(), data.getProduct().getQuantity());
         commentAdapter.fillAdapterData(data.getComments());
+        if (detailData.getProduct().getProductExtension().size() == 0) {
+            addLayout.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
+        }
+        if (detailData.getProduct().getRice().size() == 0) {
+            riceLayout.setVisibility(View.GONE);
+            line2.setVisibility(View.GONE);
+
+        }
+        if (detailData.getProduct().getDish().size() == 0) {
+            dishLayout.setVisibility(View.GONE);
+            line3.setVisibility(View.GONE);
+
+        }
+
     }
 
     private void subscribeActionsObserver() {
@@ -331,12 +404,35 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
         }
     }
 
+    @OnClick(R.id.riceExpandMealAdditionsBtn)
+    public void onriceExpandMealAdditionsBtnClicked() {
+        if (riceDetailsAdditionsRV.getVisibility() == View.VISIBLE) {
+            riceExpandMealAdditionsBtn.setRotation(180);
+            riceDetailsAdditionsRV.setVisibility(View.GONE);
+        } else {
+            riceExpandMealAdditionsBtn.setRotation(0);
+            riceDetailsAdditionsRV.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.dishesExpandMealAdditionsBtn)
+    public void ondishesExpandMealAdditionsBtnClicked() {
+        if (dishesDetailsAdditionsRV.getVisibility() == View.VISIBLE) {
+            dishesExpandMealAdditionsBtn.setRotation(180);
+            dishesDetailsAdditionsRV.setVisibility(View.GONE);
+        } else {
+            dishesExpandMealAdditionsBtn.setRotation(0);
+            dishesDetailsAdditionsRV.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     @OnClick(R.id.addEvaluteBtn)
     public void onAddCommentBtnClicked() {
 
         Bundle bundle = new Bundle();
 
-        if (SharedPreferencesManager.getString(UserName)!= null) {
+        if (SharedPreferencesManager.getString(UserName) != null) {
             bundle.putLong(AppConstant.PRODUCT_ID, orderId);
             ((MainActivity) getActivity()).navToDestination(R.id.nav_order_evaluate, bundle);
         }
@@ -349,42 +445,198 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     @OnClick(R.id.addToCartBtn)
     public void onAddToCartBtnClicked() {
 
+        if (size == 1) {
+            if (riceSize == 0) {
+                subscribeBranchesObserver();
+                SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+                String timeDate = sdf.format(new Date());
+                if (checktimings(timeDate, closetime, starttime) == true) {
+                    detailData.getProduct().getProductExtension().clear();
+                    detailData.getProduct().getProductSize().clear();
+                    detailData.getProduct().getProductExtension().addAll(extensions);
+                    detailData.getProduct().getProductSize().addAll(productSizes);
+                    detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
+                    ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+                    new AlertDialog.Builder(getActivity())
+                            .setMessage(getString(R.string.added_succes))
+                            .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    detailData = null;
 
+                                    ((MainActivity) getActivity()).navToDestination(R.id.nav_cart);
+                                }
+                            })
+                            .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } else {
+                    new AlertDialog.Builder(getActivity())
+                            .setMessage(getString(R.string.added_failed) + "\n" + starttime + " " + closetime)
+                            .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            } else if (riceSize > 0) {
+                if (riceselect == 0) {
+                    new AlertDialog.Builder(getActivity())
+                            .setMessage(getString(R.string.select_rice))
+                            .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } else {
+                    subscribeBranchesObserver();
+                    SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+                    String timeDate = sdf.format(new Date());
+                    if (checktimings(timeDate, closetime, starttime) == true) {
+                        detailData.getProduct().getProductExtension().clear();
+                        detailData.getProduct().getProductSize().clear();
+                        detailData.getProduct().getProductExtension().addAll(extensions);
+                        detailData.getProduct().getProductSize().addAll(productSizes);
+                        detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
+                        ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getString(R.string.added_succes))
+                                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        detailData = null;
 
-        subscribeBranchesObserver();
-        SimpleDateFormat sdf=new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
-        String timeDate=sdf.format(new Date());
-       if (checktimings(timeDate,closetime,starttime)==true)
-       {
-           detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
-           ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
-           new AlertDialog.Builder(getActivity())
-                   .setMessage(getString(R.string.added_succes))
-                   .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int which) {
-                           ((MainActivity)getActivity()).navToDestination(R.id.nav_cart);
-                       }
-                   })
-                   .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int which) {
-                           dialog.dismiss();
-                       }
-                   })
-                   .setIcon(android.R.drawable.ic_dialog_alert)
-                   .show();
-       }
-       else {
-           new AlertDialog.Builder(getActivity())
-                   .setMessage(getString(R.string.added_failed))
-                   .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int which) {
-                           dialog.dismiss();
-                       }
-                   })
-                   .setIcon(android.R.drawable.ic_dialog_alert)
-                   .show();
-       }
+                                        ((MainActivity) getActivity()).navToDestination(R.id.nav_cart);
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    } else {
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getString(R.string.added_failed) + "\n" + starttime + " " + closetime)
+                                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
+            }
+        } else if (size > 1) {
+            if (mealselect == 0) {
+                new AlertDialog.Builder(getActivity())
+                        .setMessage(getString(R.string.select_meal))
+                        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            } else {
+                if (riceSize == 0) {
+                    subscribeBranchesObserver();
+                    SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+                    String timeDate = sdf.format(new Date());
+                    if (checktimings(timeDate, closetime, starttime) == true) {
+                        detailData.getProduct().getProductExtension().clear();
+                        detailData.getProduct().getProductSize().clear();
+                        detailData.getProduct().getProductExtension().addAll(extensions);
+                        detailData.getProduct().getProductSize().addAll(productSizes);
+                        detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
+                        ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getString(R.string.added_succes))
+                                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        detailData = null;
+                                        ((MainActivity) getActivity()).navToDestination(R.id.nav_cart);
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    } else {
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getString(R.string.added_failed) + "\n" + starttime + " " + closetime)
+                                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                } else if (riceSize > 0) {
+                    if (riceselect == 0) {
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getString(R.string.select_rice))
+                                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    } else {
+                        subscribeBranchesObserver();
+                        SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss", Locale.ENGLISH);
+                        String timeDate = sdf.format(new Date());
+                        if (checktimings(timeDate, closetime, starttime) == true) {
+                            detailData.getProduct().getProductExtension().clear();
+                            detailData.getProduct().getProductSize().clear();
+                            detailData.getProduct().getProductExtension().addAll(extensions);
+                            detailData.getProduct().getProductSize().addAll(productSizes);
+                            detailData.getProduct().setPrice(String.valueOf(detailData.getProduct().getTotalPrice()));
+                            ((MainActivity) getActivity()).addProductToCard(detailData.getProduct());
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage(getString(R.string.added_succes))
+                                    .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            detailData = null;
 
+                                            ((MainActivity) getActivity()).navToDestination(R.id.nav_cart);
+                                        }
+                                    })
+                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage(getString(R.string.added_failed) + "\n" + starttime + " " + closetime)
+                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private boolean checktimings(String time, String endtime,String startTime) {
@@ -412,10 +664,10 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     @OnClick(R.id.favoritesIV)
     public void onAddToFavoritesClicked() {
         if (SharedPreferencesManager.getString(UserName) != null) {
-            updateFavoriteIcon();
             mViewModel.invokeAddToFavoritesApi(
                     ((MainActivity) getActivity()).getAccessToken()
                     , detailData.getProduct().getId());
+            updateFavoriteIcon();
         }
         else {
             ViewDialog alert = new ViewDialog();
@@ -438,69 +690,77 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
     @OnClick(R.id.minusBtn)
     public void onMinusBtnClicked() {
         double count = Double.valueOf(productItemsCountTV.getText().toString());
-        if (count <= 1){
-            ((MainActivity)getActivity()).showToast(getString(R.string.order_quantity_must_be_at_least));
-        }else {
+        if (count <= 1) {
+            ((MainActivity) getActivity()).showToast(getString(R.string.order_quantity_must_be_at_least));
+        } else {
             count--;
         }
-        productItemsCountTV.setText(count+"");
+        productItemsCountTV.setText((int) count + "");
         detailData.getProduct().setQuantity((float) count);
         double price = Double.valueOf(kindMeal);
-        orderTotal=Math.abs((count*Double.valueOf(price)));
-        detailData.getProduct().setTotalPrice(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price)));
-        productPriceTV.setText(String.valueOf(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price))));
+        orderTotal = Math.abs((count * Double.valueOf(price)));
+        detailData.getProduct().setTotalPrice(Math.abs((count * Double.valueOf(price)) + (count * Double.valueOf(ext_price) * quntity)) + (dishPrice * count) + (ricePrice * count));
+        productPriceTV.setText(String.valueOf(Math.abs((count * Double.valueOf(price)) + (count * Double.valueOf(ext_price) * quntity)) + (dishPrice * count) + (ricePrice * count)));
     }
 
     @OnClick(R.id.pluseBtn)
     public void onPluseBtnClicked() {
         double count = Double.valueOf(productItemsCountTV.getText().toString());
         count++;
-        productItemsCountTV.setText(count+"");
+        productItemsCountTV.setText((int) count + "");
         detailData.getProduct().setQuantity((float) count);
         double price = Double.valueOf(kindMeal);
-        orderTotal=Math.abs(count*price);
-        detailData.getProduct().setTotalPrice(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price)));
-        productPriceTV.setText(String.valueOf(Math.abs(count*Double.valueOf(price)+count*Double.valueOf(ext_price))));
+        orderTotal = Math.abs(count * price);
+        detailData.getProduct().setTotalPrice(Math.abs((count * Double.valueOf(price)) + (count * Double.valueOf(ext_price) * quntity) + (dishPrice * count) + (ricePrice * count)));
+        productPriceTV.setText(String.valueOf(Math.abs((count * Double.valueOf(price)) + (count * Double.valueOf(ext_price) * quntity)) + (dishPrice * count) + (ricePrice * count)));
     }
 
-    public void onExtensionBtnClicked(String price,boolean checked){
-        if (checked)
-        {
-            ext_price=Double.valueOf(price);
-            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString())+(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString())))));
-            detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString())+(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString()))));
+    public void onExtensionBtnClicked(String price, boolean checked, int position) {
+        if (checked) {
+            ext_price = ext_price + Double.valueOf(price);
+            first = true;
+            Toast.makeText(getContext(), "" + ext_price, Toast.LENGTH_SHORT).show();
+            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) + (Double.valueOf(price) * quntity * Double.valueOf(productItemsCountTV.getText().toString())))));
+            detailData.getProduct().setTotalPrice(Double.valueOf(productPriceTV.getText().toString()));
+        } else {
+            ext_price = ext_price - Double.valueOf(price);
+            Toast.makeText(getContext(), "" + ext_price, Toast.LENGTH_SHORT).show();
+            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) - (Double.valueOf(price) * quntity * Double.valueOf(productItemsCountTV.getText().toString())))));
+            detailData.getProduct().setTotalPrice(Double.valueOf(productPriceTV.getText().toString()));
+            extensions.remove(position);
         }
-        else
-            {
-                ext_price=0.0;
-            productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString())-(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString())))));
-            detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString())-(Double.valueOf(price)*Double.valueOf(productItemsCountTV.getText().toString()))));
-
-            }
     }
 
     @Override
-    public void onSelectedExtension(ProductExtension record,String price,boolean checked) {
+    public void onSelectedExtension(ProductExtension record, String price, boolean checked, int p) {
         detailData.getProduct().getProductExtension().add(record);
-        onExtensionBtnClicked(price,checked);
+        onExtensionBtnClicked(price, checked, p);
+        extensions.add(record);
+        Log.e("price", detailData.getProduct().getPrice());
+        Log.e("totalprice", String.valueOf(detailData.getProduct().getTotalPrice()));
     }
 
     @Override
     public void onSelectedMeal(ProductSize record, int position) {
+        productSizes.clear();
+        productSizes.add(record);
         detailData.getProduct().getProductSize().add(record);
-        kindMeal=detailData.getProduct().getProductSize().get(position).getPrice().toString();
-        productPriceTV.setText(detailData.getProduct().getProductSize().get(position).getPrice().toString());
+        if (Double.valueOf(detailData.getProduct().getProductSize().get(position).getDisPrice()) > 0.00)
+            kindMeal = detailData.getProduct().getProductSize().get(position).getDisPrice().toString();
+        else
+            kindMeal = detailData.getProduct().getProductSize().get(position).getPrice().toString();
 
-        //todo comment because crashing
-//        List<ProductSize> mList = selectMealAdapter.getDataList();
-//        if (mList.size() > 0) {
-//            for (ProductSize record:mList) {
-//                record.setIsSelected(false);
-//            }
-//            mList.get(position).setIsSelected(true);
-//            selectMealAdapter.fillAdapterData(mList);
-//            detailData.getProduct().getProductSize().add(mList.get(position));
-//        }
+        extensionsAdapter.fillAdapterData(detailData.getProduct().getProductExtension(), detailData.getProduct().getProductSize().get(position).getQuantity());
+        riceAdapter.fillAdapterData(detailData.getProduct().getRice(), detailData.getProduct().getProductSize().get(position).getQuantity());
+        quntity = detailData.getProduct().getProductSize().get(position).getQuantity();
+        double i = Double.valueOf(productItemsCountTV.getText().toString());
+        double x = (Double.valueOf(kindMeal) * i) + (i * (ext_price * quntity)) + (dishPrice * i) + (ricePrice * i);
+        productPriceTV.setText(String.valueOf(x));
+        mealselect = position + 1;
+        productCaloriesTV.setText(getString(R.string.calories) + detailData.getProduct().getProductSize().get(position).getCalorie());
+        detailData.getProduct().setTotalPrice(x);
+        Log.e("price", detailData.getProduct().getPrice());
+        Log.e("totalprice", String.valueOf(detailData.getProduct().getTotalPrice()));
     }
 
     private void subscribeBranchesObserver() {
@@ -532,4 +792,32 @@ public class OrderViewFragment extends DialogFragment implements ExtensionsAdapt
                 });
     }
 
+    @Override
+    public void onSelectedRice(Rice record, int position) {
+        detailData.getProduct().getRice().clear();
+        detailData.getProduct().getRice().add(record);
+        productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) - ((Double.valueOf(ricePrice)) * quntity * Double.valueOf(productItemsCountTV.getText().toString())) + dishPrice * Double.valueOf(productItemsCountTV.getText().toString()))));
+        detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString()) - (Double.valueOf(ricePrice) * quntity * Double.valueOf(productItemsCountTV.getText().toString())) + dishPrice * Double.valueOf(productItemsCountTV.getText().toString())));
+        ricePrice = Double.valueOf(record.getPrice());
+        productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) + ((Double.valueOf(ricePrice)) * quntity * Double.valueOf(productItemsCountTV.getText().toString()))) + dishPrice * Double.valueOf(productItemsCountTV.getText().toString())));
+        detailData.getProduct().setTotalPrice(Double.valueOf(productPriceTV.getText().toString()));
+        riceselect = position + 1;
+        Log.e("price", detailData.getProduct().getPrice());
+        Log.e("totalprice", String.valueOf(detailData.getProduct().getTotalPrice()));
+
+    }
+
+    @Override
+    public void onSelectedDish(Dish record, int position) {
+        detailData.getProduct().getDish().clear();
+        detailData.getProduct().getDish().add(record);
+        productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) - ((Double.valueOf(dishPrice)) * Double.valueOf(productItemsCountTV.getText().toString())))));
+        detailData.getProduct().setTotalPrice(Math.abs(Double.valueOf(productPriceTV.getText().toString()) - (Double.valueOf(dishPrice) * Double.valueOf(productItemsCountTV.getText().toString()))));
+        dishPrice = Double.valueOf(record.getPrice());
+        productPriceTV.setText(String.valueOf(Math.abs(Double.valueOf(productPriceTV.getText().toString()) + ((Double.valueOf(dishPrice)) * Double.valueOf(productItemsCountTV.getText().toString())))));
+        detailData.getProduct().setTotalPrice(Double.valueOf(productPriceTV.getText().toString()));
+        Log.e("price", detailData.getProduct().getPrice());
+        Log.e("totalprice", String.valueOf(detailData.getProduct().getTotalPrice()));
+
+    }
 }

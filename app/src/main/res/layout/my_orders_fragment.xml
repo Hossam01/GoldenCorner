@@ -8,7 +8,7 @@
     tools:context="com.golden.goldencorner.ui.main.userOrders.UserOrdersFragment">
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/titleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTV"
         android:background="@color/colorPrimaryDark"
-        />
+        />!-->
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/ordersRV"
        android:layout_width="match_parent"
@@ -35,7 +35,7 @@
        android:orientation="vertical"
        tools:listitem="@layout/item_my_orders"
        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/viewLine"
+       app:layout_constraintTop_toTopOf="parent"
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
        />

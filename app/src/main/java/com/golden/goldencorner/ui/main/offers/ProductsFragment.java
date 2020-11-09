@@ -1,7 +1,7 @@
 package com.golden.goldencorner.ui.main.offers;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.golden.goldencorner.R;
+import com.golden.goldencorner.data.local.SharedPreferencesManager;
 import com.golden.goldencorner.ui.base.SectionsPagerAdapter;
 import com.golden.goldencorner.ui.main.latestProducts.LastProductsFragment;
 import com.golden.goldencorner.ui.main.mostRequested.MustRequestedFragment;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -70,22 +70,26 @@ public class ProductsFragment extends Fragment {
         tabs.getTabAt(1).setText(R.string.latest_products);
         tabs.getTabAt(2).setText(R.string.Most_requested);
 
-        navToSelectedFragment(getArguments());
+        String name = SharedPreferencesManager.getString(SELECTED_FRAGMENT_NAME);
+        Log.i(name, name);
+        navToSelectedFragment(name);
+
     }
 
-    private void navToSelectedFragment(Bundle arguments) {
+    private void navToSelectedFragment(String arguments) {
         if (arguments != null) {
-            String fragmentName = (String) getArguments().get(SELECTED_FRAGMENT_NAME);
-            if (TextUtils.isEmpty(fragmentName)) {
-                if (fragmentName.equalsIgnoreCase(OffersFragment.class.getSimpleName())) {
-                    tabs.getTabAt(0).select();
-                }
-                if (fragmentName.equalsIgnoreCase(LastProductsFragment.class.getSimpleName())) {
-                    tabs.getTabAt(1).select();
-                }
-                if (fragmentName.equalsIgnoreCase(MustRequestedFragment.class.getSimpleName())) {
-                    tabs.getTabAt(2).select();
-                }
+            if (arguments.equals(OffersFragment.class.getSimpleName())) {
+                tabs.getTabAt(0).select();
+                tabs.setScrollPosition(0, 0, true);
+                viewPager.setCurrentItem(0);
+            } else if (arguments.equals(LastProductsFragment.class.getSimpleName())) {
+                tabs.getTabAt(1).select();
+                tabs.setScrollPosition(1, 0, true);
+                viewPager.setCurrentItem(1);
+            } else if (arguments.equals(MustRequestedFragment.class.getSimpleName())) {
+                tabs.getTabAt(2).select();
+                tabs.setScrollPosition(2, 0, true);
+                viewPager.setCurrentItem(2);
             }
         }
     }

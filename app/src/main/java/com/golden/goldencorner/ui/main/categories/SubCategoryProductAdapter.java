@@ -108,12 +108,14 @@ public class SubCategoryProductAdapter extends RecyclerView.Adapter<SubCategoryP
             super(view);
             ButterKnife.bind(this, view);
         }
-        @OnClick({R.id.addToCartIV,R.id.productIV})
+        @OnClick({R.id.addToCartIV, R.id.productIV, R.id.nameTV})
         public void onViewClicked(View view) {
             if (mListener != null) {
-                if (view.getId()==R.id.addToCartIV)
+                if (view.getId() == R.id.addToCartIV)
                     mListener.onAddToCartClicked(dataList.get(getAdapterPosition()));
-                if (view.getId()==R.id.productIV)
+                if (view.getId() == R.id.productIV)
+                    mListener.onAddToCartClickedDetails(dataList.get(getAdapterPosition()));
+                if (view.getId() == R.id.nameTV)
                     mListener.onAddToCartClickedDetails(dataList.get(getAdapterPosition()));
             }
 

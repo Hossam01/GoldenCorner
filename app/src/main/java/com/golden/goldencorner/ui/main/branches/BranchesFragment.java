@@ -58,7 +58,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class BranchesFragment extends Fragment implements OnMapReadyCallback, OnSuccessListener<Location>, BranchesAdapter.AdapterListener {
-
+    private static View view;
     public static final String TAG = BranchesFragment.class.getName();
     @BindView(R.id.branchTitleTV)
     TextView branchTitleTV;
@@ -74,29 +74,45 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
     private String currentAddress;
     private Location currentLocation;
     private List<BranchRecords> dataList = new ArrayList<>();
+    SupportMapFragment mapFragment;
+    int click = 0;
+    double longitude = 0.0;
+    double latitude = 0.0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (view != null) {
+            ViewGroup viewGroupParent = (ViewGroup) view.getParent();
+            if (viewGroupParent != null)
+                viewGroupParent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.branches_fragment, container, false);
+        } catch (Exception e) {
+            // map is already there
+        }
 
         ((MainActivity) getActivity()).titleToolbarIv.setText(getString(R.string.branches));
-        return inflater.inflate(R.layout.branches_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
         mViewModel = ViewModelProviders.of(this)
                 .get(BranchesViewModel.class);
-        mAdapter = new BranchesAdapter();
-        branchesRV.setAdapter(mAdapter);
-        mAdapter.mListener = this;
         setUpMapUi();
+
+        mAdapter = new BranchesAdapter();
         mViewModel.invokeBranchesApi();
         subscribeBranchesObserver();
+        branchesRV.setAdapter(mAdapter);
+        mAdapter.mListener = this;
 
+        return view;
     }
 
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//    }
 
     private void subscribeBranchesObserver() {
         mViewModel.getBranchesLiveData().observe(getViewLifecycleOwner(),
@@ -106,35 +122,46 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
                         if (resource != null) {
                             switch (resource.getStatus()) {
                                 case SUCCESS:
+                                    dataList.clear();
+
+                                    ((MainActivity) getActivity()).showProgressBar(false);
+
                                     showProgressBar(false);
                                     List<BranchRecords> list = resource.getData();
                                     Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
                                     for (int i = 0; i < list.size(); i++) {
+
+
                                         LatLng latLngTo = new LatLng(Double.valueOf(list.get(i).getLat())
                                                 , Double.valueOf(list.get(i).getLang()));
+                                        GPSTracker gps = new GPSTracker(getActivity());
+
                                         LatLng latLngFrom = new LatLng(
-                                                currentLocation.getLatitude()
-                                                , currentLocation.getLongitude());
+                                                gps.getLatitude()
+                                                , gps.getLongitude());
                                         String distance = mViewModel.getDistance(getContext()
-                                                ,latLngFrom, latLngTo);
+                                                , latLngFrom, latLngTo);
                                         boolean isOpen = mViewModel.isOpen(list.get(i).getOpenTime(),
                                                 list.get(i).getClosedTime());
                                         list.get(i).setDistance(distance);
                                         list.get(i).setIsOpen(isOpen);
-                                        if (branchId == list.get(i).getId()){
+                                        if (branchId == list.get(i).getId()) {
                                             list.get(i).setSelected(true);
                                         }
+                                        dataList.add(list.get(i));
+
                                     }
-                                    dataList.clear();
-                                    dataList.addAll(list);
                                     mAdapter.fillAdapterData(dataList);
                                     drawMarkersOnMap();
                                     break;
                                 case ERROR:
+                                    ((MainActivity) getActivity()).showProgressBar(false);
                                     showProgressBar(false);
 //                                    showToast(resource.getMessage());
                                     break;
                                 case LOADING:
+                                    ((MainActivity) getActivity()).showProgressBar(true);
+
                                     showProgressBar(true);
                                     break;
                             }
@@ -162,12 +189,39 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
 
     private void setUpMapUi() {
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
+
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         grantLocationPermission();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                mapFragment.getMapAsync(this);
+
+            } else if (grantResults.length == 0) {
+                if ((ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+
+                    requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+
+                }
+
+
+            }
+
+
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -178,8 +232,12 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(permission -> {
                     if (permission.granted) {
+
+                        mapFragment.getMapAsync(this);
+
                         fusedLocationClient.getLastLocation().addOnSuccessListener(this);
                     }
+
                 });
     }
 
@@ -196,30 +254,52 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
         this.currentLocation = location;
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         currentAddress = mViewModel.getAddress(getContext(), latLng);
-        addMarkerToMap(latLng);
-
-
+//        addMarkerToMap(latLng);
+        drawMarkersOnMap();
     }
 
     private void addMarkerToMap(@NonNull LatLng location) {
-        if (mMap != null && location != null) {
-            //mMap.clear();
-            LatLng currentLatLng = new LatLng(location.latitude, location.longitude);
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.icon(getMarkerIcon());
-            markerOptions.position(currentLatLng);
-            if (location == null) {
-                currentAddress = mViewModel.getAddress(getContext(), location);
-                markerOptions.title(currentAddress);
-            } else {
-                currentAddress = mViewModel.getAddress(getContext(), location);
-                markerOptions.title(currentAddress);
-            }
-            mMap.addMarker(markerOptions);
-           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 25.0f));
+        if (click == 0) {
+            if (mMap != null && location != null) {
+                //mMap.clear();
+                LatLng currentLatLng = new LatLng(location.latitude, location.longitude);
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.icon(getMarkerIcon());
+                markerOptions.position(currentLatLng);
+                if (location == null) {
+//                    currentAddress = mViewModel.getAddress(getContext(), location);
+//                    markerOptions.title(currentAddress);
 
+                } else {
+                    currentAddress = mViewModel.getAddress(getContext(), location);
+                    markerOptions.title(currentAddress);
+                }
+                mMap.addMarker(markerOptions);
+                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 11.0f));
+
+            }
+        } else if (click == 1) {
+            if (mMap != null && location != null) {
+                //mMap.clear();
+                LatLng currentLatLng = new LatLng(location.latitude, location.longitude);
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.icon(getMarkerIcon());
+                markerOptions.position(currentLatLng);
+                if (location == null) {
+                    currentAddress = mViewModel.getAddress(getContext(), location);
+                    markerOptions.title(currentAddress);
+                } else {
+                    currentAddress = mViewModel.getAddress(getContext(), location);
+                    markerOptions.title(currentAddress);
+                }
+                mMap.addMarker(markerOptions);
+                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16.0f));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20.0f));
+
+            }
         }
+
     }
 
     private BitmapDescriptor getMarkerIcon() {
@@ -227,11 +307,11 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
         checkLocationUpdateProvider();
-        super.onStart();
     }
 
     private final int LOCATION_PERMISSION_REQUEST_CODE = 1212;
@@ -328,13 +408,13 @@ public class BranchesFragment extends Fragment implements OnMapReadyCallback, On
 
     @OnClick(R.id.continueBtn)
     public void onViewClicked() {
-//        getActivity().onBackPressed();
         ((MainActivity) getActivity()).navToDestination(R.id.nav_home);
     }
 
 
     @Override
     public void onSelectBranch(BranchRecords record, int position) {
+        click = 1;
         Long branchId = ((MainActivity) getActivity()).getSelectedBranchId();
         for (int i = 0; i < dataList.size(); i++) {
             record.setSelected(false);

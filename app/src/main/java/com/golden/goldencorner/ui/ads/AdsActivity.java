@@ -1,10 +1,14 @@
 package com.golden.goldencorner.ui.ads;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -36,6 +40,8 @@ public class AdsActivity extends BaseActivity {
 
     @BindView(R.id.langLiftBtn)
     Button langLiftBtn;
+    @BindView(R.id.textView3)
+    TextView textView3;
     @BindView(R.id.langRightBtn)
     Button langRightBtn;
     @BindView(R.id.skipLiftBtn)
@@ -115,6 +121,18 @@ public class AdsActivity extends BaseActivity {
         SharedPreferencesManager.saveCurrentLang(ENGLISH_LANGUAGE);
         //restartApp();
         skip();
+    }
+
+    @OnClick(R.id.textView3)
+    public void onTvClicked() {
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.it-inn.com/"));
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application can handle this request."
+                    + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.langRightBtn)

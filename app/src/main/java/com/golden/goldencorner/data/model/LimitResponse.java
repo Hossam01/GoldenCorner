@@ -1,13 +1,12 @@
 package com.golden.goldencorner.data.model;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.List;
 
 public class LimitResponse {
     @SerializedName("status")
     private int status;
     @SerializedName("data")
-    private List<LimitResponseModel> data;
+    private LimitResponseModel data;
 
     public int getStatus() {
         return status;
@@ -17,11 +16,11 @@ public class LimitResponse {
         this.status = status;
     }
 
-    public List<LimitResponseModel> getData() {
+    public LimitResponseModel getData() {
         return data;
     }
 
-    public void setData(List<LimitResponseModel> data) {
+    public void setData(LimitResponseModel data) {
         this.data = data;
     }
 }

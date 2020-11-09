@@ -91,6 +91,7 @@
     <string name="open_now">مفتوح الان</string>
     <string name="close_now">مغلق الأن</string>
     <string name="off">الغاء</string>
+    <string name="selectmeal">يجب عليك اختيار وجبه</string>
     <string name="select_meal">حدد وجبتك</string>
     <string name="extras">الإضافات</string>
     <string name="comments">التعليقات</string>
@@ -103,7 +104,7 @@
     <string name="add_comment">إضافة تعليق</string>
     <string name="delete">حذف</string>
     <string name="evaluate_product">تقييم المنتج</string>
-    <string name="discount_code">كود التخفيض</string>
+    <string name="discount_code">التخفيض</string>
     <string name="select_delivery_time_from_the_branch">حدد موعد التسليم من الفرع</string>
     <string name="add_discount_code">أضف كود الخصم</string>
     <string name="select_minutes">حدد الدقائق</string>
@@ -137,7 +138,7 @@
     <string name="are_you_satisfied_with_the_delivery_driver">هل انت راضي عن مندوب التوصيل</string>
     <string name="eating_heat">هل انت راضي عن حرارة الاكل</string>
     <string name="evaluation_questions">اسئلة التقييم المدونة</string>
-    <string name="evaluation">Evaluation</string>
+    <string name="evaluation">التقيم</string>
     <string name="receive_from_branch">استلام من الفرع</string>
     <string name="deliver_to_address">تسليم إلى العنوان</string>
     <string name="choose_saved_address">اختر العنوان المحفوظ</string>
@@ -145,7 +146,7 @@
     <string name="payment_information">معلومات الدفع</string>
     <string name="pay_on_receipt">الدفع عند الإستلام كاش</string>
     <string name="pay_on_receipt_mada_card">الدفع عند الاستلام بطاقة مدى</string>
-    <string name="order_total">إجمالي الطلب</string>
+    <string name="order_total">مجموع الطلب</string>
     <string name="golden_corner_branches">فروع الركن الذهبي</string>
     <string name="appropriate_timing_of_receipt">التوقيت المناسب للاستلام</string>
     <string name="no_more_data_to_load">ليس هناك مزيد من البيانات للتحميل</string>
@@ -167,13 +168,13 @@
     <string name="you_can_add_discount_code">  يمكنك إضافة كبون خصم  </string>
     <string name="add_code">أضف الكبون</string>
     <string name="order_note">ملاحظة على الطلب</string>
-    <string name="total">المجموع</string>
+    <string name="total">الاجمالي</string>
     <string name="proceed_to_purchase">متابعة الشراء</string>
     <string name="order_summary">ملخص الطلب</string>
     <string name="add_your_order">أضف طلبك</string>
     <string name="shopping_card_is_empty">عربة التسوق فارغة</string>
     <string name="search">بحث</string>
-    <string name="cart">Cart</string>
+    <string name="cart">سله التسوق</string>
     <string name="tax">الضريبة</string>
     <string name="credit_cards">بطاقات الائتمان</string>
     <string name="add_credit_card">إضافة بطاقة ائتمان</string>
@@ -215,7 +216,36 @@
      - شروط وأحكام استخدام تطبيق Sky Restaurant Deraty</string>
     <string name="order_data">بيانات الطلب</string>
     <string name="Dopay">تنفيذ الدفع</string>
+    <string name="TotalWithoutTax">المجموع باستثناء الضريبه</string>
+    <string name="delivery_service">خدمه التوصيل</string>
+    <string name="logintext">الرجاء تسجيل الدخول</string>
+    <string name="cancelorder">الغاء الطلب</string>
+    <string name="yes">تأكيد</string>
+    <string name="no">الغاء</string>
+    <string name="hint_resource">نوع البطاقه</string>
+    <string name="credit_kind">نوع البطاقه</string>
+    <string name="select_card">الرجاء اختيار نوع الكارت</string>
+    <string name="feedBack">ملاحظات خاصه</string>
 
-
-
+    <string name="noteBody">هناك حقيقه مثبته منذ زمن طويل وهي ان المحتوي المقروء لصفحه ما سيلهي القارئ عن التركيزعلي الشكل الخارجي للنص او شكل توضع الفقرات في الصفحه التي يقراها ولذلك يتم استخدام طريقه لوريم ايبسوم</string>
+    <string name="payment_method">طريقه الدفع</string>
+    <string name="done_branch">تم الاستلام من فرع</string>
+    <string name="discount_code2">كود التخفيض</string>
+    <string name="branche">الفرع</string>
+    <string name="confirm_time">تاكيد الوقت</string>
+    <string name="condition">الحد الادني اكبر من سعر الاوردر</string>
+    <string name="country">البلد</string>
+    <string name="receipt">ايصال</string>
+    <string name="success_checkout">تم تنفيذ طلبك بنجاح</string>
+    <string name="select_hours">اختار الساعه</string>
+    <string name="select_payment_method">يجب ان تختار طريقه الدفع</string>
+    <string name="product_view">عرض المنتج</string>
+    <string name="UpdateCredit">تعديل البطاقه</string>
+    <string name="DriverRate">تقيم السائق</string>
+    <string name="orderRate">تقيم الطلب</string>
+    <string name="dish">تأمين الصحون</string>
+    <string name="rice">نوع الرز</string>
+    <string name="elec_card">الدفع الالكتروني</string>
+    <string name="select_rice">يجب ان تختار نوع الارز</string>
+    <string name="hint">سوف يقوم المندوب بإحضار آلة الدفع لتقوم بالدفع وقت استلام الطلب</string>
 </resources>

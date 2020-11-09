@@ -1,6 +1,7 @@
 package com.golden.goldencorner.data.remote;
 
 
+import com.golden.goldencorner.data.Qustions.QustionsModel;
 import com.golden.goldencorner.data.model.AboutResponse;
 import com.golden.goldencorner.data.model.ActivateUserResponse;
 import com.golden.goldencorner.data.model.AddressResponse;
@@ -22,15 +23,17 @@ import com.golden.goldencorner.data.model.OrderResponse;
 import com.golden.goldencorner.data.model.ProductDetailResponse;
 import com.golden.goldencorner.data.model.ProductResponse;
 import com.golden.goldencorner.data.model.ProfileResponse;
+import com.golden.goldencorner.data.model.ResponseCardType;
 import com.golden.goldencorner.data.model.ResponseTerms;
 import com.golden.goldencorner.data.model.SimpleResponse;
+import com.golden.goldencorner.ui.main.DiscounteCode.Model.ResponseDiscounteCode;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -107,10 +110,10 @@ public interface RemoteApi {
     @FormUrlEncoded
     @POST("golden/api/web/v1/site/profile")
     Flowable<ProfileResponse> editMobile(@Query("access-token") String access_token,
-                                           @Field("mobile") String mobile);
+                                         @Field("mobile") String mobile);
 
-    @POST("golden/api/web/v1/site/branch")
-    Flowable<BranchesResponse> getBranches();
+    @GET("golden/api/web/v1/site/branch")
+    Observable<BranchesResponse> getBranches();
 
     @POST("golden/api/web/v1/site/device-token")
     Flowable<DeviceTokenRecords> getDeviceToken(@Query("access-token") String token);
@@ -191,7 +194,7 @@ public interface RemoteApi {
 
     @FormUrlEncoded
     @POST("golden/api/web/v1/product/view-order")
-    Flowable<OrderDetailResponse> getOrderById(@Field("id") int id,
+    Flowable<OrderDetailResponse> getOrderById(@Field("id") long id,
                                                @Query("access-token") @NotNull String access_token);
 
     @FormUrlEncoded
@@ -258,7 +261,7 @@ public interface RemoteApi {
 
     @FormUrlEncoded
     @POST("golden/api/web/v1/product/checkout")
-    Flowable<CheckoutResponse> checkout(@Field("name") String name,
+    Flowable<CheckoutResponse> checkout(@Query("access-token") String access_token, @Field("name") String name,
                                         @Field("country") String country,
                                         @Field("city") String city,
                                         @Field("region") String region,
@@ -278,6 +281,8 @@ public interface RemoteApi {
                                         @Field("product_quantity") String product_quantity,
                                         @Field("product_extension") String product_extension,
                                         @Field("product_size") String product_size,
+                                        @Field("product_rice") String product_rice,
+                                        @Field("product_dish") String product_dish,
                                         @Field("product_totalPrice") String product_totalPrice,
                                         @Field("lat") String lat,
                                         @Field("lang") String lang,
@@ -289,9 +294,10 @@ public interface RemoteApi {
     @GET("golden/api/web/v1/product/order-limit")
     Flowable<LimitResponse> getLimitMinOrderValue();
 
+    @GET("golden/api/web/v1/list/card-type")
+    Flowable<ResponseCardType> getCreditCardType();
 
-    @FormUrlEncoded
-    @POST("golden/api/web/v1/product/card")
+    @GET("golden/api/web/v1/product/card")
     Flowable<CardResponse> getCreditCard(@Query("access-token") String access_token);
 
     @FormUrlEncoded
@@ -299,7 +305,8 @@ public interface RemoteApi {
     Flowable<SimpleResponse> addCreditCard(@Query("access-token") String access_token,
                                            @Field("name") String name,
                                            @Field("card_number") String card_number,
-                                           @Field("expired") String expired);
+                                           @Field("expired") String expired,
+                                           @Field("type") String type);
 
     @FormUrlEncoded
     @POST("golden/api/web/v1/product/delete-card")
@@ -348,11 +355,21 @@ public interface RemoteApi {
 
     @FormUrlEncoded
     @POST("golden/api/web/v1/product/check-code")
-    Flowable<FavResponse> checkCode(@Query("access-token") String access_token,
-                                    @Field("code") String code);
+    Flowable<ResponseDiscounteCode> checkCode(@Query("access-token") String access_token,
+                                              @Field("code") String code);
+
+
+    @GET("golden/api/web/v1/product/rate-question")
+    Flowable<QustionsModel> rateQuestion(@Query("access-token") String access_token);
 
     @FormUrlEncoded
-    @POST("golden/api/web/v1/product/product-views")
-    Flowable<FavResponse> checkCode(@Query("access-token") String access_token,
-                                    @Field("ids") List<Integer> ids);
+    @POST("golden/api/web/v1/product/order-rate")
+    Flowable<SimpleResponse> rateAnswer(@Query("access-token") String access_token
+            , @Field("order_id") String order_id
+            , @Field("driver_id") String driver_id
+            , @Field("question_id") String question_id
+            , @Field("rate") String rate
+            , @Field("type") String type);
+
+
 }

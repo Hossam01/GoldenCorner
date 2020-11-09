@@ -42,10 +42,14 @@ import com.golden.goldencorner.data.model.BranchRecords;
 import com.golden.goldencorner.data.model.DataItemTerms;
 import com.golden.goldencorner.data.model.Product;
 import com.golden.goldencorner.data.receiver.NetworkReceiver;
+import com.golden.goldencorner.ui.DeliveryDate.SendTime;
 import com.golden.goldencorner.ui.ViewDialog;
 import com.golden.goldencorner.ui.base.BaseActivity;
 import com.golden.goldencorner.ui.login.LogInActivity;
-import com.golden.goldencorner.ui.main.addresses.MapFragment;
+import com.golden.goldencorner.ui.main.DiscounteCode.DiscounteData;
+import com.golden.goldencorner.ui.main.addresses.SendData;
+import com.golden.goldencorner.ui.main.addresses.SendDataLocation;
+import com.golden.goldencorner.ui.main.cart.CardAdapter;
 import com.golden.goldencorner.ui.main.latestProducts.LastProductsFragment;
 import com.golden.goldencorner.ui.main.mostRequested.MustRequestedFragment;
 import com.golden.goldencorner.ui.main.offers.OffersFragment;
@@ -68,7 +72,7 @@ import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
 import static com.golden.goldencorner.ui.main.offers.ProductsFragment.SELECTED_FRAGMENT_NAME;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener, AdapterView.OnItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener, MapFragment.EditNameDialogListener {
+        View.OnClickListener, AdapterView.OnItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener, SendDataLocation, SendTime, SendData, DiscounteData {
 
 
     public static final String TAG = MainActivity.class.getName();
@@ -97,7 +101,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.mDilatingDotsProgressBar)
     DilatingDotsProgressBar mDilatingDotsProgressBar;
-    boolean value=false;
+    boolean value = false;
     private NavController navController;
     private AppBarConfiguration mAppBarConfiguration;
     private TextView loginNavHeaderTV;
@@ -107,30 +111,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private List<Product> cardListProducts = new ArrayList<>();
     private RxPermissions rxPermissions;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        mViewModel = ViewModelProviders.of(this)
-                .get(MainViewModel.class);
-        setUpUiViews();
-//        hideNavigation();
-        subscribeBranchesObserver();
-        rxPermissions = new RxPermissions(this);
-        ArrayList<DataItemTerms> arrayList=new ArrayList<>();
-        try {
-            value = getIntent().getExtras().getBoolean("move", false);
-        }catch (NullPointerException e)
-        {}
-        if (value) {
-
-                navToDestination(R.id.nav_terms_and_conditions);
-            }
-
-
-    }
+    int oldPosition, newPosition;
+    String lang = "";
 
     private ArrayAdapter<String> branchesSpinnerAdapter = null;
 
@@ -155,6 +137,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 });
     }
+
+    String lat = "";
 
     private void setUpSpinnerUi(List<BranchRecords> dataList) {
         branchesSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -274,6 +258,165 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 || super.onSupportNavigateUp();
     }
 
+    String time = "00:00";
+
+    private void shareApp() {
+        ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setChooserTitle("Select")
+                .setText("http://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)
+                .startChooser();
+//        try {
+//            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//            shareIntent.setType("text/plain");
+//            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+//            String shareMessage= "\nLet me recommend you this application\n\n";
+//            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+//            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+//            startActivity(Intent.createChooser(shareIntent, "choose one"));
+//        } catch(Exception e) {
+//            //e.toString();
+//        }
+    }
+
+    double total2 = 0.0;
+
+    //    private boolean isValidDestination(int destination) {
+//        return destination != navController.getCurrentDestination().getId();
+//    }
+    public void navToDestination(int resId) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        if (navController != null && resId != 0)
+            navController.navigate(resId);
+
+    }
+
+    public void navToDestination(int resId, Bundle bundleArgs) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        if (navController != null && resId != 0)
+            navController.navigate(resId, bundleArgs);
+    }
+
+    public void navToDestination(NavDirections action) {
+        if (navController != null && action != null)
+            navController.navigate(action);
+    }
+
+    public void drawerHandler() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            drawerLayout.open();
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logoNavHeaderIV:
+            case R.id.loginNavHeaderTV:
+                startActivityForResult(new Intent(getApplicationContext(),
+                        LogInActivity.class), RC_LOGIN);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_LOGIN && resultCode == RESULT_OK) {
+            fillViewOnLogin();
+        }
+    }
+
+    @OnClick({/*R.id.menuToolbarIV
+            , */R.id.titleToolbarIv
+            , R.id.searchToolbarIV
+            , R.id.cartToolbarIV})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+//            case R.id.menuToolbarIV:
+//                drawerHandler();
+//                break;
+            case R.id.titleToolbarIv:
+                break;
+            case R.id.searchToolbarIV:
+                navToDestination(R.id.nav_search);
+                break;
+            case R.id.cartToolbarIV:
+                navToDestination(R.id.nav_cart);
+                break;
+        }
+    }
+
+    String copun = "";
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.i(TAG, parent.getFirstVisiblePosition() + "");
+    }
+
+    int discopun = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        mViewModel = ViewModelProviders.of(this)
+                .get(MainViewModel.class);
+//        hideNavigation();
+
+        subscribeBranchesObserver();
+        rxPermissions = new RxPermissions(this);
+        ArrayList<DataItemTerms> arrayList = new ArrayList<>();
+        try {
+            value = getIntent().getExtras().getBoolean("move", false);
+        } catch (NullPointerException e) {
+        }
+        if (value) {
+
+            navToDestination(R.id.nav_terms_and_conditions);
+        }
+
+        setUpUiViews();
+
+
+    }
+
+
+    public void showProgressBar(boolean isLoading) {
+        if (isLoading) {
+            mDilatingDotsProgressBar.show();
+        } else {
+            mDilatingDotsProgressBar.hideNow();
+        }
+    }
+
+    private static boolean isSpinnerFirstTime = true;
+
+    public void setToolBarTitle(String title) {
+        titleToolbarIv.setText(title);
+    }
+
+    public void saveSelectedBranch(BranchRecords branchRecords) {
+        SharedPreferencesManager.put(AppConstant.SELECTED_BRANCH_NAME, branchRecords.getName());
+        SharedPreferencesManager.put(AppConstant.SELECTED_BRANCH_ID, branchRecords.getId());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    public Long getSelectedBranchId() {
+        return SharedPreferencesManager.getLong(AppConstant.SELECTED_BRANCH_ID);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -300,6 +443,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 break;
             case R.id.nav_branches:
+            case R.id.nav_branches_drawer:
                 navToDestination(R.id.nav_branches);
                 break;
             case R.id.nav_sub_categories:
@@ -374,175 +518,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
                 finish();
                 break;
+            case R.id.nav_card_drawer:
+            case R.id.nav_add_card:
+                if (SharedPreferencesManager.getString(UserName) != null) {
+                    navToDestination(R.id.nav_add_card);
+                } else {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MainActivity.this);
+                }
+                break;
+
         }
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void shareApp() {
-        ShareCompat.IntentBuilder.from(this)
-                .setType("text/plain")
-                .setChooserTitle("Select")
-                .setText("http://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)
-                .startChooser();
-//        try {
-//            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//            shareIntent.setType("text/plain");
-//            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-//            String shareMessage= "\nLet me recommend you this application\n\n";
-//            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-//            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-//            startActivity(Intent.createChooser(shareIntent, "choose one"));
-//        } catch(Exception e) {
-//            //e.toString();
-//        }
-    }
-
-    private void navToTabsManager(String fragmentName) {
-        Bundle bundle1 = new Bundle();
-        bundle1.putString(SELECTED_FRAGMENT_NAME, fragmentName);
-        navToDestination(R.id.nav_product_manager, bundle1);
-    }
-
-//    private boolean isValidDestination(int destination) {
-//        return destination != navController.getCurrentDestination().getId();
-//    }
-    public void navToDestination(int resId) {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        if (navController != null && resId != 0)
-            navController.navigate(resId);
-
-    }
-
-    public void navToDestination(int resId, Bundle bundleArgs) {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        if (navController != null && resId != 0)
-            navController.navigate(resId, bundleArgs);
-    }
-
-    public void navToDestination(NavDirections action) {
-        if (navController != null && action != null)
-            navController.navigate(action);
-    }
-
-    public void drawerHandler() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        else
-            drawerLayout.open();
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.logoNavHeaderIV:
-            case R.id.loginNavHeaderTV:
-                startActivityForResult(new Intent(getApplicationContext(),
-                        LogInActivity.class), RC_LOGIN);
-                break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_LOGIN && resultCode == RESULT_OK) {
-            fillViewOnLogin();
-        }
-    }
-
-    @OnClick({/*R.id.menuToolbarIV
-            , */R.id.titleToolbarIv
-            , R.id.searchToolbarIV
-            , R.id.cartToolbarIV})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-//            case R.id.menuToolbarIV:
-//                drawerHandler();
-//                break;
-            case R.id.titleToolbarIv:
-                break;
-            case R.id.searchToolbarIV:
-                navToDestination(R.id.nav_search);
-                break;
-            case R.id.cartToolbarIV:
-                navToDestination(R.id.nav_cart);
-                break;
-        }
-    }
-
-    // spinner click listener
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        spinnerToolbar.setSelection(position);
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-        if (!isSpinnerFirstTime) {
-            isSpinnerFirstTime = true;
-            return;
-        }
-        if (cardListProducts.size()>0) {
-            new AlertDialog.Builder(MainActivity.this)
-                    .setMessage(getString(R.string.added_delete))
-                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveSelectedBranch(dataList.get(position));
-                            clearCardListProducts();
-
-                        }
-
-                    })
-                    .setNegativeButton(getString(R.string.off), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-
-                        }
-                    })
-
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setCancelable(false)
-                    .show();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.i(TAG, parent.getFirstVisiblePosition() + "");
-    }
-
-    public void showProgressBar(boolean isLoading) {
-        if (isLoading) {
-            mDilatingDotsProgressBar.show();
-        } else {
-            mDilatingDotsProgressBar.hideNow();
-        }
-    }
-    private static boolean isSpinnerFirstTime = true;
-
-    public void setToolBarTitle(String title){
-        titleToolbarIv.setText(title);
-    }
-    public void saveSelectedBranch(BranchRecords branchRecords) {
-        SharedPreferencesManager.put(AppConstant.SELECTED_BRANCH_NAME, branchRecords.getName());
-        SharedPreferencesManager.put(AppConstant.SELECTED_BRANCH_ID, branchRecords.getId());
-    }
-
-    public Long getSelectedBranchId() {
-        return SharedPreferencesManager.getLong(AppConstant.SELECTED_BRANCH_ID);
-    }
-
-    public Long getSelectedBranchName() {
-        return SharedPreferencesManager.getLong(AppConstant.SELECTED_BRANCH_NAME);
-    }
-
-
-
 
     public void savename(String name) {
-        SharedPreferencesManager.put("Edit",name);
+        SharedPreferencesManager.put("Edit", name);
     }
 
     public String getName() {
@@ -565,30 +559,156 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void removeProductFromCard(Product product) {
         this.cardListProducts.remove(product);
-        if (cardListProducts.size()==0)
-        {
+        if (cardListProducts.size() == 0) {
             cartCountIV.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             cartCountIV.setText(cardListProducts.size() + "");
         }
     }
 
-    public void clearCardListProducts() {
-        this.cardListProducts.clear();
-        cartCountIV.setText("");
-        cartCountIV.setVisibility(View.INVISIBLE);
+    private void navToTabsManager(String fragmentName) {
+        Bundle bundle1 = new Bundle();
+        bundle1.putString(SELECTED_FRAGMENT_NAME, fragmentName);
+        Log.i("Fragment", fragmentName);
+        SharedPreferencesManager.put(SELECTED_FRAGMENT_NAME, fragmentName);
+        navToDestination(R.id.nav_product_manager, bundle1);
     }
 
     public RxPermissions getRxPermissions() {
         return rxPermissions;
     }
 
-    private String myString = "hello";
+    // spinner click listener
     @Override
-    public void onFinishEditDialog(String inputText) {
-        myString=inputText;
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        ArrayList<Integer> back = new ArrayList<>();
+        back.add(position);
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+        if (!isSpinnerFirstTime) {
+            isSpinnerFirstTime = true;
+            return;
+        }
+        if (getSelected() != position) {
+            if (cardListProducts.size() > 0) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage(getString(R.string.added_delete))
+                        .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                saveSelectedBranch(dataList.get(position));
+                                clearCardListProducts();
+                                setSelectedBranchId(dataList.get(position).getId());
+                                setSelected(position);
+
+                            }
+
+                        })
+                        .setNegativeButton(getString(R.string.off), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                spinnerToolbar.setSelection(getSelected());
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setCancelable(false)
+                        .show();
+            } else {
+                saveSelectedBranch(dataList.get(position));
+                clearCardListProducts();
+                setSelectedBranchId(dataList.get(position).getId());
+                setSelected(position);
+            }
+
+        }
     }
-    public String getMyData() {
-        return myString;
+
+    public int getSelected() {
+        return SharedPreferencesManager.getInt("spinner");
+    }
+
+    public void setSelected(int id) {
+        SharedPreferencesManager.put("spinner", id);
+    }
+
+    public void setSelectedBranchId(Long id) {
+        SharedPreferencesManager.put(AppConstant.SELECTED_BRANCH_ID, id);
+    }
+
+    public String getSelectedBranchName() {
+        return SharedPreferencesManager.getString(AppConstant.SELECTED_BRANCH_NAME);
+    }
+
+    public void clearCardListProducts() {
+        this.cardListProducts.clear();
+        cartCountIV.setText("");
+        cartCountIV.setVisibility(View.INVISIBLE);
+        CardAdapter cardAdapter = new CardAdapter();
+        cardAdapter.notifyDataSetChanged();
+
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    @Override
+    public void sendData(String location, String lat, String Lang) {
+//        this.location=location;
+
+        TextView locationtv = findViewById(R.id.locationTV);
+        // TextView locationtv2=findViewById(R.id.deliveryMethodLocationViewTV);
+        Log.i("location", location);
+        locationtv.setText(location);
+        //locationtv2.setText(location);
+
+        lang = Lang;
+        this.lat = lat;
+    }
+
+    public String gettime() {
+        return time;
+    }
+
+    @Override
+    public void sendTime(String hour, String minute) {
+        TextView timeViewTV = findViewById(R.id.timeViewTV);
+        timeViewTV.setText(hour + ":" + minute);
+        time = hour + ":" + minute;
+    }
+
+    public void setTotal(double total) {
+        this.total2 = total;
+    }
+
+    @Override
+    public void sendDataLocation(String location) {
+        TextView locationtv2 = findViewById(R.id.deliveryMethodLocationViewTV);
+        locationtv2.setText(location);
+    }
+
+    public String getCopun() {
+        return copun;
+    }
+
+    public String discopun() {
+        return copun;
+    }
+
+    @Override
+    public void data(double c, String code, double collect) {
+        copun = code;
+        TextView textView = findViewById(R.id.PaymentSummaryDiscountCodePriceTV);
+        textView.setText(String.valueOf(c));
+        TextView total = findViewById(R.id.PaymentSummaryTotalPriceTV);
+        Log.e("result2", String.valueOf(Double.valueOf(c / 100)));
+        double test = total2 - (total2 * (c / 100));
+
+        total.setText(String.valueOf((total2 - (total2 * (c / 100)))));
+        Log.e("result", String.valueOf(test));
+
+
     }
 }

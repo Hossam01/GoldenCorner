@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.golden.goldencorner.data.Resource;
+import com.golden.goldencorner.data.model.LimitResponse;
 import com.golden.goldencorner.data.model.Meta;
 import com.golden.goldencorner.data.model.ProductResponse;
 import com.golden.goldencorner.data.remote.RetrofitProvider;
@@ -33,6 +34,25 @@ public class CartViewModel extends ViewModel {
                     productLiveData.setValue(Resource.success(productResponse));
                 }, throwable -> {
                     productLiveData.setValue(Resource.error(throwable.getMessage(), null));
+                });
+    }
+
+
+    private MutableLiveData<Resource<LimitResponse>> limitLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<LimitResponse>> getLimitLiveData() {
+        return limitLiveData;
+    }
+
+    public void invokeOrderLimitApi() {
+        productLiveData.setValue(Resource.loading());
+        RetrofitProvider.getClient().getLimitMinOrderValue()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe((LimitResponse productResponse) -> {
+                    limitLiveData.setValue(Resource.success(productResponse));
+                }, throwable -> {
+                    limitLiveData.setValue(Resource.error(throwable.getMessage(), null));
                 });
     }
 }

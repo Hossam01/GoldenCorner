@@ -96,7 +96,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageIV" />
 
             <TextView
-                android:id="@+id/evaluationHintTv2"
+                android:id="@+id/NotesHintTv2"
                 style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,9 +123,9 @@
                 android:layout_marginStart="10dp"
                 android:progressTint="@color/yellowColor"
                 style="?android:attr/ratingBarStyleSmall"
-                app:layout_constraintBottom_toBottomOf="@+id/evaluationHintTv2"
-                app:layout_constraintStart_toEndOf="@+id/evaluationHintTv2"
-                app:layout_constraintTop_toTopOf="@+id/evaluationHintTv2" />
+                app:layout_constraintBottom_toBottomOf="@+id/NotesHintTv2"
+                app:layout_constraintStart_toEndOf="@+id/NotesHintTv2"
+                app:layout_constraintTop_toTopOf="@+id/NotesHintTv2" />
 
 
             <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
@@ -142,7 +142,7 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/evaluationHintTv2" />
+                app:layout_constraintTop_toBottomOf="@+id/NotesHintTv2" />
 
 
             <View

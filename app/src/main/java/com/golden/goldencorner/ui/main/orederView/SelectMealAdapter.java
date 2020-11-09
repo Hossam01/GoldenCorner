@@ -1,5 +1,6 @@
 package com.golden.goldencorner.ui.main.orederView;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +24,17 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
 
     private List<ProductSize> dataList = new ArrayList<>();
     public int mSelectedItem = -1;
+    String price = "";
 
-    public void fillAdapterData(List<ProductSize> dataList) {
+    public void fillAdapterData(List<ProductSize> dataList, String price) {
+        this.price = price;
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
     public List<ProductSize> getDataList() {
-        return (dataList.size() > 0)?dataList:new ArrayList<>();
+        return (dataList.size() > 0) ? dataList : new ArrayList<>();
     }
 
     @NonNull
@@ -45,11 +48,14 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
     public void onBindViewHolder(@NonNull OrderHolder mHolder, int position) {
         ProductSize record = dataList.get(position);
         mHolder.mealRBtn.setText(record.getSizeName());
-        mHolder.priceTV.setText(record.getPrice()+mHolder.itemView.getContext().getString(R.string.sr));
-//        if (record.getIsSelected()){
-//            mHolder.mealRBtn.setChecked(true);
-//        }
+        if (Double.valueOf(record.getDisPrice()) > 0.00) {
+            mHolder.priceDiscountTV.setText(record.getDisPrice() + mHolder.itemView.getContext().getString(R.string.sr));
 
+            mHolder.priceTV.setText(record.getPrice() + mHolder.itemView.getContext().getString(R.string.sr));
+            mHolder.priceTV.setPaintFlags(mHolder.priceTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            mHolder.priceTV.setText(record.getPrice() + mHolder.itemView.getContext().getString(R.string.sr));
+        }
         mHolder.mealRBtn.setChecked(position == mSelectedItem);
 
 
@@ -68,6 +74,8 @@ public class SelectMealAdapter extends RecyclerView.Adapter<SelectMealAdapter.Or
         RadioButton mealRBtn;
         @BindView(R.id.priceTV)
         TextView priceTV;
+        @BindView(R.id.priceDiscountTV)
+        TextView priceDiscountTV;
 
         public OrderHolder(View view) {
             super(view);

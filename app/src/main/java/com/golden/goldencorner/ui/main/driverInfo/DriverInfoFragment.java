@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.golden.goldencorner.R;
@@ -33,13 +32,15 @@ public class DriverInfoFragment extends DialogFragment {
     @BindView(R.id.callDriverBtn)
     CircularProgressButton callDriverBtn;
 
-    private String phone = null;
+    String phone, name;
 
     private DriverInfoViewModel mViewModel;
+
     @Override
     public int getTheme() {
         return R.style.FullScreenDialog;
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.driver_info_fragment, container, false);
@@ -52,12 +53,22 @@ public class DriverInfoFragment extends DialogFragment {
         mViewModel = ViewModelProviders.of(this)
                 .get(DriverInfoViewModel.class);
 
-//        phone = getArguments().
+        if (getArguments() != null) {
+            name = getArguments().getString("DriverName").toString();
+            phone = getArguments().getString("DriverPhone").toString();
+        }
+        driverNameTv.setText(name);
+        numberTv.setText(phone);
     }
 
-    @OnClick(R.id.callDriverBtn)
-    public void onViewClicked() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-        getActivity().startActivity(intent);
+    @OnClick({R.id.callDriverBtn, R.id.closeIV})
+    public void onViewClicked(View view) {
+        if (view.getId() == R.id.callDriverBtn) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+            getActivity().startActivity(intent);
+        } else if (view.getId() == R.id.closeIV) {
+            dismiss();
+        }
     }
+
 }

@@ -1,5 +1,7 @@
 package com.golden.goldencorner.data.remote;
 
+import android.net.TrafficStats;
+
 import com.golden.goldencorner.BuildConfig;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
 
@@ -37,6 +39,8 @@ public class RetrofitProvider {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
+            TrafficStats.setThreadStatsTag(0x1000);
+
         }
         return retrofit.create(RemoteApi.class);
     }
@@ -63,6 +67,8 @@ public class RetrofitProvider {
                         .readTimeout(readTimeout, TimeUnit.MINUTES)
                         .addInterceptor(getInterceptor())
                         .build();
+                TrafficStats.setThreadStatsTag(0x1000);
+
             }
         }
         return client;

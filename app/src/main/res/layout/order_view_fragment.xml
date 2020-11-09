@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,23 +34,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingVertical="20dp">
-            <!-- <androidx.recyclerview.widget.RecyclerView
-                 android:id="@+id/productDetailsSliderRV"
-                 android:layout_width="match_parent"
-                 android:layout_height="0dp"
-                 android:orientation="horizontal"
-                 app:spanCount="1"
-                 tools:listitem="@layout/item_product_details"
-                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                 app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
-                 />-->
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="20dp">
+                <!-- <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/productDetailsSliderRV"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dp"
+                     android:orientation="horizontal"
+                     app:spanCount="1"
+                     tools:listitem="@layout/item_product_details"
+                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                     app:layout_constraintTop_toBottomOf="@+id/topCategoryRV"
+                     />-->
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/productDetailsSliderRV"
                 android:layout_width="match_parent"
@@ -84,29 +87,29 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="fitXY"/>
 
-            <ImageView
-                android:id="@+id/favoritesIV"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/background"
-                android:padding="10dp"
-                android:src="@drawable/ic_fav_red_62"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/favoritesIV"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/background"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_fav_red_62"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/shareIV"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/background"
-                android:padding="10dp"
-                android:src="@drawable/ic_share_62"
-                app:layout_constraintEnd_toEndOf="@+id/productDetailsSliderRV"
-                app:layout_constraintTop_toBottomOf="@+id/favoritesIV" />
+                <ImageView
+                    android:id="@+id/shareIV"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/background"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_share_62"
+                    app:layout_constraintEnd_toEndOf="@+id/productDetailsSliderRV"
+                    app:layout_constraintTop_toBottomOf="@+id/favoritesIV" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -156,7 +159,7 @@
                                 android:fontFamily="@font/din_next_regular"
                                 android:gravity="center"
                                 android:minWidth="80dp"
-                                android:text="1.0"
+                                android:text="1"
                                 android:textColor="@color/textColor3"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/productIV" />
@@ -321,7 +324,6 @@
                                 android:id="@+id/productDetailsMailsRV"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="100dp"
                                 android:orientation="vertical"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@+id/viewLine"
@@ -329,7 +331,125 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                         <View
+                            android:id="@+id/line2"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/riceLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/RiceAdditionsTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:text="@string/rice"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <View
+                                android:id="@+id/viewLine5"
+                                android:layout_width="40dp"
+                                android:layout_height="3dp"
+                                android:background="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/RiceAdditionsTV" />
+
+                            <ImageView
+                                android:id="@+id/riceExpandMealAdditionsBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:rotation="180"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/riceDetailsAdditionsRV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@+id/viewLine5"
+                                tools:listitem="@layout/item_product_details_select_meals" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/line3"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/gray" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/dishLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailsSliderRV">
+
+                            <TextView
+                                android:id="@+id/dishesAdditionsTV"
+                                style="@style/TextAppearance.AppCompat.Medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/din_next_bold"
+                                android:minWidth="100dp"
+                                android:text="@string/dish"
+                                android:textColor="@color/textColor3"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/productIV" />
+
+                            <View
+                                android:id="@+id/viewLine6"
+                                android:layout_width="40dp"
+                                android:layout_height="3dp"
+                                android:background="@color/colorPrimaryDark"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/dishesAdditionsTV" />
+
+                            <ImageView
+                                android:id="@+id/dishesExpandMealAdditionsBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:rotation="180"
+                                android:textColor="@color/textColor3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/dishesDetailsAdditionsRV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@+id/viewLine6"
+                                tools:listitem="@layout/item_product_details_select_meals" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/line4"
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:layout_marginVertical="10dp"
@@ -337,6 +457,7 @@
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/addLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -385,13 +506,12 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                         <View
+                            android:id="@+id/line5"
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:layout_marginVertical="10dp"
                             android:background="@color/gray" />
-
 
 
                         <!--Button
@@ -403,20 +523,36 @@
                             android:paddingHorizontal="15dp"
                             android:text="@string/you_can_add_you_evaluation"
                             android:textAllCaps="false" /-->
-
-
-                        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                            android:id="@+id/addToCartBtn"
-                            style="@style/TextAppearance.AppCompat.Medium"
+                        <Space
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="20dp"
-                            android:background="@drawable/login_button_shape"
-                            android:gravity="center"
-                            android:fontFamily="@font/din_next_regular"
-                            android:text="@string/add_to_cart"
-                            android:textColor="@android:color/white" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
 
                     </LinearLayout>
 
@@ -424,12 +560,28 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
 
 </ScrollView>
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/addToCartBtn"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:background="@drawable/login_button_shape"
+        android:fontFamily="@font/din_next_regular"
+        android:gravity="center"
+        android:text="@string/add_to_cart"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/closeIV"
         android:layout_width="wrap_content"

@@ -20,6 +20,7 @@
         android:scrollbars="none"
         app:itemTextAppearance="@style/Custom_font"
         android:fitsSystemWindows="true"
+        android:theme="@style/Custom_font"
         app:headerLayout="@layout/activity_main_nav_header"
         app:menu="@menu/activity_main_drawer" />
 

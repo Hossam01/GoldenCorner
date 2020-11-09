@@ -14,12 +14,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.golden.goldencorner.ui.base.BaseActivity;
 import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.model.User;
 import com.golden.goldencorner.data.receiver.NetworkReceiver;
 import com.golden.goldencorner.ui.accountActivation.AccountActivationActivity;
+import com.golden.goldencorner.ui.base.BaseActivity;
 import com.golden.goldencorner.ui.forgetPassword.ForgetPasswordActivity;
 import com.golden.goldencorner.ui.main.MainActivity;
 import com.golden.goldencorner.ui.signup.SignUpActivity;
@@ -109,6 +109,8 @@ public class LogInActivity extends BaseActivity implements NetworkReceiver.Netwo
             loginBtn.startMorphAnimation();
         } else {
             loginBtn.stopAnimation();
+            loginBtn.recoverInitialState();
+
         }
     }
 

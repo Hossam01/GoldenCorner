@@ -25,6 +25,8 @@ import static com.golden.goldencorner.data.Utils.AppConstant.UserEmail;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserId;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserMobile;
 import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
+import static com.golden.goldencorner.data.Utils.AppConstant.UserPoint;
+import static com.golden.goldencorner.data.Utils.AppConstant.UserType;
 
 public class ProfileViewModel extends ViewModel {
 
@@ -41,6 +43,8 @@ public class ProfileViewModel extends ViewModel {
         user.setDescription(SharedPreferencesManager.getString(UserDescription));
         user.setDeviceToken(SharedPreferencesManager.getString(UserDeviceToken));
         user.setMobile(SharedPreferencesManager.getString(UserMobile));
+        user.setPoint(SharedPreferencesManager.getLong(UserPoint));
+        user.setUserType(SharedPreferencesManager.getLong(UserType));
         return user;
     }
 

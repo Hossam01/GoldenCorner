@@ -46,8 +46,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderHolde
         mHolder.orderNumberTV.setText(record.getId()+"#");
 
         mHolder.orderDateTV.setText(record.getDate());
-        mHolder.orderTotalTV.setText(record.getTotalPrice()+"");
-        setDeliverStatus(mHolder, record.getDeliveryStatus());
+        mHolder.orderTotalTV.setText(record.getTotalPrice() + "");
+        setDeliverStatus(mHolder, record.getStatus());
 //        String currentLanguage = SharedPreferencesManager.getString(AppConstant.FLAG_CURRENT_LANGUAGE);
 //        if (currentLanguage.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE)) {
 //            mHolder.descriptionTV.setText(record.getText());
@@ -59,45 +59,42 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderHolde
     }
 
     private void setDeliverStatus(OrderHolder mHolder, Long status) {
-        try {
 
+        if (status == 0) {// when status is new order
+            mHolder.orderNewIV.setSelected(true);
+            mHolder.orderPreparedIV.setSelected(false);
+            mHolder.orderOnTheWayIV.setSelected(false);
+            mHolder.orderDeliveredIV.setSelected(false);
+            mHolder.contactDriverBtn.setVisibility(View.GONE);
+            mHolder.orderEvaluateBtn.setVisibility(View.INVISIBLE);
+        } else if (status == 6) {// when status is under prepare
+            mHolder.orderNewIV.setSelected(true);
+            mHolder.orderPreparedIV.setSelected(true);
+            mHolder.orderOnTheWayIV.setSelected(false);
+            mHolder.orderDeliveredIV.setSelected(false);
+            mHolder.contactDriverBtn.setVisibility(View.GONE);
+            mHolder.cancelBtn.setVisibility(View.INVISIBLE);
+            mHolder.orderEvaluateBtn.setVisibility(View.GONE);
 
-            if (status == 0) {// when status is new order
-                mHolder.orderNewIV.setSelected(true);
-                mHolder.orderPreparedIV.setSelected(false);
-                mHolder.orderOnTheWayIV.setSelected(false);
-                mHolder.orderDeliveredIV.setSelected(false);
-                mHolder.contactDriverBtn.setVisibility(View.GONE);
-                mHolder.orderEvaluateBtn.setVisibility(View.GONE);
-            } else if (status == 1) {// when status is under prepare
-                mHolder.orderNewIV.setSelected(true);
-                mHolder.orderPreparedIV.setSelected(true);
-                mHolder.orderOnTheWayIV.setSelected(false);
-                mHolder.orderDeliveredIV.setSelected(false);
-                mHolder.contactDriverBtn.setVisibility(View.GONE);
-                mHolder.cancelBtn.setVisibility(View.INVISIBLE);
-                mHolder.orderEvaluateBtn.setVisibility(View.GONE);
+        } else if (status == 7) {// when status is on The way
+            mHolder.orderNewIV.setSelected(true);
+            mHolder.orderPreparedIV.setSelected(true);
+            mHolder.orderOnTheWayIV.setSelected(true);
+            mHolder.orderDeliveredIV.setSelected(false);
+            mHolder.contactDriverBtn.setVisibility(View.VISIBLE);
+            mHolder.cancelBtn.setVisibility(View.INVISIBLE);
+            mHolder.orderEvaluateBtn.setVisibility(View.GONE);
 
-            } else if (status == 2) {// when status is on The way
-                mHolder.orderNewIV.setSelected(true);
-                mHolder.orderPreparedIV.setSelected(true);
-                mHolder.orderOnTheWayIV.setSelected(true);
-                mHolder.orderDeliveredIV.setSelected(false);
-                mHolder.contactDriverBtn.setVisibility(View.VISIBLE);
-                mHolder.cancelBtn.setVisibility(View.INVISIBLE);
-                mHolder.orderEvaluateBtn.setVisibility(View.GONE);
+        } else if (status == 2 || status == null) { // when status is Delivered
+            mHolder.orderNewIV.setSelected(true);
+            mHolder.orderPreparedIV.setSelected(true);
+            mHolder.orderOnTheWayIV.setSelected(true);
+            mHolder.orderDeliveredIV.setSelected(true);
+            mHolder.contactDriverBtn.setVisibility(View.INVISIBLE);
+            mHolder.cancelBtn.setVisibility(View.INVISIBLE);
+            mHolder.orderEvaluateBtn.setVisibility(View.VISIBLE);
 
-            } else if (status == 3 || status == null) { // when status is Delivered
-                mHolder.orderNewIV.setSelected(true);
-                mHolder.orderPreparedIV.setSelected(true);
-                mHolder.orderOnTheWayIV.setSelected(true);
-                mHolder.orderDeliveredIV.setSelected(true);
-                mHolder.contactDriverBtn.setVisibility(View.INVISIBLE);
-                mHolder.cancelBtn.setVisibility(View.INVISIBLE);
-                mHolder.orderEvaluateBtn.setVisibility(View.VISIBLE);
-
-            }
-        }catch (NullPointerException ex){}
+        }
     }
 
     @Override

@@ -15,12 +15,12 @@
         />
     <ImageView
         android:id="@+id/favoritesIV"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:background="@color/background"
-        android:padding="10dp"
+        android:padding="4dp"
         android:src="@drawable/ic_fav_red_62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

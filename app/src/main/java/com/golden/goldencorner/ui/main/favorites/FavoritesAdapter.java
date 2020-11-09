@@ -49,10 +49,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Late
         String currentLanguage = SharedPreferencesManager.getString(AppConstant.FLAG_CURRENT_LANGUAGE);
         if (currentLanguage.equalsIgnoreCase(AppConstant.ARABIC_LANGUAGE)) {
             mHolder.nameTV.setText(record.getTitle());
-            mHolder.descriptionTV.setText(record.getText());
+//            mHolder.descriptionTV.setText(record.getText());
         } else {
             mHolder.nameTV.setText(record.getTitleEn());
-            mHolder.descriptionTV.setText(record.getTitleEn());
+//            mHolder.descriptionTV.setText(record.getTitleEn());
         }
 
             mHolder.priceFavTV.setText(record.getPrice() + mHolder.itemView.getContext().getString(R.string.sr));
@@ -79,8 +79,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Late
         TextView discountTV;
         @BindView(R.id.nameTV)
         TextView nameTV;
-        @BindView(R.id.descriptionTV)
-        TextView descriptionTV;
+        //        @BindView(R.id.descriptionTV)
+//        TextView descriptionTV;
         @BindView(R.id.deleteTV)
         TextView deleteTV;
         @BindView(R.id.addToCartIV)

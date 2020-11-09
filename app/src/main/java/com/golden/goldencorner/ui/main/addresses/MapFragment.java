@@ -29,7 +29,6 @@ import com.golden.goldencorner.R;
 import com.golden.goldencorner.data.Utils.AppConstant;
 import com.golden.goldencorner.data.Utils.Utils;
 import com.golden.goldencorner.data.local.SharedPreferencesManager;
-import com.golden.goldencorner.ui.main.MainActivity;
 import com.golden.goldencorner.ui.main.branches.BranchesViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -82,20 +81,26 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
 
     //    private Location location;
     private String currentAddress;
-//    private Location currentLocation;
-    public SendDataLocation sendDataLocation;
+    //    private Location currentLocation;
+    public SendDataLocation mCallback;
+    public SendData mCallback2;
     ShareViewModel viewModel;
 
+    int x = 0;
+
+
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(Context context) {
         super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
         try {
-            // Instantiate the EditNameDialogListener so we can send events to the host
-            listener = (MapFragment.EditNameDialogListener) context;
+            mCallback = (SendDataLocation) getActivity();
+            mCallback2 = (SendData) getActivity();
         } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(context.toString()
-                    + " must implement EditNameDialogListener");
+                    + " must implement DataCommunication");
         }
     }
 
@@ -117,9 +122,11 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
         ButterKnife.bind(this, view);
         mViewModel = ViewModelProviders.of(this)
                 .get(BranchesViewModel.class);
-         playerViewModel = ViewModelProviders.of(getActivity()).get(AddressesViewModel.class);
+        playerViewModel = ViewModelProviders.of(getActivity()).get(AddressesViewModel.class);
         viewModel = new ViewModelProvider(getActivity()).get(ShareViewModel.class);
         setUpMapUi();
+        if (getArguments() != null)
+            x = getArguments().getInt("fragment");
     }
 
 
@@ -353,14 +360,16 @@ public class MapFragment extends DialogFragment implements OnMapReadyCallback, O
 
 
         SharedPreferencesManager.put(AppConstant.LATITUDE, (long) latLng.latitude);
-        SharedPreferencesManager.put(AppConstant.LONGITUDE, (long)  latLng.longitude);
+        SharedPreferencesManager.put(AppConstant.LONGITUDE, (long) latLng.longitude);
         SharedPreferencesManager.put(AppConstant.STATE, state);
         SharedPreferencesManager.put(AppConstant.MAP_LOCATION, currentAddress);
-        listener.onFinishEditDialog(currentAddress);
-        listener.onFinishEditDialog(currentAddress);
-        ((MainActivity)getActivity()).navToDestination(R.id.nav_add_address);
+        if (x == 1)
+            mCallback.sendData(currentAddress, String.valueOf(latLng.longitude), String.valueOf(latLng.latitude));
+        else if (x == 2)
+            mCallback2.sendDataLocation(currentAddress);
         dismiss();
     }
+
 
     @OnClick(R.id.closeIV)
     public void onCloseIVClicked() {

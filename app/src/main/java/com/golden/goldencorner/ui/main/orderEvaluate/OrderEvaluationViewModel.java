@@ -1,12 +1,16 @@
 package com.golden.goldencorner.ui.main.orderEvaluate;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import com.golden.goldencorner.data.Resource;
 import com.golden.goldencorner.data.model.SimpleModel;
+import com.golden.goldencorner.data.model.SimpleResponse;
 import com.golden.goldencorner.data.remote.RetrofitProvider;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -38,11 +42,11 @@ public class OrderEvaluationViewModel extends ViewModel {
         RetrofitProvider.getClient().addComment(productId, comment, token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(response -> {
+                .subscribe((@SuppressLint("CheckResult") SimpleResponse response) -> {
                     commentLiveData.setValue(Resource.success(response.getData().get(0)));
                 }, throwable -> {
                     commentLiveData.setValue(Resource.error(throwable.getMessage(), null));
-                    Log.d("comment",throwable.getMessage());
+                    Log.d("comment", throwable.getMessage());
                 });
     }
 }

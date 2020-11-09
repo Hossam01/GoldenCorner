@@ -48,7 +48,7 @@ public class OrderRecords {
     public String description;
     @SerializedName("tax")
     @Expose
-    public String tax;
+    public long tax;
     @SerializedName("shipping")
     @Expose
     public Long shipping;
@@ -67,6 +67,29 @@ public class OrderRecords {
     @SerializedName("discount_price")
     @Expose
     public double discountPrice;
+
+    @SerializedName("discount_code_persent")
+    @Expose
+    public double discountPricePersent;
+
+    @SerializedName("discount_code_price")
+    @Expose
+    public double discountCodePrice;
+    @SerializedName("driver")
+    @Expose
+    public Driver driver;
+    @SerializedName("is_rate")
+    @Expose
+    public Long is_rate;
+
+    public double getDiscountCodePrice() {
+        return discountCodePrice;
+    }
+
+    public void setDiscountCodePrice(double discountCodePrice) {
+        this.discountCodePrice = discountCodePrice;
+    }
+
     @SerializedName("grand_total")
     @Expose
     public double grandTotal;
@@ -76,9 +99,11 @@ public class OrderRecords {
     @SerializedName("payment_method")
     @Expose
     public Long paymentMethod;
-    @SerializedName("driver")
-    @Expose
-    public String driver;
+
+    public double getDiscountPricePersent() {
+        return discountPricePersent;
+    }
+
     @SerializedName("payment_method_name")
     @Expose
     public String paymentMethodName;
@@ -109,6 +134,18 @@ public class OrderRecords {
     @SerializedName("product")
     @Expose
     public List<Product> product = null;
+
+    public void setDiscountPricePersent(double discountPricePersent) {
+        this.discountPricePersent = discountPricePersent;
+    }
+
+    public Long getIs_rate() {
+        return is_rate;
+    }
+
+    public void setIs_rate(Long is_rate) {
+        this.is_rate = is_rate;
+    }
 
     public Long getId() {
         return id;
@@ -214,11 +251,11 @@ public class OrderRecords {
         this.description = description;
     }
 
-    public String getTax() {
+    public long getTax() {
         return tax;
     }
 
-    public void setTax(String tax) {
+    public void setTax(long tax) {
         this.tax = tax;
     }
 
@@ -294,11 +331,11 @@ public class OrderRecords {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(String driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 

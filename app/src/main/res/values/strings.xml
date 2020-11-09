@@ -102,7 +102,7 @@
     <string name="your_comment">Your Comment</string>
     <string name="add_comment">Add Comment</string>
     <string name="evaluate_product">Evaluate Product</string>
-    <string name="discount_code">Discount Code</string>
+    <string name="discount_code">Discount</string>
     <string name="select_delivery_time_from_the_branch">Select delivery time from the branch</string>
     <string name="add_discount_code">Add Discount Code</string>
     <string name="select_minutes">Select Minutes</string>
@@ -171,7 +171,7 @@
     <string name="add_your_order">Add your order</string>
     <string name="shopping_card_is_empty">Shopping Card is Empty</string>
     <string name="search">Search</string>
-    <string name="cart">Cart</string>
+    <string name="cart">Shopping basket</string>
     <string name="tax">Tax</string>
     <string name="credit_cards">Credit Cards</string>
     <string name="add_credit_card">Add Credit Card</string>
@@ -186,6 +186,8 @@
     <string name="delivered">Delivered</string>
     <string name="order_date">Order Date</string>
     <string name="confirm">Go to basket</string>
+    <string name="yes">Confirm</string>
+    <string name="no">Cancel</string>
     <string name="are_you_sure_to_cancel_this_order">Are you sure to cancel this order</string>
     <string name="couldnt_share_product_image">Couldn\'t share product</string>
     <string name="add_your_evaluation">Add Your Evaluation</string>
@@ -203,7 +205,7 @@
     <string name="added_succes">This product was added successfully to the card</string>
     <string name="added_failed">This branch was closed</string>
     <string name="added_delete">the item cart will delete</string>
-
+    <string name="selectmeal">You Should Select Meal</string>
     <string name="activation">Activate your Account</string>
     <string name="entercode">Enter the sent to your Mobile</string>
     <string name="add_copone">Add Copone</string>
@@ -217,6 +219,35 @@
     - Terms and conditions of the use of the application of the Sky Restaurant Deraty</string>
     <string name="order_data">Order Data</string>
     <string name="Dopay">Payment</string>
+    <string name="TotalWithoutTax">Total Without Tax</string>
+    <string name="delivery_service">Delivery Service</string>
+    <string name="logintext">Login Please</string>
+    <string name="cancelorder">Cancel order</string>
+    <string name="hint_resource">Credit Kind</string>
+    <string name="credit_kind">Credit Kind</string>
+    <string name="select_card">Please Select Credit kind</string>
+    <string name="feedBack">Special notes</string>
+    <string name="noteBody">There is a proven fact from a long time ago, which is that the readable content of a page will distract the reader from focusing on the external form of the text or the form of paragraphs placed on the page he is reading and therefore the method of Lorem Ipsum is used</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="done_branch">Received from branch</string>
+    <string name="discount_code2">Discount Code</string>
+    <string name="branche">Branch</string>
+    <string name="confirm_time">Confirm Time</string>
+    <string name="condition">The minimum amount is greater than the order price</string>
+    <string name="country">Country</string>
+    <string name="receipt">receipt</string>
+    <string name="success_checkout">Your request add successfull</string>
+    <string name="select_hours">Select Hours</string>
+    <string name="select_payment_method">You should select payment method</string>
+    <string name="product_view">Product View</string>
+    <string name="UpdateCredit">Update Credit</string>
+    <string name="DriverRate">Driver Rate</string>
+    <string name="orderRate">Order Rate</string>
+    <string name="dish">Dish</string>
+    <string name="rice">Rice</string>
+    <string name="elec_card">Online payment</string>
+    <string name="select_rice">Select Rice</string>
+    <string name="hint">The representative will bring the payment machine to make the payment at the time of receiving the order</string>
 
 
 </resources>
