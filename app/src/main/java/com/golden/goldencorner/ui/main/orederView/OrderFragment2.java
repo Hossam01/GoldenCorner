@@ -60,7 +60,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.golden.goldencorner.data.Utils.AppConstant.UserName;
-
+ 
 public class OrderFragment2 extends DialogFragment implements ExtensionsAdapter.AdapterListener, SelectMealAdapter.AdapterListener, RiceAdapter.AdapterListener, dishAdapter.AdapterListener {
 
     double dishPrice = 0.0;
