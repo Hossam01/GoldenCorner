@@ -24,9 +24,9 @@ public class RetrofitProvider {
 
     public static final String TAG = RetrofitProvider.class.getSimpleName();
 
-    private static final int readTimeout = 2;
-    private static final int writeTimeout = 2;
-    private static final int connectTimeout = 2;
+    private static final int readTimeout = 1;
+    private static final int writeTimeout = 1;
+    private static final int connectTimeout = 1;
 
     private static Retrofit retrofit = null;
 
